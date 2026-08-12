@@ -19,13 +19,3 @@ Official marketing theme for **devotel.com** — carrier-grade telecom/communica
 
 - `patterns/` holds block patterns; `snapshots/` holds Playwright-captured reference screenshots per page (`about-us`, `blog`, `brand-kit`, `contact-us`, ...) used for visual QA — see `tools/qa-header.mjs` and `tools/verify-*.php`/`.js` for how they're driven.
 - `node_modules/` (gitignored) only needs `playwright`/`playwright-core` — there's no CSS/JS build step, assets are authored directly under `assets/`.
-
-## Known gap: no content/DB sync between local and live
-
-Both themes' *code* can be deployed to their respective live sites, but neither has an automated way to carry ACF *content* (post meta, options-page values, media library uploads) along with it. In practice this means:
-
-- A live database was cloned from local once, at each site's launch, and hasn't been kept in sync since.
-- Any ACF field added locally after that point will silently render blank on live, even though wp-admin's edit screen can look populated (ACF's `default_value` pre-fills the *edit form* for a never-saved field — it doesn't affect what `get_field()` actually returns on the front end).
-- Media Library attachment IDs aren't portable between installs. A constant that hardcodes a numeric ID will break the moment code re-deploys to an environment where that ID means something else (or nothing). This bit Snap's hero-section icons twice — see the filename-stem fix in `snap/theme-setup.php` for the pattern to follow instead.
-
-Until there's a real sync step (WP-CLI over SSH, scripted `wp db export`/`import`, or similar), treat "add new ACF content locally" as needing a **manual follow-up step on live** every time — and prefer filename-stem-style lookups over hardcoded attachment IDs for anything new.
