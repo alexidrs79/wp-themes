@@ -1,0 +1,41 @@
+/**
+ * Privacy Policy — hero header typography (Figma).
+ */
+
+body.privacy-policy .d-devotelutilityprivacy-po .heading2,
+body.devotel-privacy-page .d-devotelutilityprivacy-po .heading2 {
+	color: var(--Text-text-primary-on-brand, #fff) !important;
+	text-align: center !important;
+	font-family: var(--Font-Family-display, Duplet), Inter, sans-serif !important;
+	font-size: var(--Font-size-display-lg, 48px) !important;
+	font-style: normal !important;
+	font-weight: 600 !important;
+	line-height: var(--Line-height-display-lg, 60px) !important;
+	letter-spacing: -0.96px !important;
+}
+
+body.privacy-policy .d-devotelutilityprivacy-po .supporting-text,
+body.devotel-privacy-page .d-devotelutilityprivacy-po .supporting-text {
+	color: var(--Text-text-secondary-on-brand, #c0d7ff) !important;
+	text-align: center !important;
+	font-family: var(--Font-family-font-family-body, Inter), sans-serif !important;
+	font-size: var(--Font-size-text-lg, 18px) !important;
+	font-style: normal !important;
+	font-weight: 400 !important;
+	line-height: var(--Line-height-text-lg, 28px) !important;
+}
+
+@media (max-width: 768px) {
+	body.privacy-policy .d-devotelutilityprivacy-po .heading2,
+	body.devotel-privacy-page .d-devotelutilityprivacy-po .heading2 {
+		font-size: 36px !important;
+		line-height: 44px !important;
+		letter-spacing: -0.72px !important;
+	}
+
+	body.privacy-policy .d-devotelutilityprivacy-po .supporting-text,
+	body.devotel-privacy-page .d-devotelutilityprivacy-po .supporting-text {
+		font-size: 16px !important;
+		line-height: 24px !important;
+	}
+}

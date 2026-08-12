@@ -1,0 +1,6415 @@
+/*
+Theme Name: Snap
+Theme URI: https://example.com/
+Author: Snap
+Description: Custom theme for Snap, an AI document-processing product for UK accounting.
+Version: 1.0.0
+Text Domain: snap
+*/
+
+/* -------------------------------------------------------------------------
+   Design tokens
+   Source of truth: Figma file Z4GJ8kwnbWMldCHHZbaEHY, node 15150:1564 (Header)
+   and hero nodes 15150:1576-1587. Values pulled from Figma variables, not
+   hardcoded guesses — keep in sync if the design tokens change upstream.
+   ---------------------------------------------------------------------- */
+:root {
+	/* Color */
+	--color-neutral-ink: #0b0c0d;
+	--color-neutral-white: #ffffff;
+	--color-neutral-muted: #65645f;
+	--color-brand-orange: #fb4b16;
+	--color-base-black: #000000;
+	--color-page-bg: #f0efe8;
+	--color-meet-pill-bg: #feeadb;
+	--color-meet-pill-text: #7b2e16;
+	--color-meet-body: #4a5565;
+	--color-neutral-night: #111315;
+	--color-neutral-canvas: #fbfaf8;
+	--color-ocr-supporting: #cac4c0;
+	--color-ocr-statement-old: #bcbcbc;
+	--color-uk-card-title: #1a1a1a;
+	--color-hsw-tile-bg: #fdefe8;
+	--color-hsw-title: #1a1a1a;
+	--color-usecase-body: #5c5c60;
+	--color-usecase-card-ink: #260f05;
+	--color-usecase-card-muted: #696b6b;
+	--color-footer-muted: #a7a6a5;
+	--color-footer-border: #323130;
+
+	/* Font families */
+	--font-primary: 'Manrope', sans-serif;
+	--font-secondary: 'Inter', sans-serif;
+	--font-handwritten: 'Covered By Your Grace', cursive;
+
+	/* Type scale */
+	--text-hero: 64px;
+	--text-body-lg: 18px;
+	--text-button: 16px;
+	--text-nav: 14px;
+	--text-talk-link: 16px;
+	--text-proof-title: 10px;
+	--text-proof-copy: 11px;
+	--text-trust-stat: 24px;
+	--text-eyebrow: 14px;
+	/* clamp() so this doesn't overflow its column once the text/visual grid
+	   split (.problem__inner) shares the squeeze proportionally instead of
+	   holding the text column rigid — floor matches the already-proven
+	   28px mobile override (.problem__headline media query), which already
+	   fits this same headline in an even narrower ~327px column. */
+	--text-problem-headline: clamp(28px, 2.639vw, 38px);
+	--text-meet-heading: 48px;
+	--text-meet-intro: 15px;
+
+	/* Tracking */
+	--tracking-hero: -3.2px;
+	--tracking-proof-title: 0.4px;
+	--tracking-trust-stat: -0.5px;
+	--tracking-problem-headline: -1.52px;
+	--tracking-meet-heading: -1.44px;
+
+	/* Line height */
+	--leading-hero: 0.98;
+	--leading-body: 1.7;
+	--leading-relaxed: 1.75;
+	--leading-normal: normal;
+	--leading-meet-heading: 1.1;
+	--leading-meet-intro: 1.6;
+
+	/* Radius */
+	--radius-header: 24px;
+	--radius-button: 16px;
+
+	/* Shadow */
+	--shadow-header: 0px 20px 50px -12px rgba(0, 0, 0, 0.08);
+	--shadow-header-stuck: 0px 8px 20px -6px rgba(0, 0, 0, 0.18);
+
+	/* Layout */
+	--container-max: 1240px;
+	--container-pad: 24px;
+	--header-height: 82px;
+}
+
+/* -------------------------------------------------------------------------
+   Base
+   ---------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	background: var(--color-page-bg);
+	color: var(--color-neutral-ink);
+	font-family: var(--font-primary);
+	-webkit-font-smoothing: antialiased;
+}
+
+img {
+	max-width: 100%;
+	display: block;
+}
+
+/* -------------------------------------------------------------------------
+   Scroll-triggered entrance animations — see assets/js/scroll-animations.js
+   for the observer logic; template parts only add the data-animate /
+   data-animate-group / data-animate-onload attributes.
+
+   Scoped to html.js-animate (added by an inline script in wp_head, before
+   first paint) rather than applying to [data-animate] unconditionally —
+   that inline script is the only thing that can put an element in the
+   hidden starting state, so if JS is disabled or scroll-animations.js
+   fails to load, nothing ever gets stuck invisible.
+   ---------------------------------------------------------------------- */
+html.js-animate [data-animate] {
+	opacity: 0;
+	transform: translateY(20px);
+	transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+html.js-animate [data-animate].is-visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* Full opt-out, not a shortened version — content just appears in its final state. */
+@media (prefers-reduced-motion: reduce) {
+	html.js-animate [data-animate] {
+		opacity: 1 !important;
+		transform: none !important;
+		transition: none !important;
+	}
+}
+
+/*
+ * Figma node 15150:1496 — full-bleed grid backdrop behind the header + hero.
+ * Anchored to the page's initial containing block (no positioned ancestor
+ * between it and <body>), so top:0/left:0 is the very top of the page
+ * regardless of where in the DOM it's printed. z-index:-1 guarantees it
+ * paints behind the header/hero content that follows it, and
+ * pointer-events:none keeps it from ever intercepting clicks.
+ */
+.site-background-grid {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	margin-inline: auto;
+	width: 100%;
+	max-width: 1440px;
+	height: auto;
+	aspect-ratio: 1440 / 839;
+	z-index: -1;
+	pointer-events: none;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+/*
+ * width: min(...) rather than max-width + padding-inline: with box-sizing:
+ * border-box, padding-inline would eat into the 1240px content box even
+ * once the viewport is wide enough for the container to be at its full
+ * max-width — silently shrinking anything (like .hero__inner's grid
+ * columns) sized as a percentage/fraction of this container by 48px. The
+ * padding value is only meant to be a minimum-viewport safety gutter, not
+ * a permanent inset once at max-width.
+ */
+.container {
+	width: min(var(--container-max), 100% - (var(--container-pad) * 2));
+	margin-inline: auto;
+}
+
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	border-radius: var(--radius-button);
+	font-family: var(--font-primary);
+	font-weight: 800;
+	font-size: var(--text-button);
+	white-space: nowrap;
+	border: 1px solid transparent;
+}
+
+/*
+ * Shared "stacked layer" hover effect — a single card peeks out from
+ * behind the button at bottom-right on hover. This is the ONLY hover
+ * behavior on these buttons — the arrow-slide effect (and its markup)
+ * has been removed entirely, and no other hover transition (color
+ * shift, scale, shadow) is applied here; .card-hover-lift (Meet Snap /
+ * Built for UK cards) is a separate, deliberately un-related class
+ * never combined with .btn in the markup.
+ *
+ * The back layer itself is STATIC (no transform/transition of its
+ * own) — it's the real button that moves, sliding up-left on hover to
+ * uncover the layer sitting behind it at bottom-right. (An earlier pass
+ * animated the back layer outward instead and left the button fixed;
+ * same visual reveal, but per explicit correction the button is the
+ * element that should be doing the moving.)
+ *
+ * .btn__stack-back is a SIBLING of the real button (both children of
+ * .btn-stack-hover), not nested inside it. Getting the stacking right
+ * took three attempts, worth recording so it doesn't get "simplified"
+ * back into something broken:
+ *   1. z-index:-1 on a child nested INSIDE the button, no isolation:
+ *      the -1 escapes past .btn-stack-hover (position:relative alone
+ *      creates no stacking context) to whatever ancestor DOES have
+ *      one — sank below the CTA form's white pill entirely, invisible.
+ *   2. Same, + isolation:isolate on the button to contain it: within
+ *      that new context, the context ROOT's own background is the
+ *      bottom-most paint layer — BELOW its own negative-z-index
+ *      children — so the orange painted OVER the button's background.
+ *   3. (this one) Sibling structure, position:absolute + z-index:-1
+ *      on the back layer, isolation:isolate on the WRAPPER (not the
+ *      button). A position:absolute element paints above normal
+ *      static in-flow content regardless of DOM order UNLESS it has a
+ *      negative z-index — so the back layer needs z-index:-1 to sink
+ *      below the button (a normal in-flow sibling), and the wrapper
+ *      needs isolation:isolate so that -1 stays scoped to this button
+ *      instead of escaping to the next real ancestor stacking context
+ *      (which, this time, has no background of its own to paint over,
+ *      since the wrapper itself is transparent).
+ *
+ * border/border-radius are a single set of values here (not
+ * per-button), since every .btn variant already shares the same
+ * --radius-button token — only border-color differs (black for
+ * primary/secondary, transparent for dark), and a visible border on
+ * the peeking orange card reads fine either way. (The CTA form's pill-
+ * shaped submit button is the one exception — scoped override below.)
+ */
+.btn-stack-hover {
+	position: relative;
+	isolation: isolate;
+	display: inline-flex;
+	flex-shrink: 0;
+}
+
+.btn__stack-back {
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	border: 1px solid var(--color-base-black);
+	border-radius: var(--radius-button);
+}
+
+/* The real button — whatever it is (<a> or <button>) — always carries
+   the base .btn class, so the animation hooks onto that directly. */
+.btn-stack-hover .btn {
+	transform: translate(0%, 0%);
+	transition: transform 0.3s ease-in-out;
+}
+
+/*
+ * Layer color is set per-button via one of these two modifiers, never
+ * hardcoded — the rule is "contrast with the button's own fill": black
+ * (.btn--dark) and white (.btn--secondary) buttons both get an orange
+ * layer; orange (.btn--primary) buttons get a black layer instead. Every
+ * .btn__stack-back in the markup carries one of these explicitly (no
+ * silent default), so a new button variant can't accidentally end up
+ * colorless.
+ */
+.btn__stack-back--orange {
+	background: var(--color-brand-orange);
+}
+
+.btn__stack-back--black {
+	background: var(--color-base-black);
+}
+
+/*
+ * (hover: hover) and (pointer: fine) — real mouse devices only. Touch
+ * devices have no true "hover exit" event, so an unscoped :hover here
+ * would apply on tap and then visually stick in the shifted/"hovering"
+ * position until the user happened to tap elsewhere — every button on
+ * the site would look permanently mis-pressed after a single tap.
+ */
+@media (hover: hover) and (pointer: fine) {
+	.btn-stack-hover:hover .btn {
+		transform: translate(-3%, -11%);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.btn-stack-hover .btn {
+		transition-duration: 0.01ms;
+	}
+}
+
+.btn--primary {
+	background: var(--color-brand-orange);
+	color: var(--color-neutral-white);
+	border-color: var(--color-base-black);
+	padding: 15px 22px;
+}
+
+.btn--secondary {
+	background: var(--color-neutral-white);
+	color: var(--color-neutral-ink);
+	border-color: var(--color-base-black);
+	padding: 15px 22px;
+}
+
+.btn--dark {
+	background: var(--color-neutral-ink);
+	color: var(--color-neutral-white);
+	padding: 12px 12px 12px 14px;
+	font-weight: 600;
+}
+
+/*
+ * Shared hover affordance for "discoverable card set" groups only — Meet
+ * Snap's 4 step cards and Built for UK's 6 feature cards. Deliberately not
+ * used on the Trust logos, Problem pills, or More Than OCR list items —
+ * those read as a reading list, not a set of scannable cards, so a hover
+ * response there would just be noise.
+ *
+ * Applied to the visual "face" element of each card, never the same
+ * element that carries the scroll-entrance [data-animate] transform/
+ * transition — both would be animating `transform` with different
+ * durations (0.6s entrance vs. 0.2s hover) and fight for it.
+ */
+.card-hover-lift {
+	transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+	box-shadow: 0 1px 3px rgba(11, 12, 13, 0.06);
+}
+
+.card-hover-lift:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 12px 24px rgba(11, 12, 13, 0.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.card-hover-lift {
+		transition: none;
+	}
+
+	.card-hover-lift:hover {
+		transform: none;
+	}
+}
+
+/* -------------------------------------------------------------------------
+   Header — Figma node 15150:1564
+   ---------------------------------------------------------------------- */
+/*
+ * Sticky rather than fixed — .site-header stays in normal document flow
+ * (occupying its own space at the top of the page), so it needs no
+ * compensating top-padding/margin on whatever section follows it; it
+ * simply pins to top:0 once its natural position would scroll past that
+ * point. z-index:100 is comfortably above every other z-index in this
+ * stylesheet (max elsewhere is 5) and above the CTA sections' full-bleed
+ * orange backgrounds, none of which establish a competing stacking
+ * context (position:relative alone, with no z-index of their own, does
+ * not create one) — so this stays on top of them with no conflict.
+ */
+.site-header {
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	padding-top: 24px;
+}
+
+/* Theme Settings → Header → "Sticky Header" toggle, off. */
+.site-header--static {
+	position: relative;
+	top: auto;
+}
+
+/*
+ * Node 15150:1498 ("Frame 4") — a flat orange card sitting behind the white
+ * header bar, offset 6px left/down so it peeks out along those edges. Same
+ * "colored backing peeking behind a white card" pattern as the hero's
+ * illustration backdrop and receipt backing — flat fill, no shadow, so it's
+ * CSS rather than a Media Library image.
+ */
+.site-header__backing {
+	position: absolute;
+	top: 30px;
+	left: 50%;
+	transform: translateX(calc(-50% - 6px));
+	width: min(var(--container-max), 100% - (var(--container-pad) * 2));
+	height: var(--header-height);
+	background: var(--color-brand-orange);
+	border: 1px solid var(--color-base-black);
+	border-radius: var(--radius-header);
+	z-index: 0;
+}
+
+.site-header__bar {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: var(--header-height);
+	background: var(--color-neutral-white);
+	border: 1px solid var(--color-base-black);
+	border-radius: var(--radius-header);
+	box-shadow: var(--shadow-header);
+	padding: 0 16px 0 24px;
+	transition: box-shadow 0.2s ease-out;
+}
+
+/*
+ * .is-stuck is toggled by assets/js/sticky-header.js once the page has
+ * scrolled past the header's resting position. The header already
+ * carries --shadow-header at rest (it's a floating-card design, not a
+ * flush bar), so repeating that same shadow while stuck would look
+ * identical either way — this swaps in a tighter, more pronounced
+ * shadow specifically for the stuck state so scrolled content reads as
+ * visually separated from it.
+ */
+.site-header.is-stuck .site-header__bar {
+	box-shadow: var(--shadow-header-stuck);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.site-header__bar {
+		transition-duration: 0.01ms;
+	}
+}
+
+.site-header__logo {
+	flex-shrink: 0;
+	line-height: 0;
+}
+
+.site-header__logo-img {
+	width: 119px;
+	height: 36px;
+}
+
+/*
+ * Positioned absolute + centered independent of the logo/actions flex flow,
+ * so the nav never shifts when the "Book a demo" button changes width on
+ * hover (its arrow reveal) — the nav simply isn't part of that layout
+ * calculation at all.
+ */
+.site-header__nav {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	align-items: center;
+	gap: 34px;
+	font-weight: 600;
+	font-size: var(--text-nav);
+	color: var(--color-neutral-ink);
+	white-space: nowrap;
+}
+
+.site-header__actions {
+	display: flex;
+	align-items: center;
+	gap: 18px;
+	white-space: nowrap;
+}
+
+.site-header__talk-link {
+	font-weight: 600;
+	font-size: var(--text-talk-link);
+	color: var(--color-neutral-ink);
+}
+
+/* Plain-text nav links only (primary menu + "Talk to us") — the "Book a
+   demo" button has its own separate .btn-stack-hover layer effect and is
+   deliberately not part of this rule. One shared block, not per-link. */
+.site-header__nav a,
+.site-header__talk-link {
+	transition: color 0.2s ease-out;
+}
+
+.site-header__nav a:hover,
+.site-header__talk-link:hover {
+	color: var(--color-brand-orange);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.site-header__nav a,
+	.site-header__talk-link {
+		transition-duration: 0.01ms;
+	}
+}
+
+/*
+ * Hamburger button — hidden by default, shown only below the mobile
+ * breakpoint (see the max-width:768px block further down). Built from
+ * one absolutely-positioned bar (.site-header__menu-icon) plus its own
+ * ::before/::after, rather than 3 separate DOM elements, then morphed
+ * into an X by rotating the top/bottom bars onto the middle one and
+ * fading the middle bar out — driven purely by the button's own
+ * aria-expanded attribute (assets/js/mobile-menu.js only ever toggles
+ * that, never a separate class), so the icon can never drift out of
+ * sync with the state a screen reader announces.
+ */
+.site-header__menu-toggle {
+	display: none;
+	position: relative;
+	width: 44px;
+	height: 44px;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: center;
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+}
+
+.site-header__menu-icon,
+.site-header__menu-icon::before,
+.site-header__menu-icon::after {
+	content: '';
+	position: absolute;
+	left: 50%;
+	width: 20px;
+	height: 2px;
+	margin-left: -10px;
+	background: var(--color-neutral-ink);
+	border-radius: 2px;
+	transition: transform 0.2s ease-out, opacity 0.2s ease-out, top 0.2s ease-out;
+}
+
+.site-header__menu-icon {
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.site-header__menu-icon::before {
+	top: -7px;
+}
+
+.site-header__menu-icon::after {
+	top: 7px;
+}
+
+.site-header__menu-toggle[aria-expanded='true'] .site-header__menu-icon {
+	background: transparent;
+}
+
+.site-header__menu-toggle[aria-expanded='true'] .site-header__menu-icon::before {
+	top: 0;
+	transform: rotate(45deg);
+}
+
+.site-header__menu-toggle[aria-expanded='true'] .site-header__menu-icon::after {
+	top: 0;
+	transform: rotate(-45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.site-header__menu-icon,
+	.site-header__menu-icon::before,
+	.site-header__menu-icon::after {
+		transition: none;
+	}
+}
+
+/*
+ * Mobile menu — slide-in panel + backdrop, reusing the site's card
+ * language (white fill, black border, offset-feeling shadow) rather
+ * than a full-bleed overlay. Both start display:none-equivalent via
+ * visibility:hidden (not `display:none` outright) specifically so the
+ * opacity/transform can animate on the way in AND out — visibility's
+ * own transition is delayed on close (matching the panel's duration)
+ * so it stays visible/interactive throughout the closing fade, but
+ * switches to visible instantly on open with no matching delay.
+ */
+.mobile-menu-backdrop {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.4);
+	z-index: 150;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.25s ease-out, visibility 0s linear 0.25s;
+}
+
+.mobile-menu-backdrop.is-open {
+	opacity: 1;
+	visibility: visible;
+	transition: opacity 0.25s ease-out, visibility 0s linear 0s;
+}
+
+.mobile-menu-panel {
+	display: none;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: min(320px, 85vw);
+	background: var(--color-neutral-white);
+	border-left: 1px solid var(--color-base-black);
+	box-shadow: -12px 0 32px rgba(0, 0, 0, 0.18);
+	z-index: 151;
+	flex-direction: column;
+	overflow-y: auto;
+	transform: translateX(100%);
+	visibility: hidden;
+	transition: transform 0.25s ease-out, visibility 0s linear 0.25s;
+}
+
+.mobile-menu-panel.is-open {
+	transform: translateX(0);
+	visibility: visible;
+	transition: transform 0.25s ease-out, visibility 0s linear 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.mobile-menu-backdrop,
+	.mobile-menu-panel {
+		transition: none;
+	}
+}
+
+.mobile-menu-panel__header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 20px 20px 16px;
+	border-bottom: 1px solid #e4e1da;
+}
+
+.mobile-menu-panel__title {
+	font-family: var(--font-primary);
+	font-weight: 800;
+	font-size: 18px;
+	color: var(--color-neutral-ink);
+}
+
+.mobile-menu-panel__close {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 44px;
+	height: 44px;
+	margin-right: -12px;
+	background: none;
+	border: none;
+	font-size: 28px;
+	line-height: 1;
+	color: var(--color-neutral-ink);
+	cursor: pointer;
+}
+
+/* Each link is a full-width row, min-height 44px (WCAG tap-target
+   guidance) — not just an inline text link like the desktop nav. */
+.mobile-menu-panel__nav {
+	display: flex;
+	flex-direction: column;
+	padding: 8px 12px;
+}
+
+.mobile-menu-panel__nav a {
+	display: flex;
+	align-items: center;
+	min-height: 48px;
+	padding: 0 8px;
+	border-radius: 10px;
+	font-family: var(--font-primary);
+	font-weight: 600;
+	font-size: 16px;
+	color: var(--color-neutral-ink);
+	transition: color 0.2s ease-out, background-color 0.2s ease-out;
+}
+
+.mobile-menu-panel__nav a:hover,
+.mobile-menu-panel__nav a:active {
+	color: var(--color-brand-orange);
+	background: #fdf1ec;
+}
+
+.mobile-menu-panel__talk-link {
+	margin-top: 4px;
+	border-top: 1px solid #e4e1da;
+	padding-top: 12px !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.mobile-menu-panel__nav a {
+		transition: none;
+	}
+}
+
+.mobile-menu-panel__cta {
+	padding: 16px 20px 24px;
+	border-top: 1px solid #e4e1da;
+}
+
+.mobile-menu-panel__cta-stack {
+	display: flex;
+	width: 100%;
+}
+
+.mobile-menu-panel__cta-btn {
+	width: 100%;
+	min-height: 48px;
+}
+
+/* Locks background scroll while the mobile menu is open (toggled on
+   <html> AND <body> — some mobile browsers still rubber-band/scroll
+   the page on touch if it's only set on one or the other). */
+html.mobile-menu-lock,
+body.mobile-menu-lock {
+	overflow: hidden;
+}
+
+@media (max-width: 768px) {
+	.site-header__nav,
+	.site-header__talk-link,
+	.site-header__actions .btn-stack-hover {
+		display: none;
+	}
+
+	.site-header__menu-toggle {
+		display: flex;
+	}
+
+	.mobile-menu-panel {
+		display: flex;
+	}
+
+	.site-header__logo-img {
+		width: 92px;
+		height: 28px;
+	}
+
+	.site-header__bar {
+		padding: 0 12px 0 16px;
+	}
+}
+
+/* -------------------------------------------------------------------------
+   Hero — Figma nodes 15150:1576-1587 (page-root children, no wrapper frame)
+   ---------------------------------------------------------------------- */
+.hero {
+	padding-block: 64px 96px;
+	overflow: hidden;
+}
+
+/*
+ * gap: 51px = the true Figma distance between the text column's right edge
+ * (x:700) and the illustration's leftmost extent (x:751, from the anchor
+ * photo). This must add up with the 600px text column to exactly 1240px
+ * (the container width) so the 1fr column resolves to 589px — the
+ * illustration's real Figma width. A wider gap here silently shrinks the
+ * illustration (and every element inside it, since they're all sized as
+ * percentages of this container) below its true Figma size.
+ */
+.hero__inner {
+	display: grid;
+	grid-template-columns: minmax(0, 600px) 1fr;
+	gap: 51px;
+	align-items: center;
+}
+
+.hero__headline {
+	margin: 0;
+	font-weight: 800;
+	font-size: var(--text-hero);
+	line-height: var(--leading-hero);
+	letter-spacing: var(--tracking-hero);
+}
+
+.hero__headline-line {
+	display: block;
+	color: var(--color-neutral-ink);
+}
+
+.hero__headline-line--accent {
+	color: var(--color-brand-orange);
+}
+
+.hero__copy {
+	margin: 14px 0 0;
+	max-width: 543px;
+	font-weight: 400;
+	font-size: var(--text-body-lg);
+	line-height: var(--leading-body);
+	color: var(--color-neutral-muted);
+}
+
+.hero__actions {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-top: 28px;
+}
+
+.hero__proof {
+	margin-top: 28px;
+}
+
+.hero__proof-title {
+	margin: 0;
+	font-family: var(--font-secondary);
+	font-weight: 500;
+	font-size: var(--text-proof-title);
+	letter-spacing: var(--tracking-proof-title);
+	text-transform: uppercase;
+	color: var(--color-neutral-ink);
+}
+
+.hero__proof-copy {
+	margin: 2px 0 0;
+	font-weight: 400;
+	font-size: var(--text-proof-copy);
+	color: var(--color-neutral-muted);
+}
+
+.hero__visual {
+	position: relative;
+}
+
+/*
+ * Container spans the union bounding box of every illustration layer
+ * (Figma nodes 15150:1499-1796), anchored at page coordinates (751, 220),
+ * size 589x542 — NOT just the 15150:1499 orange panel, which is smaller
+ * and sits inset within this box. All child positions/sizes below are
+ * percentages of THIS box, computed from each node's real Figma frame
+ * geometry, so displayed size always matches the Figma-specified
+ * dimensions regardless of the exported asset's own pixel size.
+ */
+.hero__illustration {
+	position: relative;
+	width: 100%;
+	max-width: 589px;
+	aspect-ratio: 589 / 542;
+	margin-inline: auto;
+}
+
+/*
+ * Node 15150:1499 — flat orange fill, no photo content, no shadow: CSS, not
+ * an image. Re-confirmed via design context + metadata: raw Figma geometry
+ * is x=770,y=220,570x519 — relative to the union box's (751,220) origin
+ * that's left=19px/top=0px, i.e. offset +19px right / -14px up from the
+ * photo (15150:1501, x=751,y=234,573x528). That offset means this panel
+ * peeks out past the photo's edges only on the TOP and RIGHT — it starts
+ * 19px right of the photo's left edge (no left peek) and its own bottom
+ * (519px down) sits above the photo's bottom (528+14=542px down, no
+ * bottom peek). This literal geometry leaves two tiny corner gaps (top-left
+ * ~19x14px, bottom-right ~16x23px) where neither shape reaches — that's
+ * the real source geometry (confirmed by compositing both raw exports at
+ * their literal coordinates), not a mistake introduced here. A prior
+ * version expanded this panel to `inset: 0` to paper over those gaps; per
+ * explicit direction this now uses the exact offset instead.
+ */
+.hero__illustration-backdrop {
+	position: absolute;
+	z-index: 0;
+	left: 3.226%;
+	top: 0;
+	width: 96.774%;
+	height: 95.757%;
+	background: var(--color-brand-orange);
+	border: 1px solid var(--color-base-black);
+	border-radius: 16px;
+}
+
+/*
+ * Node 15150:1501 — the anchor photo. Border, border-radius, and clipping
+ * all live on this one wrapper (not split between a bordered/radiused <img>
+ * and a differently-clipped ancestor) — that mismatch is what caused the
+ * white/jagged corners: the border's curve and the image's own clip curve
+ * were never guaranteed to be pixel-identical. `overflow: hidden` here
+ * clips the photo to the exact same curve the border is drawn on.
+ * `z-index: 1` keeps it stacked above `.hero__illustration-backdrop`.
+ */
+.hero__illustration-photo-frame {
+	position: absolute;
+	z-index: 1;
+	left: 0;
+	top: 2.583%;
+	width: 97.283%;
+	height: 97.417%;
+	border: 1px solid var(--color-base-black);
+	border-radius: 16px;
+	overflow: hidden;
+}
+
+.hero__illustration-photo {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/*
+ * Node 15150:1502 — flat orange card backing behind the receipt: CSS, not
+ * an image. `z-index: 2` (same as every other floating layer below) keeps
+ * it — and everything stacked after it in the DOM — above the photo-frame
+ * (`z-index: 1`): without an explicit value here these would sit at the
+ * `auto`/0 stacking level, which loses to the photo's explicit 1 regardless
+ * of DOM order, rendering them sandwiched behind the photo instead of on
+ * top of it.
+ */
+.hero__card-backing {
+	position: absolute;
+	z-index: 2;
+	left: 14.941%;
+	top: 8.303%;
+	width: 15.110%;
+	height: 22.878%;
+	background: var(--color-brand-orange);
+	border: 1px solid var(--color-base-black);
+	border-radius: 8px;
+}
+
+/*
+ * Nodes 15150:1527/1537/1505/1792/1796 (receipt, invoice, Extracted Details
+ * card, scan icon, status badge) are real HTML/CSS below, not images — they
+ * were previously flattened raster mockups (receipt-15x-noborder.png etc.),
+ * which is why border-radius fixes on them never held. Each is built the
+ * same way: this outer `.hero__doc--*` / `.hero__scan-icon` /
+ * `.hero__status-badge` box keeps the exact container-relative left/top/
+ * width percentages already established (re-confirmed against the same
+ * Figma node geometry, unchanged), now with an explicit height percentage
+ * added too (no longer implied by an <img>'s own aspect ratio). It's also a
+ * `container-type: inline-size` host for the inner card, which is authored
+ * at its native Figma pixel size (so every literal px value from design
+ * context — font sizes, line thicknesses, radii — is copy-accurate) and
+ * scaled as one rigid unit via `transform: scale(calc(100cqw / <native
+ * width>px))` — the same technique `.usecase-row` uses in the Real Usecases
+ * section, just scoped per-card instead of per-row. Border/radius/shadow
+ * live on that inner card, not this outer box, so shadows aren't clipped.
+ */
+.hero__doc {
+	position: absolute;
+	z-index: 2;
+	width: auto;
+	height: auto;
+}
+
+.hero__doc--receipt {
+	width: 13.309%;
+	height: 22.509%;
+	left: 18.539%;
+	top: 17.712%;
+	container-type: inline-size;
+	transform: translate(-50%, -50%);
+}
+
+.hero__doc--invoice {
+	width: 14.625%;
+	height: 22.509%;
+	left: 27.006%;
+	top: 21.402%;
+	container-type: inline-size;
+	transform: translate(-50%, -50%);
+}
+
+.hero__doc--card {
+	width: 34.805%;
+	height: 37.454%;
+	left: 10.442%;
+	top: 66.882%;
+	container-type: inline-size;
+	transform: translate(-50%, -50%);
+}
+
+.hero__scan-icon {
+	position: absolute;
+	z-index: 2;
+	width: 7.470%;
+	height: 8.118%;
+	left: 20.204%;
+	top: 39.298%;
+	container-type: inline-size;
+	transform: translate(-50%, -50%);
+}
+
+.hero__status-badge {
+	position: absolute;
+	z-index: 2;
+	width: 30.051%;
+	height: 7.934%;
+	left: 66.638%;
+	top: 91.606%;
+	container-type: inline-size;
+	transform: translate(-50%, -50%);
+}
+
+/* ==== Receipt preview (node 15150:1527) — confirmed via design context ==== */
+.hero__receipt {
+	position: relative;
+	width: 78.39px;
+	height: 122px;
+	box-sizing: border-box;
+	transform-origin: top left;
+	transform: scale(calc(100cqw / 78.39px));
+	background: var(--color-neutral-white);
+	border: 1px solid var(--color-base-black);
+	border-radius: 6px;
+	box-shadow: 0 5.88px 13.719px rgba(31, 20, 13, 0.13);
+	overflow: hidden;
+}
+
+.hero__receipt-title {
+	position: absolute;
+	left: 9.02px;
+	top: 9.02px;
+	margin: 0;
+	font-family: var(--font-secondary);
+	font-weight: 700;
+	font-size: 10.289px;
+	color: #141417;
+	white-space: nowrap;
+}
+
+.hero__receipt-divider {
+	position: absolute;
+	left: 9.02px;
+	top: 25.67px;
+	width: 57.815px;
+	height: 1.47px;
+	background: #e0e0de;
+	border-radius: 0.98px;
+}
+
+.hero__receipt-line {
+	position: absolute;
+	left: 10px;
+	width: 40.177px;
+	height: 2.45px;
+	background: #e0e0de;
+	border-radius: 1.47px;
+}
+
+.hero__receipt-line--short {
+	width: 31.357px;
+}
+
+.hero__receipt-total {
+	position: absolute;
+	left: 40.37px;
+	top: 83px;
+	margin: 0;
+	font-family: var(--font-secondary);
+	font-weight: 600;
+	font-size: 8.329px;
+	color: #141417;
+	white-space: nowrap;
+}
+
+.hero__receipt-footer {
+	position: absolute;
+	left: 9.02px;
+	top: 101.62px;
+	width: 58.305px;
+	height: 10.779px;
+	background: #f0f0ed;
+	border-radius: 0.98px;
+}
+
+.hero__receipt-footer-label {
+	position: absolute;
+	left: 22.24px;
+	top: 104.56px;
+	margin: 0;
+	font-family: var(--font-secondary);
+	font-weight: 600;
+	font-size: 4.41px;
+	color: #787a7d;
+	white-space: nowrap;
+}
+
+/* ==== Invoice preview (node 15150:1537) — confirmed via design context ==== */
+.hero__invoice {
+	position: relative;
+	width: 86.14px;
+	height: 122px;
+	box-sizing: border-box;
+	transform-origin: top left;
+	transform: scale(calc(100cqw / 86.14px));
+	background: var(--color-neutral-white);
+	border: 1px solid var(--color-base-black);
+	border-radius: 8px;
+	box-shadow: 0 4.436px 10.352px rgba(31, 20, 13, 0.13);
+	overflow: hidden;
+}
+
+.hero__invoice-title {
+	position: absolute;
+	left: 7.93px;
+	top: 7.93px;
+	margin: 0;
+	font-family: var(--font-secondary);
+	font-weight: 700;
+	font-size: 10.352px;
+	color: #141417;
+	white-space: nowrap;
+}
+
+.hero__invoice-divider {
+	position: absolute;
+	left: 7.93px;
+	top: 24.93px;
+	width: 68.024px;
+	height: 1.109px;
+	background: #e0e0de;
+	border-radius: 0.739px;
+}
+
+.hero__invoice-line {
+	position: absolute;
+	height: 1.848px;
+	background: #e0e0de;
+	border-radius: 1.109px;
+}
+
+.hero__invoice-line--left {
+	left: 8.3px;
+}
+
+.hero__invoice-line--right {
+	left: 60.42px;
+	width: 15.527px;
+}
+
+.hero__invoice-table {
+	position: absolute;
+	left: 8.3px;
+	top: 54.88px;
+	width: 67.655px;
+	height: 40.667px;
+	box-sizing: border-box;
+	background: var(--color-neutral-white);
+	border: 0.37px solid #e0e0de;
+	overflow: hidden;
+}
+
+.hero__invoice-table-col {
+	position: absolute;
+	top: 0;
+	width: 0.37px;
+	height: 100%;
+	background: #e0e0de;
+}
+
+.hero__invoice-table-header-divider {
+	position: absolute;
+	left: 0;
+	top: 9.61px;
+	width: 100%;
+	height: 0.37px;
+	background: #e0e0de;
+}
+
+.hero__invoice-table-row {
+	position: absolute;
+	left: 4.07px;
+	width: 21.812px;
+	height: 1.479px;
+	background: #e0e0de;
+	border-radius: 0.739px;
+}
+
+.hero__invoice-table-amount {
+	position: absolute;
+	left: 38.82px;
+	width: 8.133px;
+	height: 1.479px;
+	background: #e0e0de;
+	border-radius: 0.739px;
+}
+
+.hero__invoice-table-tax {
+	position: absolute;
+	left: 57.67px;
+	width: 5.545px;
+	height: 1.479px;
+	background: #e0e0de;
+	border-radius: 0.739px;
+}
+
+.hero__invoice-total-label {
+	position: absolute;
+	left: 8.3px;
+	top: 102.94px;
+	margin: 0;
+	font-family: var(--font-secondary);
+	font-weight: 500;
+	font-size: 6.285px;
+	color: #141417;
+	white-space: nowrap;
+}
+
+.hero__invoice-total-value {
+	position: absolute;
+	left: 52.66px;
+	top: 102.94px;
+	margin: 0;
+	font-family: var(--font-secondary);
+	font-weight: 600;
+	font-size: 6.285px;
+	color: #141417;
+	white-space: nowrap;
+}
+
+/* ==== Scan icon (node 15150:1792) — confirmed via design context ====
+   Background #ff380f is distinct from --color-brand-orange (#fb4b16) —
+   confirmed via design context, scoped here rather than using the token. */
+.hero__scan-icon-inner {
+	position: relative;
+	width: 44px;
+	height: 44px;
+	box-sizing: border-box;
+	transform-origin: top left;
+	transform: scale(calc(100cqw / 44px));
+	background: #ff380f;
+	border: 2px solid var(--color-neutral-white);
+	border-radius: 50%;
+	box-shadow: 0 5.176px 12.078px rgba(31, 20, 13, 0.13);
+	overflow: hidden;
+}
+
+.hero__scan-icon-glyph {
+	position: absolute;
+	left: 9.65px;
+	top: 9.65px;
+	width: 20.706px;
+	height: 20.706px;
+}
+
+/* ==== Extracted Details card (node 15150:1505) — confirmed via design context ==== */
+.hero__card {
+	position: relative;
+	width: 205px;
+	height: 203px;
+	box-sizing: border-box;
+	transform-origin: top left;
+	transform: scale(calc(100cqw / 205px));
+	background: var(--color-neutral-white);
+	border: 2px solid var(--color-brand-orange);
+	border-radius: 10px;
+	box-shadow: 0 5.626px 13.126px rgba(31, 20, 13, 0.13);
+	overflow: hidden;
+}
+
+.hero__card-icon {
+	position: absolute;
+	left: 12px;
+	top: 13px;
+	width: 18px;
+	height: 18px;
+}
+
+.hero__card-title {
+	position: absolute;
+	left: 33.16px;
+	top: 15.13px;
+	margin: 0;
+	font-family: var(--font-secondary);
+	font-weight: 700;
+	font-size: 11.72px;
+	color: #141417;
+	white-space: nowrap;
+}
+
+.hero__card-divider {
+	position: absolute;
+	left: 11.13px;
+	top: 34.97px;
+	width: 179.079px;
+	height: 0.938px;
+	background: #e0e0de;
+}
+
+.hero__card-label {
+	position: absolute;
+	left: 11px;
+	margin: 0;
+	font-family: var(--font-secondary);
+	font-weight: 400;
+	font-size: 10px;
+	color: #141417;
+	white-space: nowrap;
+}
+
+.hero__card-value {
+	position: absolute;
+	margin: 0;
+	font-family: var(--font-secondary);
+	font-weight: 500;
+	font-size: 10px;
+	color: #141417;
+	white-space: nowrap;
+}
+
+.hero__card-pill {
+	position: absolute;
+	left: 102px;
+	top: 136px;
+	width: 89.539px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 19.689px;
+	padding: 4.219px 8.438px;
+	box-sizing: border-box;
+	background: #f2e0ff;
+	border-radius: 11.251px;
+	font-family: var(--font-secondary);
+	font-weight: 600;
+	font-size: 8.438px;
+	color: #8a33c7;
+	white-space: nowrap;
+}
+
+.hero__card-confidence-divider {
+	position: absolute;
+	left: 11.59px;
+	top: 163px;
+	width: 178.141px;
+	height: 0.938px;
+	background: #e0e0de;
+}
+
+.hero__card-confidence-icon {
+	position: absolute;
+	left: 11px;
+	top: 170px;
+	width: 16.408px;
+	height: 16.408px;
+}
+
+.hero__card-confidence-label {
+	position: absolute;
+	left: 30px;
+	top: 172px;
+	margin: 0;
+	font-family: var(--font-secondary);
+	font-weight: 500;
+	font-size: 9.845px;
+	color: #141417;
+	white-space: nowrap;
+}
+
+.hero__card-confidence-value {
+	position: absolute;
+	left: 169px;
+	top: 171.88px;
+	margin: 0;
+	font-family: var(--font-secondary);
+	font-weight: 700;
+	font-size: 10.313px;
+	color: #339e38;
+	white-space: nowrap;
+}
+
+/* ==== "Ready for bookkeeping" badge (node 15150:1796) — confirmed via design context ==== */
+.hero__badge {
+	position: relative;
+	width: 177px;
+	height: 43px;
+	box-sizing: border-box;
+	transform-origin: top left;
+	transform: scale(calc(100cqw / 177px));
+	background: var(--color-neutral-white);
+	border: 2px solid var(--color-brand-orange);
+	border-radius: 8px;
+	box-shadow: 0 4.451px 10.385px rgba(31, 20, 13, 0.13);
+	overflow: hidden;
+}
+
+.hero__badge-circle {
+	position: absolute;
+	left: 9.5px;
+	top: calc(50% - 13.389px);
+	display: block;
+	width: 26.778px;
+	height: 26.778px;
+	background: #fbcec0;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.hero__badge-check {
+	position: absolute;
+	left: 7.53px;
+	top: 8.09px;
+	width: 11.994px;
+	height: 10.6px;
+}
+
+.hero__badge-label {
+	position: absolute;
+	left: calc(50% - 44.5px);
+	top: calc(50% - 6.5px);
+	margin: 0;
+	font-family: var(--font-secondary);
+	font-weight: 700;
+	font-size: 10.756px;
+	color: #363636;
+	white-space: nowrap;
+}
+
+/*
+ * Nodes 15150:1503/1504 — dashed connector lines. Top-left anchored (not
+ * centered) since their own bounding box IS the intended position, unlike
+ * the cards/icon/badge above which are positioned by their center point.
+ */
+.hero__connector {
+	position: absolute;
+	z-index: 2;
+	width: auto;
+	height: auto;
+}
+
+.hero__connector--1 {
+	left: 11.630%;
+	top: 32.380%;
+	width: 15.280%;
+}
+
+.hero__connector--2 {
+	left: 11.460%;
+	top: 85.332%;
+	width: 40.577%;
+}
+
+/*
+ * Nodes 15150:1801/1802 — dot markers at each connector's endpoint. Given
+ * coordinates are the node's own top-left with no export padding to
+ * correct for (the source SVG's 10x10 canvas already matches exactly), so
+ * these are positioned top-left like the connectors, not center-anchored.
+ */
+.hero__dot {
+	position: absolute;
+	z-index: 2;
+	width: 1.698%;
+	height: auto;
+}
+
+.hero__dot--1 {
+	left: 11.036%;
+	top: 47.233%;
+}
+
+.hero__dot--2 {
+	left: 50.934%;
+	top: 90.590%;
+}
+
+@media (max-width: 960px) {
+	/* Same missing-mobile-override as every other main section had —
+	   64px/96px (desktop) left excessive dead space once stacked with the
+	   header/Trust strip above and Problem's own reduced padding below.
+	   Matches the 56px used by every other section's mobile override. */
+	.hero {
+		padding-block: 56px;
+	}
+
+	.hero__inner {
+		grid-template-columns: 1fr;
+	}
+
+	.hero__headline {
+		font-size: 44px;
+	}
+
+	/* Image before copy on mobile — DOM order is content-then-visual for
+	   the desktop two-column grid, so the stacked mobile layout needs an
+	   explicit reorder rather than relying on source order. */
+	.hero__content {
+		order: 2;
+	}
+
+	.hero__visual {
+		order: 1;
+		margin-top: 0;
+		margin-bottom: 24px;
+	}
+}
+
+/*
+ * Phone-width tweaks. The single most impactful fix here: .hero__actions'
+ * two buttons side by side don't fit in a ~327px content column at
+ * 375-428px — being an unbreakable flex row, that forced the WHOLE
+ * grid column (.hero__content, including .hero__copy) to overflow past
+ * the container to make room, confirmed via computed grid-template-
+ * columns actually rendering ~356px inside a 327px container. Stacking
+ * the buttons removes that forced minimum width and fixes the overflow
+ * as a side effect, not just a cosmetic change.
+ */
+@media (max-width: 480px) {
+	.hero__headline {
+		font-size: 36px;
+	}
+
+	.hero__actions {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.hero__actions .btn-stack-hover {
+		width: 100%;
+	}
+
+	.hero__actions .btn {
+		width: 100%;
+	}
+
+	/*
+	 * The floating "Extracted details" card (.hero__doc--card) is
+	 * center-anchored at left:10.442% with a 34.805%-of-box width — its
+	 * own left edge sits at roughly left% minus half its width, which
+	 * computes negative (~-7% of the box), i.e. it's always meant to
+	 * bleed slightly past .hero__illustration's own left edge. At desktop
+	 * size there's plenty of surrounding page margin to absorb that, so
+	 * it reads as an intentional overlap; at mobile, with only the
+	 * container's own edge nearby, that same bleed reads as the card
+	 * sitting too far left/cramped against the screen edge instead.
+	 * Shrinking the illustration box and shifting it right by the same
+	 * amount gives that bleed room to exist without crowding the edge —
+	 * the box's right edge is unchanged (shrinking anything further
+	 * would start cropping the photo's own right side, which doesn't
+	 * need it — confirmed by inspection that nothing important sits at
+	 * that edge).
+	 */
+	.hero__illustration {
+		width: calc(100% - 24px);
+		margin-left: 24px;
+		margin-right: 0;
+	}
+}
+
+/* -------------------------------------------------------------------------
+   Trust strip — no Figma design exists for this section (only a placeholder
+   note: "need a trust section or something separator"), so it's built
+   entirely from tokens already established above rather than introducing
+   new colors/spacing. Deliberately quiet: a transition strip between the
+   hero and "The Problem" section, not another hero-weight moment — hence
+   the tight padding-block (no top padding of its own; the hero's existing
+   bottom padding already provides the separation).
+   ---------------------------------------------------------------------- */
+.trust {
+	padding-block: 0 56px;
+}
+
+.trust__inner {
+	width: 100%;
+}
+
+/*
+ * Same bordered white-card language as the header bar and hero photo frame
+ * (border: 2px solid black, radius, white fill) so this transition strip
+ * reads as native to the rest of the page rather than a bare text block —
+ * but full width (no .container max-width), so it spans edge to edge
+ * rather than sitting inset like the hero/header content above it.
+ */
+.trust__card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 32px;
+	width: 100%;
+	padding: 40px var(--container-pad);
+	background: var(--color-neutral-white);
+	border: 2px solid var(--color-base-black);
+	border-radius: 8px;
+	box-sizing: border-box;
+}
+
+.trust__stat {
+	margin: 0;
+	color: var(--color-base-black);
+	font-family: var(--font-primary);
+	font-size: var(--text-trust-stat);
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+	letter-spacing: var(--tracking-trust-stat);
+	text-align: center;
+}
+
+.trust__logos {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: 40px 56px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	width: 100%;
+}
+
+.trust__logo-item {
+	display: flex;
+	align-items: center;
+}
+
+.trust__logo-link {
+	display: block;
+}
+
+/*
+ * Muted-by-default, full color on hover — a common trust-bar pattern.
+ * Filter (not a grayscale raster) so swapping in real client logos later
+ * needs no re-export: any color PNG/SVG dropped into the ACF field gets the
+ * same muted treatment automatically.
+ */
+.trust__logo {
+	height: 28px;
+	width: auto;
+	max-width: 140px;
+	filter: grayscale(1) opacity(0.45);
+	transition: filter 0.2s ease;
+}
+
+.trust__logo-link:hover .trust__logo,
+.trust__logo-item:hover > .trust__logo {
+	filter: grayscale(0) opacity(1);
+}
+
+@media (max-width: 960px) {
+	.trust__logos {
+		gap: 32px 40px;
+	}
+}
+
+/* -------------------------------------------------------------------------
+   The Problem — Figma node 15150:1708 ("Frame 37"), 1440x689.
+   Frame x:100 is exactly the .container's left edge on a 1440px canvas, so
+   this section's padding-block (130px top, 689 - 569 = 120px bottom) and
+   the grid split below reproduce the frame's own coordinates rather than
+   guessed spacing.
+   ---------------------------------------------------------------------- */
+.problem {
+	padding-block: 130px 120px;
+}
+
+/*
+ * 546px text column + 1fr visual column: at the container's 1240px max
+ * width, 1fr resolves to exactly 694px — the true width of the union
+ * bounding box of the photo/backing/pain-point cluster below, so that
+ * cluster's percentage math lines up with real Figma pixels.
+ */
+/*
+ * min(px, %) on both tracks instead of a fixed 546px text column + 1fr —
+ * a plain minmax(0,546px) track holds at its full 546px right up until
+ * the container can no longer fit it, dumping 100% of the squeeze onto
+ * the 1fr visual column alone (measured: visual dropped from 694px to
+ * 415px between 1240 and 1024px container width while text never
+ * budged), which is what let the photo/pills overlap collapse into
+ * clipped text at in-between widths. The percentages (546/1240,
+ * 694/1240) match the px values exactly at the 1240px reference width —
+ * so this is visually identical at ≥1240 — and below that, both columns
+ * now shrink together in the same 546:694 ratio instead of one column
+ * absorbing all of it. Same min(px,%) technique used for the Hero/HSW/
+ * Real Usecases fluid-positioning fixes.
+ */
+.problem__inner {
+	display: grid;
+	grid-template-columns: min(546px, 44.032%) min(694px, 55.968%);
+	align-items: start;
+}
+
+.problem__eyebrow {
+	margin: 0 0 8px;
+	font-family: var(--font-primary);
+	font-weight: 700;
+	font-size: var(--text-eyebrow);
+	color: var(--color-brand-orange);
+}
+
+.problem__headline {
+	margin: 0;
+	font-weight: 800;
+	font-size: var(--text-problem-headline);
+	line-height: var(--leading-normal);
+	letter-spacing: var(--tracking-problem-headline);
+}
+
+.problem__headline-line {
+	display: block;
+	max-width: 425px;
+	color: var(--color-neutral-ink);
+}
+
+.problem__headline-line--accent {
+	max-width: none;
+	white-space: nowrap;
+	color: var(--color-brand-orange);
+}
+
+.problem__intro {
+	margin: 8px 0 0;
+	max-width: 383px;
+	font-weight: 400;
+	font-size: var(--text-body-lg);
+	line-height: var(--leading-relaxed);
+	color: var(--color-neutral-muted);
+}
+
+/*
+ * Union bounding box of the photo backing (15150:1712), photo (15150:1713)
+ * and pain-point list (15150:1714-1732): x:546-1240, y:144-569 relative to
+ * the frame → 694x425. All children below are percentages of this box, and
+ * it sits 14px lower than the text column (144 vs the eyebrow's 130) to
+ * match Figma exactly rather than sharing the same top edge.
+ */
+.problem__visual {
+	position: relative;
+	width: 100%;
+	max-width: 694px;
+	margin: 14px auto 0;
+}
+
+/*
+ * Split out from .problem__visual so the photo (backing + frame, both
+ * absolutely positioned as percentages of THIS box) can keep its fixed
+ * 694:425 aspect ratio while .problem__points — a sibling, not a child
+ * of this wrap — is free to leave absolute positioning behind and drop
+ * into normal document flow below the photo on mobile (see the
+ * max-width:480px block) without disturbing the photo's own sizing.
+ */
+.problem__photo-wrap {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 694 / 425;
+}
+
+/*
+ * Node 15150:1712 — flat orange fill, no photo content: CSS, not an image.
+ * Re-confirmed via design context + the exact Figma geometry (1712:
+ * x=844,y=144,496x406; 1713: x=817,y=157,510x412, both against this box's
+ * (646,144) 694x425 anchor — the same anchor the photo-frame rule below
+ * already resolves to exactly, confirmed by reversing its own numbers).
+ * The offset is +27px/-13px (box vs photo), meaning this panel peeks past
+ * the photo's edges on the TOP and RIGHT only (its own right edge sits
+ * flush with this box's right edge; its own top edge sits flush with this
+ * box's top edge) — not on the left or bottom, where the photo extends
+ * further than this panel. A prior version expanded this panel to close
+ * two small corner gaps (top-left, bottom-right) that exist in the literal
+ * source geometry; per explicit direction this now uses the exact offset
+ * instead, matching the hero illustration's equivalent fix.
+ */
+.problem__photo-backing {
+	position: absolute;
+	left: 28.526%;
+	top: 0;
+	width: 71.463%;
+	height: 95.562%;
+	background: var(--color-brand-orange);
+	border: 1px solid var(--color-base-black);
+	border-radius: 16px;
+}
+
+/*
+ * Node 15150:1713 — border, radius and clipping all on this one wrapper
+ * (not split between the <img> and a differently-clipped ancestor), same
+ * fix as the hero's photo frame.
+ */
+.problem__photo-frame {
+	position: absolute;
+	left: 24.639%;
+	top: 3.059%;
+	width: 73.487%;
+	height: 96.941%;
+	border: 1px solid var(--color-base-black);
+	border-radius: 16px;
+	overflow: hidden;
+}
+
+.problem__photo {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/*
+ * Nodes 15150:1714/1720/1726/1732 — pain-point cards, stacked over the
+ * photo's left edge. Height is set explicitly here (58.353% = the 4*56 +
+ * 3*8 = 248px the row stack actually occupies, as a share of the 425px
+ * visual box) so it's a definite length — without it, the percentage
+ * heights/gap on the rows below have no definite containing block to
+ * resolve against and silently collapse to the rows' intrinsic content
+ * height with zero gap, which is what was producing the too-short,
+ * fully-rounded "pill" look instead of Figma's 56px cards with an 8px gap.
+ */
+.problem__points {
+	position: absolute;
+	left: 0;
+	top: 27.765%;
+	width: 38.184%;
+	height: 58.353%;
+	display: flex;
+	flex-direction: column;
+	gap: 3.226%;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+/* Row height/gap above are now percentages of .problem__points' own 248px (58.353%) rather than the full 425px box. */
+.problem__point {
+	display: flex;
+	align-items: center;
+	flex-shrink: 0;
+	gap: 10px;
+	height: 22.581%;
+	padding-left: 16px;
+	background: var(--color-neutral-white);
+	border: 1px solid var(--color-base-black);
+	border-radius: 10px;
+	box-sizing: border-box;
+}
+
+.problem__point-icon {
+	width: 20px;
+	height: 20px;
+	flex-shrink: 0;
+}
+
+/*
+ * clamp() instead of a flat 16px — the pill itself is percentage-width
+ * (stretched to fill .problem__points, which scales with the photo
+ * column), but this label is nowrap and was fixed-size, so once the grid
+ * fix above still leaves the photo column narrower than 694px (anywhere
+ * below the 1240px reference), the pill shrinks with it while the label
+ * doesn't, and the fixed-size text overflows the pill's right edge into
+ * the photo. 1.111vw = exactly 16px at the 1440px reference width this
+ * was designed at, tapering down as the viewport (and therefore the
+ * column) narrows.
+ */
+.problem__point-label {
+	font-family: var(--font-primary);
+	font-weight: 600;
+	font-size: clamp(11px, 1.111vw, 16px);
+	line-height: 1.5;
+	color: var(--color-neutral-ink);
+	white-space: nowrap;
+}
+
+@media (max-width: 960px) {
+	/*
+	 * 130px/120px (desktop) left ~200px+ of combined dead space between
+	 * this section and its neighbors once its neighbors' own padding is
+	 * added on top — excessive relative to the rest of the page's mobile
+	 * vertical rhythm. Matches the reduced padding-block already used by
+	 * How Snap Works' own mobile override.
+	 */
+	.problem {
+		padding-block: 56px;
+	}
+
+	/*
+	 * Same missing-mobile-override bug as Meet Snap/More Than OCR's
+	 * headlines (both share this section's pattern of a large desktop
+	 * size with no mobile reduction) — stuck at 38px, this headline wraps
+	 * into cramped, orphaned lines in a ~327px column. 28px matches the
+	 * ~70-74% desktop-to-mobile ratio already used by Meet Snap/More Than
+	 * OCR (48px→34px) and the Contact/Pricing hero headline (46px→34px).
+	 */
+	.problem__headline {
+		font-size: 28px;
+	}
+
+	.problem__inner {
+		grid-template-columns: 1fr;
+		row-gap: 40px;
+	}
+
+	.problem__visual {
+		margin-top: 0;
+	}
+}
+
+/*
+ * At 375-428px the accent headline's white-space:nowrap and the pain-
+ * point pills' white-space:nowrap both force content wider than the
+ * ~327px column can hold — confirmed via computed layout, not assumed:
+ * the headline visibly clipped mid-word, and the pills (absolutely
+ * positioned at 38% of the photo's width, ~125px) overflowed past their
+ * own box since their un-wrappable text needed more room than that.
+ * Un-nowrapping both fixes the overflow; the pills additionally move to
+ * static/normal-flow (see .problem__photo-wrap above) so they stack
+ * cleanly below the photo instead of staying overlaid on top of it,
+ * which only ever worked at the photo's full desktop size.
+ */
+@media (max-width: 480px) {
+	/*
+	 * Leftover from the earlier fix that split the photo into its own
+	 * .problem__photo-wrap: the WRAP became full-width correctly, but
+	 * .problem__photo-frame itself was never given a matching override —
+	 * it kept its desktop percentage position (left:24.639%, width:
+	 * 73.487% of the wrap), so it rendered small (~240px of a 327px
+	 * column) and off-center (starting ~80px in from the left) instead of
+	 * filling the wrap. aspect-ratio here reproduces the same 510:412
+	 * proportions those percentages worked out to at desktop size.
+	 */
+	/*
+	 * .problem__photo-backing (the peeking orange rectangle behind the
+	 * photo) is absolutely positioned as a percentage of .problem__
+	 * photo-wrap — but the wrap's own aspect-ratio (694:425) no longer
+	 * matches .problem__photo-frame's actual rendered shape once the
+	 * frame went position:static with its OWN 510:412 ratio above (the
+	 * frame, now in normal flow, is taller than what the wrap's ratio
+	 * alone would give it, so the two are no longer in sync) — the
+	 * backing ends up sized/positioned for a box shape that doesn't
+	 * exist anymore, landing fully behind the now-differently-shaped
+	 * frame instead of peeking out from it. Rather than re-deriving new
+	 * percentages for a relationship that's inherently fragile at
+	 * arbitrary widths, this swaps to a box-shadow directly on the frame
+	 * — same peeking-rectangle effect, but expressed as a fixed offset
+	 * that works at any size without needing a second positioned element
+	 * to stay in sync with. Offset direction (right + up) matches the
+	 * desktop backing's actual peek (confirmed by screenshot: it shows
+	 * along the photo's top and right edges).
+	 */
+	.problem__photo-backing {
+		display: none;
+	}
+
+	.problem__photo-frame {
+		position: static;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 510 / 412;
+		box-shadow: 8px -8px 0 0 var(--color-brand-orange);
+	}
+
+	.problem__headline-line--accent {
+		white-space: normal;
+	}
+
+	.problem__points {
+		position: static;
+		width: 100%;
+		height: auto;
+		margin-top: 16px;
+		gap: 8px;
+	}
+
+	.problem__point {
+		height: auto;
+		min-height: 44px;
+		padding: 10px 16px;
+	}
+
+	.problem__point-label {
+		white-space: normal;
+	}
+}
+
+/* -------------------------------------------------------------------------
+   Meet Snap — Figma node 15150:1666 ("Frame 38"), 1440x1152.
+   Same frame x:100 = .container left-edge relationship as the Problem
+   section, and the orange card (15150:1669) is x:100 width:1240 — i.e. it
+   IS the container, full width, so it needs no extra centering of its own.
+   ---------------------------------------------------------------------- */
+.meet-snap {
+	padding-block: 86px 112px;
+}
+
+.meet-snap__eyebrow {
+	margin: 0 0 7px;
+	text-align: center;
+	font-family: var(--font-primary);
+	font-weight: 700;
+	font-size: var(--text-eyebrow);
+	color: var(--color-brand-orange);
+}
+
+.meet-snap__heading {
+	margin: 0;
+	text-align: center;
+	font-weight: 800;
+	font-size: var(--text-meet-heading);
+	line-height: var(--leading-meet-heading);
+	letter-spacing: var(--tracking-meet-heading);
+}
+
+.meet-snap__heading-line {
+	display: block;
+	color: var(--color-neutral-ink);
+}
+
+.meet-snap__heading-line--accent {
+	color: var(--color-brand-orange);
+}
+
+.meet-snap__intro {
+	margin: 10px auto 0;
+	max-width: 506px;
+	text-align: center;
+	font-family: var(--font-primary);
+	font-weight: 400;
+	font-size: var(--text-meet-intro);
+	line-height: var(--leading-meet-intro);
+	color: var(--color-neutral-muted);
+}
+
+/*
+ * Positioning ancestor for the photo/steps below — deliberately has no
+ * border/background of its own. A bordered element's padding-box (what
+ * percentage-positioned children resolve against) is smaller than its
+ * declared size by the border width, which was quietly shrinking every
+ * child a couple of px short of Figma's real numbers. The visual orange
+ * card is drawn by the borderless .meet-snap__card-bg child below instead.
+ */
+.meet-snap__visual {
+	position: relative;
+	width: 100%;
+	max-width: 1240px;
+	aspect-ratio: 1240 / 527;
+	margin: 147px auto 0;
+}
+
+/*
+ * Node 15150:1669 — flat orange fill, no image content: CSS, not an image.
+ * No overflow: hidden here — the photo and step card 1 intentionally poke
+ * above this box's top edge, and step card 4 pokes below its bottom edge
+ * (confirmed against the Figma screenshot, not a clipping bug), so clipping
+ * this container would cut off content Figma actually shows.
+ */
+.meet-snap__card-bg {
+	position: absolute;
+	inset: 0;
+	background: var(--color-brand-orange);
+	border: 2px solid var(--color-base-black);
+	border-radius: 16px;
+}
+
+/*
+ * Node 15150:1707 — border, radius and clipping all on this one wrapper,
+ * same fix as the hero/Problem section photo frames.
+ */
+.meet-snap__photo-frame {
+	position: absolute;
+	left: -0.8%;
+	top: -16.888%;
+	width: 46.048%;
+	height: 133.586%;
+	border: 2px solid var(--color-base-black);
+	border-radius: 24px;
+	overflow: hidden;
+}
+
+.meet-snap__photo {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: 66% center;
+}
+
+.meet-snap__steps {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+/*
+ * The 4 step cards are staggered, not gridded (per Figma), so each gets a
+ * fixed position/size tied to its row order rather than a computed layout —
+ * reordering rows in wp-admin moves content between these 4 fixed slots.
+ * align-items: flex-start (not the flex default of stretch) so the icon and
+ * pill hug their own content width instead of stretching to the card's full
+ * width; the body paragraph opts back into filling that width explicitly
+ * via width: 100% so it still wraps inside the card instead of overflowing.
+ *
+ * justify-content: center matches Figma exactly: each card's icon/pill/body
+ * block is vertically centered within the card, so it's centered here too
+ * — the per-card vertical offset differs (18.5px/29px/29px/35px) because
+ * each card's own content height differs, but that's Figma's real,
+ * intentional layout (confirmed against the frame metadata), not a bug.
+ * What actually varied before was the icon→pill→body rhythm itself: a
+ * `width: 100%` body paragraph doesn't reproduce Figma's per-card content
+ * width (168/168/151/190px, from each card's own inner auto-layout frame,
+ * not just "card width minus padding"), so the body text was wrapping to
+ * an extra line on some cards, throwing off that card's centering relative
+ * to the others. Fixed via explicit per-card max-width below instead.
+ *
+ * The <li> itself only positions/sizes the card (and carries the scroll-
+ * entrance fade); all visual styling lives on the .meet-snap__step-face
+ * child instead, which is also the .card-hover-lift hover target — see the
+ * shared hover-lift rules further down for why that split exists.
+ */
+.meet-snap__step {
+	position: absolute;
+}
+
+.meet-snap__step-face {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	gap: 22px;
+	padding: 33px 21px;
+	box-sizing: border-box;
+	background: var(--color-neutral-white);
+	border: 2px solid var(--color-base-black);
+	border-radius: 20px;
+}
+
+/* Figma's card 4 uses asymmetric padding (pl:21 pr:10) to fit its wider 190px content column. */
+.meet-snap__step:nth-child(4) .meet-snap__step-face {
+	padding: 33px 10px 33px 21px;
+}
+
+/*
+ * Card 1's body copy is the longest of the four and was wrapping to an
+ * extra line versus Figma at the card's default 21px side padding (leaves
+ * only ~165px, just short of the ~168px Figma's own text box uses) — tight
+ * enough that font-rendering differences between Figma and the browser
+ * pushed the last couple of words onto their own line. Trimmed side
+ * padding a little to give the text box more room to breathe.
+ */
+.meet-snap__step:nth-child(1) .meet-snap__step-face {
+	padding: 33px 14px;
+}
+
+.meet-snap__step:nth-child(1) {
+	left: 56.371%;
+	top: -7.590%;
+	width: 17.016%;
+	height: 45.730%;
+}
+
+.meet-snap__step:nth-child(2) {
+	left: 75.323%;
+	top: 8.160%;
+	width: 17.742%;
+	height: 45.730%;
+}
+
+.meet-snap__step:nth-child(3) {
+	left: 56.371%;
+	top: 42.694%;
+	width: 17.016%;
+	height: 45.730%;
+}
+
+.meet-snap__step:nth-child(4) {
+	left: 75.323%;
+	top: 58.444%;
+	width: 17.742%;
+	height: 48.008%;
+}
+
+.meet-snap__step-icon {
+	width: 44px;
+	height: 44px;
+	flex-shrink: 0;
+}
+
+.meet-snap__step-number {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	width: 120px;
+	height: 32px;
+	padding: 4px 11px;
+	box-sizing: border-box;
+	background: var(--color-meet-pill-bg);
+	border: 1px solid var(--color-base-black);
+	border-radius: 9999px;
+	font-family: var(--font-secondary);
+	font-weight: 500;
+	font-size: 16px;
+	letter-spacing: -0.3125px;
+	color: var(--color-meet-pill-text);
+	white-space: nowrap;
+}
+
+.meet-snap__step-body {
+	width: 100%;
+	margin: 0;
+	font-family: var(--font-secondary);
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 1.5;
+	color: var(--color-meet-body);
+}
+
+/* Figma's own inner-content widths per card (168/168/151/190px), so line-wrap points match exactly. */
+.meet-snap__step:nth-child(1) .meet-snap__step-body {
+	max-width: 179px;
+}
+
+.meet-snap__step:nth-child(2) .meet-snap__step-body {
+	max-width: 168px;
+}
+
+.meet-snap__step:nth-child(3) .meet-snap__step-body {
+	max-width: 151px;
+}
+
+.meet-snap__step:nth-child(4) .meet-snap__step-body {
+	max-width: 190px;
+}
+
+@media (max-width: 960px) {
+	/*
+	 * No mobile override existed for this at all — stuck at desktop's
+	 * 48px, "One intelligent route" / "from paperwork to prepared data."
+	 * wrapped into single orphaned words per line (One / intelligent /
+	 * route / from / paperwork to / prepared data.), six lines total.
+	 * Every other section's headline got a mobile size reduction; this
+	 * one was missed. 34px wraps each line to 2+ words.
+	 */
+	.meet-snap__heading {
+		font-size: 34px;
+	}
+
+	/* Same excessive-dead-space fix as the Problem/Built for UK/Usecases
+	   sections — 86px/112px (desktop) stacked with neighboring sections'
+	   own padding left 200px+ of combined blank space. */
+	.meet-snap {
+		padding-block: 56px;
+	}
+
+	/*
+	 * margin-top:147px (desktop) exists because the photo/steps peek
+	 * above this box's own top edge there — at mobile, where everything
+	 * stacks in normal flow instead, that same fixed margin just reads as
+	 * a large unexplained gap between the intro copy and the photo below
+	 * it. Falls back to the intro-group's own 16px column gap instead.
+	 */
+	.meet-snap__visual {
+		aspect-ratio: auto;
+		height: auto;
+		margin-top: 0;
+	}
+
+	/*
+	 * The .meet-snap__step:nth-child(N) rules above (left/top/width/height
+	 * per card) have higher specificity (a class + a pseudo-class) than a
+	 * plain .meet-snap__step selector — so a lower-specificity override
+	 * here would lose to them regardless of source order, leaving each
+	 * card stuck at its ~17%-width desktop size instead of stacking full
+	 * width. Repeating the same nth-child selectors here matches that
+	 * specificity, so this rule wins by being later in the cascade.
+	 */
+	.meet-snap__photo-frame,
+	.meet-snap__step,
+	.meet-snap__step:nth-child(1),
+	.meet-snap__step:nth-child(2),
+	.meet-snap__step:nth-child(3),
+	.meet-snap__step:nth-child(4) {
+		position: static;
+		width: 100%;
+		height: auto;
+		margin: 16px auto;
+	}
+
+	/* margin-top was 40px — on top of the shared rule's own 16px, that
+	   left a much bigger gap above the photo than the intro copy's own
+	   spacing (10px) or anywhere else on the page uses. Falls back to
+	   the shared group's 16px margin now, matching the rhythm used for
+	   the step cards right below it.
+	   aspect-ratio 510/412 (no max-width cap) — the same standard
+	   main-image sizing used by the Problem section's mobile
+	   .problem__photo-frame rule, applied here too so every section's
+	   main image shares one consistent pattern. Was 571/704 with a
+	   400px cap, a portrait crop unique to this section. */
+	.meet-snap__photo-frame {
+		aspect-ratio: 510 / 412;
+	}
+
+	.meet-snap__steps {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 0 21px 40px;
+	}
+
+	.meet-snap__step {
+		max-width: 400px;
+	}
+
+	.meet-snap__step-face {
+		height: auto;
+	}
+
+	.meet-snap__step:nth-child(1) .meet-snap__step-body,
+	.meet-snap__step:nth-child(2) .meet-snap__step-body,
+	.meet-snap__step:nth-child(3) .meet-snap__step-body,
+	.meet-snap__step:nth-child(4) .meet-snap__step-body {
+		max-width: none;
+	}
+}
+
+/* -------------------------------------------------------------------------
+   More Than OCR — Figma node 15150:1588 ("04 / More Than OCR"), 1440x1120.
+   Unlike the hero/Problem/Meet Snap sections, Figma's own structure here is
+   a plain flex column (no overlapping/staggered layers), so this section
+   needs no union-bbox percentage math — it's built the same simple way as
+   the design itself: normal flow, .container for the 1240px content width.
+   ---------------------------------------------------------------------- */
+.more-than-ocr {
+	position: relative;
+	background: var(--color-neutral-night);
+	overflow: hidden;
+}
+
+/*
+ * Node 15150:1589 — decorative full-bleed grid, deliberately wider than the
+ * section (2392px vs. the frame's 1440px) so it bleeds off both edges;
+ * .more-than-ocr's own overflow: hidden clips it back to the viewport
+ * instead of causing horizontal scroll. Scales with the section (166.111%
+ * = 2392/1440) rather than staying a fixed pixel size, matching how every
+ * other full-bleed asset on this page scales; `max-width: none` overrides
+ * the sitewide `img { max-width: 100% }` reset that would otherwise cap it.
+ */
+.more-than-ocr__bg {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 166.111%;
+	max-width: none;
+	height: auto;
+	aspect-ratio: 2392 / 1121.44;
+	pointer-events: none;
+}
+
+.more-than-ocr__inner {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 52px;
+	padding-block: 95px 90px;
+}
+
+.more-than-ocr__heading {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	max-width: 1240px;
+}
+
+.more-than-ocr__eyebrow {
+	margin: 0;
+	font-family: var(--font-primary);
+	font-weight: 700;
+	font-size: var(--text-eyebrow);
+	color: var(--color-brand-orange);
+}
+
+.more-than-ocr__headline {
+	margin: 0;
+	font-weight: 800;
+	font-size: var(--text-meet-heading);
+	line-height: var(--leading-meet-heading);
+	letter-spacing: var(--tracking-meet-heading);
+}
+
+.more-than-ocr__headline-line {
+	display: block;
+	color: var(--color-neutral-white);
+}
+
+.more-than-ocr__headline-line--accent {
+	color: var(--color-brand-orange);
+}
+
+.more-than-ocr__supporting {
+	margin: 0;
+	max-width: 512px;
+	font-family: var(--font-primary);
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 1.65;
+	color: var(--color-ocr-supporting);
+}
+
+/*
+ * 1272px (622 + 28 gap + 622) is genuinely wider than the 1240px heading/
+ * statement blocks above and below it — confirmed in Figma's own frame
+ * data, not a rounding artifact — so the two cards overflow the container's
+ * right edge by 32px at full width. `max-width: calc(100vw - 48px)` keeps
+ * that intentional overflow from becoming a horizontal-scroll bug once the
+ * viewport gets closer to 1272px than the container's own safety gutter.
+ */
+.more-than-ocr__comparison {
+	display: flex;
+	gap: 28px;
+	width: 1272px;
+	max-width: calc(100vw - 48px);
+}
+
+.more-than-ocr__column {
+	flex: 1 1 622px;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+	padding: 32px 34px;
+	border-radius: 22px;
+	box-sizing: border-box;
+}
+
+.more-than-ocr__column--left {
+	background: var(--color-neutral-white);
+}
+
+.more-than-ocr__column--right {
+	background: var(--color-brand-orange);
+}
+
+.more-than-ocr__column-title {
+	margin: 0;
+	font-family: var(--font-primary);
+	font-weight: 800;
+	font-size: 25px;
+	line-height: 31px;
+	color: var(--color-neutral-ink);
+}
+
+.more-than-ocr__items {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+}
+
+.more-than-ocr__items--left {
+	gap: 14px;
+}
+
+.more-than-ocr__items--right {
+	gap: 12px;
+}
+
+.more-than-ocr__item {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	width: 100%;
+	height: 56px;
+	padding: 13px 14px;
+	border-radius: 10px;
+	box-sizing: border-box;
+}
+
+.more-than-ocr__item--left {
+	background: var(--color-neutral-canvas);
+	border: 1px solid var(--color-base-black);
+}
+
+.more-than-ocr__item--right {
+	background: var(--color-neutral-ink);
+}
+
+/*
+ * No explicit width/height here — both icons render at their native SVG
+ * size (the minus icon's own asset is just the 14x3px dash, already offset
+ * to match Figma's inset; the check icon's asset is the full 21x21 circle),
+ * so forcing a size would either distort the thin dash or add nothing the
+ * asset doesn't already have.
+ */
+.more-than-ocr__item-icon {
+	flex-shrink: 0;
+}
+
+.more-than-ocr__item--left .more-than-ocr__item-label {
+	font-family: var(--font-primary);
+	font-weight: 400;
+	font-size: 16px;
+	color: var(--color-neutral-ink);
+}
+
+.more-than-ocr__item--right .more-than-ocr__item-label {
+	font-family: var(--font-primary);
+	font-weight: 700;
+	font-size: 16px;
+	color: var(--color-neutral-white);
+}
+
+.more-than-ocr__statement {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 20px 28px;
+	width: 100%;
+}
+
+.more-than-ocr__statement-old {
+	margin: 0;
+	font-family: var(--font-primary);
+	font-weight: 800;
+	font-size: 30px;
+	color: var(--color-ocr-statement-old);
+	white-space: nowrap;
+}
+
+.more-than-ocr__statement-arrow {
+	margin: 0;
+	font-family: var(--font-primary);
+	font-weight: 400;
+	font-size: 35px;
+	color: var(--color-neutral-muted);
+}
+
+.more-than-ocr__statement-new {
+	margin: 0;
+	font-family: var(--font-primary);
+	font-weight: 800;
+	font-size: 30px;
+	color: var(--color-brand-orange);
+	white-space: nowrap;
+}
+
+@media (max-width: 960px) {
+	/* Same excessive-dead-space fix as the other main sections — 95px/90px
+	   (desktop) stacked with neighbors' own padding left excessive gaps. */
+	.more-than-ocr {
+		padding-block: 56px;
+	}
+
+	/* Same missing-mobile-override bug as Meet Snap's heading (shares the
+	   same --text-meet-heading: 48px token) — "OCR reads text. Snap
+	   Understands Context." wrapped into single-word orphan lines. */
+	.more-than-ocr__headline {
+		font-size: 34px;
+	}
+
+	.more-than-ocr__comparison {
+		flex-direction: column;
+		width: 100%;
+		max-width: 100%;
+	}
+
+	.more-than-ocr__column {
+		flex: 1 1 auto;
+		width: 100%;
+	}
+}
+
+/* -------------------------------------------------------------------------
+   Designed Around UK Accounting Workflows — Figma node 15150:1739
+   ("Background"), 1440x1214. Like the Problem/Meet Snap sections, this is
+   one percentage-positioned box sized to the union of everything in it —
+   photo, headline, the 6-card grid, and the statement strip — 1240x964
+   (x:100-1340, y:131-1095 in frame-local coordinates).
+   ---------------------------------------------------------------------- */
+.built-for-uk {
+	padding-block: 131px 119px;
+}
+
+.built-for-uk__visual {
+	position: relative;
+	width: 100%;
+	max-width: 1240px;
+	aspect-ratio: 1240 / 964;
+	margin-inline: auto;
+}
+
+/*
+ * Node 15150:1740 — border, radius and clipping all on this one wrapper,
+ * same fix as every other photo frame in this build. Sized against the
+ * outer 1240x964 box (52.80% = 509/964).
+ */
+.built-for-uk__photo-frame {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 52.80%;
+	border: 2px solid var(--color-base-black);
+	border-radius: 24px;
+	overflow: hidden;
+}
+
+.built-for-uk__photo {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/*
+ * Node 15150:1741 — a dark gradient fade so the white headline/eyebrow
+ * read clearly over the photo, not a real image. Sized against the photo
+ * frame (its own containing block here), not the outer box: 328/509 tall,
+ * anchored to the photo's bottom edge.
+ */
+.built-for-uk__photo-gradient {
+	position: absolute;
+	left: 0;
+	top: 35.560%;
+	width: 100%;
+	height: 64.440%;
+	background: linear-gradient(to top, #000, rgba(0, 0, 0, 0));
+	pointer-events: none;
+}
+
+.built-for-uk__eyebrow {
+	position: absolute;
+	left: 5.161%;
+	top: 31.950%;
+	width: 7.177%;
+	margin: 0;
+	font-family: var(--font-primary);
+	font-weight: 700;
+	font-size: var(--text-eyebrow);
+	color: var(--color-brand-orange);
+	white-space: nowrap;
+}
+
+/* Bold (700), not the ExtraBold (800) used by every other section's headline — confirmed via get_design_context. */
+.built-for-uk__headline {
+	position: absolute;
+	left: 5.0%;
+	top: 34.130%;
+	margin: 0;
+	font-weight: 700;
+	font-size: 38px;
+	line-height: normal;
+	color: var(--color-neutral-white);
+}
+
+/*
+ * white-space: nowrap, not a wrapping width: Figma's 474px is just the
+ * auto-sized width of the wider ("UK Accounting Workflows") line at this
+ * font, not a box the text wraps inside — constraining it to that width
+ * wrapped that line a second time.
+ */
+.built-for-uk__headline-line {
+	display: block;
+	white-space: nowrap;
+}
+
+.built-for-uk__cards {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+/*
+ * Each card is a color-backing-peeking-behind-a-white-card pair, same
+ * pattern as the hero illustration/header bar — confirmed via
+ * get_design_context: every card has two "Background" rectangles, an
+ * orange one and a white one 5px down/right of it, not a stray duplicate.
+ * This <li> spans the union of both (381x175 vs. each rect's own 376x170)
+ * so the backing and face below can be positioned as simple percentages
+ * of it instead of doing separate top-level union-box math per rect.
+ */
+.built-for-uk__card {
+	position: absolute;
+	width: 30.726%;
+	height: 18.153%;
+}
+
+.built-for-uk__card:nth-child(1) { left: 2.823%; top: 48.133%; }
+.built-for-uk__card:nth-child(2) { left: 34.435%; top: 48.133%; }
+.built-for-uk__card:nth-child(3) { left: 66.048%; top: 48.133%; }
+.built-for-uk__card:nth-child(4) { left: 2.823%; top: 66.992%; }
+.built-for-uk__card:nth-child(5) { left: 34.435%; top: 66.992%; }
+.built-for-uk__card:nth-child(6) { left: 66.048%; top: 66.992%; }
+
+.built-for-uk__card-backing {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 98.687%;
+	height: 97.143%;
+	background: var(--color-brand-orange);
+	border: 1px solid var(--color-base-black);
+	border-radius: 10px;
+}
+
+/*
+ * Icon + title are normal-flow flex children (not two independently
+ * absolute-positioned elements) so a title that wraps to a 2nd line at
+ * in-between viewport widths pushes/shares space with the icon instead of
+ * growing upward into it — the icon was fixed at top:22px while the title
+ * was bottom-anchored and grew upward as it wrapped, so at narrower
+ * "desktop" widths (~960-1150px, between the two hand-tuned breakpoints)
+ * a wrapped title collided with the icon (e.g. the icon covering the "M"
+ * in "Multi-rate VAT support"). space-between reproduces the exact
+ * desktop pixel position (icon at top:22px, title at bottom:26px) when the
+ * title is a single line — same visual result, but the middle gap simply
+ * shrinks instead of overlapping once the title needs a 2nd line.
+ * overflow:hidden is a safety net matching the card's own rounded corners
+ * if a title is ever long enough to still not fit.
+ */
+.built-for-uk__card-face {
+	position: absolute;
+	left: 1.312%;
+	top: 2.857%;
+	width: 98.687%;
+	height: 97.143%;
+	background: var(--color-neutral-white);
+	border: 1px solid var(--color-base-black);
+	border-radius: 10px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-start;
+	padding: 22px 20px 26px;
+	overflow: hidden;
+}
+
+.built-for-uk__card-icon {
+	width: 42px;
+	height: 42px;
+	flex-shrink: 0;
+}
+
+.built-for-uk__card-title {
+	margin: 0;
+	font-family: var(--font-primary);
+	font-weight: 500;
+	font-size: clamp(18px, 2.1vw, 28px);
+	line-height: normal;
+	letter-spacing: -0.2px;
+	color: var(--color-uk-card-title);
+}
+
+/*
+ * Figma has two nearly-identical "Supporting Copy" frames here (15150:1744,
+ * 15150:1773) with the same two sentences — 1744 (black background,
+ * slightly different size/position) never appears in Figma's own rendered
+ * screenshot, fully hidden behind 1773 (orange), so it's a leftover
+ * design-iteration duplicate. Only 1773's styling is implemented below.
+ */
+.built-for-uk__statement {
+	position: absolute;
+	left: 3.226%;
+	top: 87.967%;
+	width: 93.548%;
+	height: 12.033%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 12px 22px;
+	box-sizing: border-box;
+	padding: 26px 28px;
+	background: var(--color-brand-orange);
+	border: 1px solid var(--color-base-black);
+	border-radius: 18px;
+}
+
+.built-for-uk__statement-1 {
+	margin: 0;
+	font-family: var(--font-primary);
+	font-weight: 500;
+	font-size: 28px;
+	color: var(--color-neutral-white);
+	white-space: nowrap;
+}
+
+.built-for-uk__statement-2 {
+	margin: 0;
+	font-family: var(--font-primary);
+	font-weight: 800;
+	font-size: 32px;
+	color: var(--color-neutral-ink);
+	white-space: nowrap;
+}
+
+@media (max-width: 960px) {
+	/* Same excessive-dead-space fix as the other main sections —
+	   131px/119px (desktop) stacked with neighbors' own padding left
+	   excessive gaps. */
+	.built-for-uk {
+		padding-block: 56px;
+	}
+
+	.built-for-uk__visual {
+		aspect-ratio: auto;
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+	}
+
+	/*
+	 * Back to the desktop technique: eyebrow/headline overlaid directly
+	 * on the photo (not split into a separate text card above it). The
+	 * photo-frame is the only in-flow child of .intro-group now — the
+	 * text-block's children are absolute, so it contributes no layout
+	 * height of its own — so .intro-group's rendered box matches the
+	 * photo-frame's box exactly, making it the right containing block
+	 * for the overlaid text-block, and overflow:hidden here is a safety
+	 * clip matching the photo's own rounded corners.
+	 */
+	.built-for-uk__intro-group {
+		position: relative;
+		overflow: hidden;
+		border-radius: 24px;
+	}
+
+	/* Matches the Problem section's mobile photo sizing exactly (see
+	   .problem__photo-frame) — one shared width/aspect-ratio pattern for
+	   every section's main image instead of a different crop per
+	   section. Was a short, wide 1240:509 landscape crop; this section's
+	   square-ish photo reads much better at the site-standard ratio. */
+	.built-for-uk__photo-frame {
+		position: relative;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 510 / 412;
+	}
+
+	/*
+	 * text-block itself (not each child individually) is the thing
+	 * anchored to the photo's bottom-left — its children (eyebrow,
+	 * headline) stay in normal flow inside it, so the block just grows
+	 * upward from the bottom:20px anchor regardless of how many lines
+	 * the headline wraps to, rather than two independently bottom-
+	 * anchored elements with guessed fixed offsets that overlap if the
+	 * headline wraps more than expected.
+	 */
+	.built-for-uk__text-block {
+		position: absolute;
+		left: 20px;
+		right: 20px;
+		bottom: 20px;
+	}
+
+	.built-for-uk__eyebrow,
+	.built-for-uk__headline {
+		position: static;
+		width: auto;
+	}
+
+	/*
+	 * 38px (the desktop size, sized for a ~1160px-wide frame where "UK
+	 * Accounting Workflows" fits on one line) wrapped into 3-4 lines at
+	 * mobile width and overflowed the whole photo. Reduced so the full
+	 * 2-line headline fits inside the photo's dark gradient zone.
+	 */
+	.built-for-uk__headline {
+		font-size: 22px;
+		color: var(--color-neutral-white);
+	}
+
+	.built-for-uk__cards {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+
+	.built-for-uk__card:nth-child(1),
+	.built-for-uk__card:nth-child(2),
+	.built-for-uk__card:nth-child(3),
+	.built-for-uk__card:nth-child(4),
+	.built-for-uk__card:nth-child(5),
+	.built-for-uk__card:nth-child(6) {
+		position: static;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 381 / 145;
+	}
+
+	/*
+	 * Desktop's icon is 42px in a 381px-wide card (~11% of card width) —
+	 * the previous mobile pass shrank it to 26px, only ~8% of this card's
+	 * ~327px width, noticeably less prominent than on desktop. Sized back
+	 * up to the same ~11% ratio (36px). The card's own aspect-ratio above
+	 * is slightly taller (145 vs the previous 130) to give the bigger
+	 * icon + a 2-line title (e.g. "Multi-rate VAT support") enough room
+	 * without the icon's bottom edge crowding the title again.
+	 */
+	/* Base rule above is now flex/static for the >960px fix — mobile still
+	   uses its own independent absolute icon/title positioning (unchanged),
+	   so both need position:absolute reasserted here since the base rule
+	   no longer sets it. */
+	.built-for-uk__card-face {
+		display: block;
+	}
+
+	.built-for-uk__card-icon {
+		position: absolute;
+		width: 36px;
+		height: 36px;
+		top: 14px;
+		left: 14px;
+	}
+
+	/*
+	 * bottom-anchored (matching the desktop rule, which mirrors Figma's
+	 * bottom-anchored text baseline) left the title's actual TOP edge
+	 * wherever the card's height minus the title's own height happened
+	 * to land — with a much shorter mobile card than desktop, that
+	 * worked out to a large, variable gap below the top-anchored icon
+	 * (icon bottom edge at ~40px, title top starting around ~78px).
+	 * Anchoring the title from the top instead, right below the icon,
+	 * makes that gap a fixed, small, intentional distance regardless of
+	 * card height.
+	 */
+	.built-for-uk__card-title {
+		position: absolute;
+		font-size: 22px;
+		top: 58px;
+		bottom: auto;
+		left: 14px;
+		right: 14px;
+	}
+
+	.built-for-uk__statement {
+		position: static;
+		width: 100%;
+		height: auto;
+	}
+}
+
+/*
+ * Both the headline and the statement strip use white-space:nowrap
+ * (correct at desktop size, where Figma's own text box is just the
+ * auto-width of the longer line, not a wrapping constraint) — at phone
+ * widths these are long enough to force real overflow regardless of the
+ * @960px fixes above, confirmed via computed layout (the statement text
+ * measured ~511px wide, well past a ~327px content column). Un-wrapping
+ * both and giving the statement strip a bit more headroom (auto height,
+ * height was a fixed 12% before responsive-string wrapping needed more
+ * vertical room) fixes it without changing anything above 480px.
+ */
+@media (max-width: 480px) {
+	.built-for-uk__headline-line {
+		white-space: normal;
+	}
+
+	.built-for-uk__statement {
+		height: auto;
+	}
+
+	.built-for-uk__statement-1,
+	.built-for-uk__statement-2 {
+		white-space: normal;
+		text-align: center;
+	}
+
+	.built-for-uk__statement-1 {
+		font-size: 22px;
+	}
+
+	.built-for-uk__statement-2 {
+		font-size: 24px;
+	}
+}
+
+/* -------------------------------------------------------------------------
+   How Snap Works — Figma node 15150:1803 ("Frame 55"), 1440x1047.
+   Union box of everything (eyebrow through the bottom of the steps card):
+   x:96-1344, y:124-923 in frame-local coordinates → treated as 1240x799,
+   anchored at the container's left edge (x:100), same technique as the
+   Problem/Meet Snap/Built for UK sections. The steps card and integration
+   card overlap slightly (confirmed with a 1:1 pixel screenshot) — z-index
+   reproduces Figma's paint order (integration on top) independent of DOM
+   order, so the heading can still come first in the DOM for reading order.
+   ---------------------------------------------------------------------- */
+/* Node 15150:1803's own fill is bg-white (#FFFFFF), confirmed via get_design_context — not the page's default cream background. */
+.hsw {
+	padding-block: 124px;
+	background: var(--color-neutral-white);
+}
+
+.hsw__inner {
+	position: relative;
+	aspect-ratio: 1240 / 799;
+}
+
+.hsw__heading {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	text-align: center;
+	z-index: 3;
+}
+
+.hsw__eyebrow {
+	margin: 0 0 8px;
+	font-family: var(--font-primary);
+	font-weight: 700;
+	font-size: var(--text-eyebrow);
+	color: var(--color-brand-orange);
+}
+
+.hsw__headline {
+	margin: 0;
+	font-weight: 800;
+	font-size: 46px;
+	letter-spacing: -1.84px;
+	line-height: normal;
+}
+
+/* Reversed from most other sections: the first span is orange, the second is ink — confirmed against Figma. */
+.hsw__headline-orange {
+	color: var(--color-brand-orange);
+}
+
+.hsw__headline-ink {
+	color: var(--color-neutral-ink);
+}
+
+/*
+ * Node 15150:1804 — flat orange backing, offset 8px up/right from the face
+ * (15150:1889) that sits on top of it, same peeking-color-backing pattern
+ * as the hero/Meet Snap/Built for UK. No content of its own: its embedded
+ * heading/icons are duplicates fully hidden behind the opaque white face.
+ */
+.hsw__steps-backing {
+	position: absolute;
+	left: 0.323%;
+	top: 42.178%;
+	width: 100%;
+	height: 56.821%;
+	background: var(--color-brand-orange);
+	border: 2px solid var(--color-base-black);
+	border-radius: 16px;
+	z-index: 1;
+}
+
+/* Clean positioning ancestor (no border of its own) — see the media-defaults.php note on why. */
+.hsw__steps-face {
+	position: absolute;
+	left: -0.323%;
+	top: 43.179%;
+	width: 100%;
+	height: 56.821%;
+	z-index: 2;
+}
+
+.hsw__steps-face-bg {
+	position: absolute;
+	inset: 0;
+	background: var(--color-neutral-white);
+	border: 2px solid var(--color-base-black);
+	border-radius: 16px;
+}
+
+.hsw__steps {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+/*
+ * transform: translateX(-50%) lives here, not on the [data-animate] element
+ * — [data-animate]'s own transform (translateY, for the entrance fade)
+ * would otherwise completely replace this one instead of combining with
+ * it (CSS `transform` isn't additive across separate rules), silently
+ * un-centering every column by half its own width. .hsw__step-inner below
+ * carries the animation instead.
+ */
+.hsw__step {
+	position: absolute;
+	top: 44.493%;
+	/* min() instead of a flat 200px: each step's own quarter-width slot
+	   (the gap between the left% values below) shrinks with the container,
+	   but a flat 200px doesn't — at the narrow end of the >960px desktop
+	   range that let neighboring steps' fixed-width boxes crowd close
+	   enough to nearly touch. Capping width to a share of the container
+	   keeps a guaranteed minimum gap at every width instead of only the
+	   two ends the old fixed/static breakpoints happened to be tuned for. */
+	width: min(200px, 22%);
+	transform: translateX(-50%);
+}
+
+.hsw__step-inner {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+.hsw__step:nth-child(1) { left: 13.306%; }
+.hsw__step:nth-child(3) { left: 37.823%; }
+.hsw__step:nth-child(5) { left: 62.339%; }
+.hsw__step:nth-child(7) { left: 86.855%; }
+
+/*
+ * Wraps the tile (own circular overflow:hidden clip) and the number badge
+ * as siblings, not the badge nested inside the tile — Figma's own frame
+ * (15150:1848, a direct sibling of the tile frame 15150:1805, not a child
+ * of it) confirms this, and it matters: nesting the badge inside the
+ * tile's circular clip cut off its outer corner instead of letting it
+ * overlap the circle's edge cleanly.
+ */
+.hsw__step-icon-wrap {
+	position: relative;
+	width: 120px;
+	height: 124px;
+	flex-shrink: 0;
+}
+
+.hsw__step-tile {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--color-hsw-tile-bg);
+	border: 2px solid var(--color-base-black);
+	border-radius: 999px;
+	overflow: hidden;
+}
+
+/*
+ * left:-7px, top:0 — confirmed via get_design_context + a 1:1 pixel
+ * screenshot: Figma's badge (15150:1848, x:98) sits 7px LEFT of the tile
+ * (15150:1805, x:105), both starting at the same y — i.e. the top-LEFT
+ * corner of the circle, not top-right.
+ */
+.hsw__step-badge {
+	position: absolute;
+	left: -7px;
+	top: 0;
+	width: 32px;
+	height: 32px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--color-brand-orange);
+	border: 1px solid var(--color-base-black);
+	border-radius: 16px;
+	font-family: var(--font-primary);
+	font-size: 18px;
+	color: var(--color-neutral-white);
+}
+
+.hsw__step-title {
+	margin: 14px 0 0;
+	font-family: var(--font-primary);
+	font-weight: 600;
+	font-size: 24px;
+	line-height: 28px;
+	color: var(--color-hsw-title);
+}
+
+.hsw__step-body {
+	margin: 2px 0 0;
+	font-family: var(--font-primary);
+	font-weight: 500;
+	font-size: 14px;
+	color: var(--color-neutral-muted);
+}
+
+.hsw__connector {
+	position: absolute;
+	top: 58.150%;
+	width: min(184px, 20%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	transform: translate(-50%, -50%);
+}
+
+.hsw__connector:nth-child(2) { left: 25.565%; }
+.hsw__connector:nth-child(4) { left: 50.081%; }
+.hsw__connector:nth-child(6) { left: 74.597%; }
+
+.hsw__connector-line {
+	width: 61px;
+	height: 2px;
+	background: var(--color-brand-orange);
+	border-radius: 999px;
+}
+
+.hsw__connector-chevron {
+	width: 32px;
+	height: 32px;
+	flex-shrink: 0;
+}
+
+/*
+ * Node 15150:1974 — flat orange backing, same peeking pattern as the steps
+ * timeline above.
+ */
+.hsw__integration-backing {
+	position: absolute;
+	left: 3.387%;
+	top: 14.143%;
+	width: 94.516%;
+	height: 45.056%;
+	background: var(--color-brand-orange);
+	border: 2px solid var(--color-base-black);
+	border-radius: 16px;
+	z-index: 4;
+}
+
+/* Clean positioning ancestor — border/radius/clip live on .hsw__integration-photo-frame instead, sized to fill it exactly. */
+.hsw__integration-face {
+	position: absolute;
+	left: 2.742%;
+	top: 15.269%;
+	width: 94.516%;
+	height: 45.056%;
+	z-index: 5;
+}
+
+.hsw__integration-photo-frame {
+	position: absolute;
+	inset: 0;
+	border: 2px solid var(--color-base-black);
+	border-radius: 16px;
+	overflow: hidden;
+}
+
+.hsw__integration-photo {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.hsw__integration-gradient {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(118.92deg, #000 1.1484%, rgba(0, 0, 0, 0) 43.51%);
+	pointer-events: none;
+}
+
+/* Node 15150:2004 — a transparent cutout of the same subject as the background photo, layered on top so it stays sharp despite the gradient dimming the photo behind it. */
+.hsw__integration-cutout {
+	position: absolute;
+	left: 44.539%;
+	top: 0;
+	width: 30.119%;
+	height: 100%;
+	object-fit: cover;
+	object-position: top;
+	pointer-events: none;
+}
+
+.hsw__integration-copy {
+	position: absolute;
+	left: 7.509%;
+	top: 22.5%;
+	display: flex;
+	flex-direction: column;
+	font-family: var(--font-handwritten);
+	font-size: 48px;
+	line-height: 1.05;
+	letter-spacing: -1.44px;
+	color: var(--color-neutral-white);
+}
+
+.hsw__integration-copy-accent {
+	position: relative;
+	display: inline-block;
+	width: fit-content;
+	color: var(--color-brand-orange);
+}
+
+.hsw__integration-copy-underline {
+	display: block;
+	width: 100%;
+	height: auto;
+	margin-top: -6px;
+}
+
+.hsw__integrations {
+	position: absolute;
+	left: 7.509%;
+	top: 70.833%;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: flex;
+	gap: 10px;
+}
+
+.hsw__integration-item {
+	position: relative;
+	width: 47px;
+	height: 47px;
+}
+
+.hsw__integration-icon {
+	width: 100%;
+	height: 100%;
+}
+
+/* Only for placeholder integrations whose icon is a plain circle (no wordmark baked in) — see the show_initials field. */
+.hsw__integration-initials {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: var(--font-primary);
+	font-weight: 700;
+	font-size: 18px;
+	color: var(--color-neutral-white);
+	pointer-events: none;
+}
+
+/* Same [data-animate]-transform conflict as .hsw__step above — see that comment. */
+.hsw__badge {
+	position: absolute;
+	left: 92.577%;
+	top: 70.833%;
+	transform: translateX(-50%);
+}
+
+.hsw__badge-inner {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 4px;
+}
+
+.hsw__badge-icon {
+	width: 54px;
+	height: 54px;
+}
+
+.hsw__badge-text {
+	margin: 0;
+	font-family: var(--font-primary);
+	font-weight: 600;
+	font-size: 14px;
+	color: var(--color-neutral-white);
+	white-space: nowrap;
+}
+
+@media (max-width: 960px) {
+	.hsw {
+		padding-block: 56px;
+	}
+
+	/*
+	 * Same missing-mobile-override bug as Meet Snap/More Than OCR's
+	 * headlines — stuck at desktop's 46px, this wraps into cramped,
+	 * orphaned lines in a ~327px column. 34px matches the mobile size
+	 * already established for headlines in this size range (Meet Snap/
+	 * More Than OCR 48px→34px, Contact/Pricing hero 46px→34px).
+	 */
+	.hsw__headline {
+		font-size: 34px;
+	}
+
+	.hsw__inner {
+		aspect-ratio: auto;
+		display: flex;
+		flex-direction: column;
+		gap: 32px;
+	}
+
+	/*
+	 * position:relative, not static — .hsw__steps-face-bg (this card's
+	 * actual visible white background/border) is position:absolute;
+	 * inset:0, so it needs ITS containing block to stay this element.
+	 * static would have disqualified it, sending inset:0 looking for the
+	 * next positioned ancestor (.hsw__inner, the whole ~1800px section
+	 * column) and ballooning that white background to cover the entire
+	 * section — including painting over the heading above it, which is
+	 * exactly what was happening (confirmed: the heading's own text had
+	 * opacity:1 and correct color, it was just invisible underneath an
+	 * opaque white box that had no business being that large). relative
+	 * behaves identically to static for normal layout/flow purposes —
+	 * the only difference is it stays a valid containing block.
+	 */
+	.hsw__heading,
+	.hsw__steps-backing,
+	.hsw__steps-face,
+	.hsw__integration-backing,
+	.hsw__integration-face {
+		position: relative;
+		width: 100%;
+		height: auto;
+		z-index: auto;
+	}
+
+	.hsw__steps-face {
+		min-height: 320px;
+		padding: 24px 0;
+	}
+
+	/*
+	 * Visual order for mobile: heading first, then the photo (with
+	 * overlaid copy + integration row), then the 4-step timeline. The
+	 * DOM keeps its original order (heading, steps, integration group)
+	 * for reading order; `order` just moves things visually.
+	 */
+	.hsw__heading {
+		order: -3;
+	}
+
+	.hsw__integration-backing {
+		order: -2;
+	}
+
+	.hsw__integration-face {
+		order: -1;
+	}
+
+	.hsw__steps-backing {
+		order: 1;
+	}
+
+	.hsw__steps-face {
+		order: 2;
+	}
+
+	/*
+	 * Both backings are flat orange/bordered divs with no content of
+	 * their own (see the peeking-color-backing pattern used across this
+	 * whole build) — repositioned to position:relative/height:auto above
+	 * so they don't escape their container, but that still leaves their
+	 * own unconditional border+background rendering as a thin bordered
+	 * sliver (an empty box collapses to ~4px, just its own border), which
+	 * read as a stray black divider line above the steps and image.
+	 * Neither has a mobile offset-peek effect to preserve, so both are
+	 * hidden outright, same as the Problem section's own backing.
+	 */
+	.hsw__integration-backing,
+	.hsw__steps-backing {
+		display: none;
+	}
+
+	/*
+	 * .hsw__integration-photo-frame is position:absolute; inset:0, whose
+	 * containing block is .hsw__integration-face — but that just became
+	 * position:static above. An absolute element's containing block skips
+	 * up to the next positioned ancestor when that happens, which here is
+	 * .hsw__inner — now a flex column, not the small integration card.
+	 * inset:0 against THAT stretched the photo (and its gradient overlay,
+	 * same inset:0) to cover the entire section. Switching it to
+	 * position:relative with its own aspect-ratio keeps it correctly
+	 * contained; its photo/gradient/copy children stay position:absolute
+	 * as before, now resolving against this properly-sized parent instead
+	 * of escaping past it.
+	 *
+	 * aspect-ratio: 510/412 — the same standard main-image sizing used by
+	 * the Problem section (its mobile .problem__photo-frame rule), applied
+	 * here too so every section's main image shares one consistent pattern.
+	 */
+	.hsw__integration-photo-frame {
+		position: relative;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 510 / 412;
+	}
+
+	.hsw__steps {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 28px;
+		padding: 32px 0;
+	}
+
+	.hsw__step {
+		position: static;
+		transform: none;
+	}
+
+	/*
+	 * .hsw__connector is a horizontal line-chevron-line row, built for
+	 * sitting BETWEEN steps arranged left-to-right on desktop. Once the
+	 * steps stack vertically, that same horizontal connector rendered as
+	 * a small sideways "→" floating in the gap between two stacked
+	 * cards — connecting nothing, reading as a stray leftover rather
+	 * than a timeline connector. A vertical stack with consistent gaps
+	 * (and each step's own numbered badge) already reads clearly as a
+	 * sequence on its own, so this is hidden outright rather than built
+	 * a vertical equivalent for a fairly small visual gap.
+	 */
+	.hsw__connector {
+		display: none;
+	}
+
+	/*
+	 * .hsw__integration-face's only in-flow child is now the photo —
+	 * both the copy and the footer row are position:absolute, overlaid
+	 * on it (matching desktop's technique), so the face's auto-height
+	 * matches the photo's height exactly, which is what makes "top:50%"/
+	 * "bottom:20px" below line up against the photo and not some taller
+	 * combined box.
+	 */
+
+	/*
+	 * Copy goes back to overlaying the photo (as it does at desktop) now
+	 * that the photo is its own full-bleed banner again — the diagonal
+	 * dark gradient (.hsw__integration-gradient, unchanged) still gives it
+	 * contrast, so white text is correct here, not the ink color used in
+	 * a prior pass when this sat below the photo on a white card.
+	 * Centered in the space ABOVE the footer row (not the whole photo —
+	 * true center of the full photo height overlaps the footer, since
+	 * together the two take up more than the photo's height). A plain
+	 * `top` offset, not transform:translateY — this element carries
+	 * [data-animate], and the entrance-animation system's own
+	 * .is-visible rule (html.js-animate [data-animate].is-visible) sets
+	 * transform: translateY(0) at higher specificity than a single class
+	 * selector, silently overriding any transform set here (the same
+	 * conflict documented above on .hsw__step). Font size bumped up
+	 * further (was 22px) — still too small relative to the photo.
+	 */
+	.hsw__integration-copy {
+		position: absolute;
+		left: 20px;
+		right: 20px;
+		top: 30px;
+		font-size: 28px;
+		line-height: 1.15;
+		letter-spacing: -0.5px;
+		color: var(--color-neutral-white);
+	}
+
+	/*
+	 * The hand-drawn underline asset is wider than the "Automatically."
+	 * word itself (a trailing flourish baked into the artwork) — at
+	 * desktop's much larger 48px copy this reads as a subtle flourish,
+	 * but at this smaller mobile size the same proportional width reads
+	 * as the line shooting off past the word. Pulling it in (the SVG has
+	 * preserveAspectRatio="none", so it compresses evenly rather than
+	 * cropping) keeps the stroke under the actual letterforms.
+	 */
+	.hsw__integration-copy-underline {
+		width: 82%;
+	}
+
+	/*
+	 * Integration logos overlaid on the photo's bottom-left corner,
+	 * matching desktop's technique of putting them directly on the image
+	 * rather than below it on the page background.
+	 */
+	.hsw__integration-footer {
+		position: absolute;
+		left: 20px;
+		bottom: 16px;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 12px;
+	}
+
+	.hsw__integrations {
+		position: static;
+		transform: none;
+		margin: 0;
+	}
+
+	/*
+	 * UK-Ready badge moved to the photo's bottom-RIGHT corner, separated
+	 * from the integration-icon row (previously grouped into the same
+	 * row as the icons, which read as part of that row rather than its
+	 * own corner accent) — a plain sibling of .hsw__integration-footer
+	 * now (see the template), so it positions independently against the
+	 * photo instead of inside the icon row's own small box.
+	 */
+	.hsw__badge {
+		position: absolute;
+		right: 16px;
+		bottom: 16px;
+		left: auto;
+		transform: none;
+		margin: 0;
+	}
+
+	.hsw__integration-cutout {
+		display: none;
+	}
+}
+
+/* -------------------------------------------------------------------------
+   Real Usecases — Figma node 15151:902 ("Frame 64"), 1440x2814.
+   4 rows, none uniform (different image-cluster proportions, different
+   floating-card sets), so each row is its own percentage-positioned box
+   (matching the Problem/Meet Snap technique) sized to the union of that
+   row's text block + image cluster — see .usecase-row--N below, one
+   aspect-ratio/percentage set per row rather than one shared ratio.
+   ---------------------------------------------------------------------- */
+.usecases {
+	padding-block: 116px 137px;
+}
+
+.usecases__heading {
+	margin: 0 0 82px;
+	text-align: center;
+}
+
+.usecases__eyebrow {
+	margin: 0 0 8px;
+	font-family: var(--font-primary);
+	font-weight: 700;
+	font-size: var(--text-eyebrow);
+	color: var(--color-brand-orange);
+}
+
+.usecases__headline {
+	margin: 0;
+	font-weight: 800;
+	font-size: 46px;
+	line-height: 1.1;
+	letter-spacing: -1.84px;
+}
+
+.usecases__headline-orange {
+	color: var(--color-brand-orange);
+}
+
+.usecases__headline-ink {
+	color: var(--color-neutral-ink);
+}
+
+/*
+ * .usecase-row-group wraps .usecase-row-frame (image + floating cards,
+ * scaled as one unit at mobile — see the media query below) and
+ * .usecase-row__text as siblings, so text can be pulled out of the
+ * scaled image cluster and displayed as its own full-width block on
+ * mobile. position:relative + width:100% here (unconditional, not just
+ * at mobile) is what .usecase-row__text's desktop absolute percentages
+ * resolve against now — identical math to when text lived inside
+ * .usecase-row, since .usecase-row-frame (text's only in-flow sibling)
+ * has no size of its own beyond exactly wrapping .usecase-row.
+ */
+.usecase-row-group {
+	position: relative;
+	width: 100%;
+}
+
+/*
+ * Gap between rows (row 1's own gap from the heading is on .usecases__heading
+ * above instead). Targets .usecase-row-group, the outermost element that
+ * repeats once per row.
+ */
+.usecase-row-group + .usecase-row-group {
+	margin-top: 160px;
+}
+
+.usecase-row {
+	position: relative;
+	width: 100%;
+}
+
+/*
+ * Node 15150:1492/1493/1494/1495 — flat orange backing, same peeking-
+ * color-backing pattern as every other section (hero, Meet Snap, Built for
+ * UK, How Snap Works). No content of its own.
+ */
+.usecase-row__backing {
+	position: absolute;
+	background: var(--color-brand-orange);
+	border: 2px solid var(--color-base-black);
+}
+
+.usecase-row__photo-frame {
+	position: absolute;
+	border: 2px solid var(--color-base-black);
+	overflow: hidden;
+}
+
+.usecase-row__photo {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/*
+ * Same class of fix as the Meet Snap photo crop — nudges which part of
+ * the source photo is visible within the frame, same technique as
+ * .meet-snap__photo's object-position. Verified direction empirically
+ * (rendered the real assets at 0%/50%/100% and compared): a LOWER
+ * percentage shows more of the image's left side, shifting the subject
+ * right in-frame; a HIGHER percentage shifts the subject left. (A first
+ * pass had this backwards — 65%/35% — which moved both photos the
+ * wrong way.)
+ */
+.usecase-row--2 .usecase-row__photo {
+	object-position: 38% center;
+}
+
+.usecase-row--4 .usecase-row__photo {
+	object-position: 85% center;
+}
+
+.usecase-row__text {
+	position: absolute;
+}
+
+/*
+ * Node 15150:2240 (and its row2-4 equivalents) — confirmed via
+ * get_design_context: bg-orange, 1.702px black border, radius10, and a
+ * hard (non-blurred) offset shadow to the top-left — a different shadow
+ * language than the soft box-shadows used elsewhere in this build, so it's
+ * called out explicitly rather than reused from another token.
+ */
+.usecase-row__icon-badge {
+	width: 80px;
+	height: 80px;
+	margin-bottom: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	background: var(--color-brand-orange);
+	border: 1.702px solid var(--color-base-black);
+	border-radius: 10px;
+	box-shadow: -2px -2px 0 0 var(--color-base-black);
+}
+
+.usecase-row__icon {
+	width: 68%;
+	height: 68%;
+}
+
+.usecase-row__title {
+	margin: 0;
+	font-family: var(--font-primary);
+	font-weight: 600;
+	font-size: clamp(28px, 3vw, 38px);
+	letter-spacing: -0.5px;
+	color: var(--color-base-black);
+}
+
+/* Nodes 15150:2048/2054/2049/2055 (all 4 rows' body copy) — confirmed via
+   design context: Manrope Medium, 20px, #5c5c60, tracking -0.07px,
+   line-height "normal" (font default), not the 1.5 previously guessed. */
+.usecase-row__body {
+	margin: 12px 0 0;
+	max-width: 400px;
+	font-family: var(--font-primary);
+	font-weight: 500;
+	font-size: 20px;
+	letter-spacing: -0.07px;
+	line-height: normal;
+	color: var(--color-usecase-body);
+}
+
+/* ---- Row 1 (Accounting firms) — aspect-ratio 1240/451 ---- */
+.usecase-row--1 {
+	aspect-ratio: 1240 / 451;
+}
+
+/* Node 15150:2240 exact spec — padding-driven icon sizing rather than the
+   68%-of-badge shorthand used as a default for the other 3 rows. */
+.usecase-row--1 .usecase-row__icon-badge {
+	padding: 12.766px;
+}
+
+.usecase-row--1 .usecase-row__icon {
+	width: 54.468px;
+	height: 54.468px;
+	flex-shrink: 0;
+}
+
+/*
+ * Node 15150:1492 (box, x=222,y=346,394x422) vs 15150:2056 (photo,
+ * x=239,y=359,392x422), both re-confirmed via design context against this
+ * row's 1240x451 reference (anchored at x=100,y=330 — solved from the
+ * photo-frame rule below, which already matches 2056's exact dimensions).
+ * Offset is -17px/-13px (box vs photo): this backing peeks past the
+ * photo's edges on the TOP and LEFT only — its own left/top edges sit
+ * flush with the reference box's own edges, while its right/bottom edges
+ * sit short of the photo's (box height 422 exactly equals photo height,
+ * so no bottom peek; box width 394 vs photo width 392 keeps the right
+ * edges close but the photo still wins there). A prior version stretched
+ * this panel's height to close a corner gap instead of using the box's
+ * real height; per explicit direction this now uses the exact geometry.
+ * border-radius is 24px here (not 16px) — confirmed via design context
+ * that this box's own corner radius differs from the photo's 16px, an
+ * intentional Figma mismatch, not an error.
+ */
+.usecase-row--1 .usecase-row__backing {
+	left: 9.839%;
+	top: 3.548%;
+	width: 31.774%;
+	height: 93.570%;
+	border-radius: 24px;
+}
+
+.usecase-row--1 .usecase-row__photo-frame {
+	left: 11.210%;
+	top: 6.430%;
+	width: 31.613%;
+	height: 93.570%;
+	border-radius: 16px;
+}
+
+.usecase-row__text--1 {
+	left: 53.468%;
+	top: 28.603%;
+	width: 39.839%;
+}
+
+/* ---- Row 2 (Bookkeepers) — aspect-ratio 1240/482 ---- */
+.usecase-row--2 {
+	aspect-ratio: 1240 / 482;
+}
+
+/*
+ * Node 15150:1494 (box, x=817,y=940,469x466) vs 15150:2050 (photo,
+ * x=787,y=956,481x466), re-confirmed via design context against this row's
+ * 1240x482 reference (anchored at x=100,y=940). Despite box.x > photo.x
+ * here (opposite of row 1's relationship), the real offset resolves to
+ * +18px/-16px (box vs photo) — this backing peeks past the photo's edges
+ * on the TOP and RIGHT only (same direction as the Problem section's
+ * photo), not the left, where the photo actually extends further than
+ * this box. Box and photo heights are identical (466px each), so there's
+ * no bottom peek and no need to stretch height to 100% as the prior
+ * version did.
+ */
+.usecase-row--2 .usecase-row__backing {
+	left: 57.823%;
+	top: 0;
+	width: 37.823%;
+	height: 96.680%;
+	border-radius: 24px;
+}
+
+.usecase-row--2 .usecase-row__photo-frame {
+	left: 55.403%;
+	top: 3.320%;
+	width: 38.790%;
+	height: 96.680%;
+	border-radius: 24px;
+}
+
+.usecase-row__text--2 {
+	left: 8.790%;
+	top: 20.124%;
+	width: 29.516%;
+}
+
+/* Node 15150:2265 exact spec — same padding-driven icon sizing as row 1. */
+.usecase-row--2 .usecase-row__icon-badge {
+	padding: 12.766px;
+}
+
+.usecase-row--2 .usecase-row__icon {
+	width: 54.468px;
+	height: 54.468px;
+	flex-shrink: 0;
+}
+
+/* ---- Row 3 (SMEs) — aspect-ratio 1240/453 ---- */
+.usecase-row--3 {
+	aspect-ratio: 1240 / 453;
+}
+
+/*
+ * Node 15150:1493 (box, x=223,y=1602,361x422) vs 15150:2063 (photo,
+ * x=239,y=1614,406x422), re-confirmed via design context against this
+ * row's 1240x453 reference (anchored at x=100,y=1583) — both share the
+ * same 24px radius (no mismatch here, unlike row 1). Offset is
+ * -16px/-12px (box vs photo): peeks TOP and LEFT only. This box is
+ * considerably narrower than the photo (361px vs 406px) — its right edge
+ * sits 61px short of the photo's, which is fine, since that whole span is
+ * covered by the photo sitting in front of it regardless; a prior version
+ * stretched this panel's width by exactly that 61px to reach the photo's
+ * right edge, painting orange that Figma's own geometry never has visible
+ * there. Per explicit direction this now uses the box's real width.
+ */
+.usecase-row--3 .usecase-row__backing {
+	left: 9.919%;
+	top: 4.194%;
+	width: 29.113%;
+	height: 93.157%;
+	border-radius: 24px;
+}
+
+.usecase-row--3 .usecase-row__photo-frame {
+	left: 11.210%;
+	top: 6.843%;
+	width: 32.742%;
+	height: 93.157%;
+	border-radius: 24px;
+}
+
+.usecase-row__text--3 {
+	left: 55.565%;
+	top: 30.684%;
+	width: 39.839%;
+}
+
+/* Node 15150:2285 exact spec — same padding-driven box as rows 1-2, but
+   this row's icon glyph is its own intrinsic size (51.915px, not 54.468). */
+.usecase-row--3 .usecase-row__icon-badge {
+	padding: 12.766px;
+}
+
+.usecase-row--3 .usecase-row__icon {
+	width: 51.915px;
+	height: 51.915px;
+	flex-shrink: 0;
+}
+
+/* ---- Row 4 (Multi-entity businesses) — aspect-ratio 1240/479 ---- */
+.usecase-row--4 {
+	aspect-ratio: 1240 / 479;
+}
+
+/*
+ * Node 15150:1495 (box, x=858,y=2198,447x457) vs 15150:2051 (photo,
+ * x=841,y=2213,446x464), re-confirmed via design context against this
+ * row's 1240x479 reference (anchored at x=100,y=2198) — same 24px radius
+ * on both. Offset is +18px/-15px (box vs photo): peeks TOP and RIGHT
+ * only, same direction as rows 2 and the Problem section. Box is 7px
+ * shorter than the photo (457px vs 464px), so it doesn't reach the
+ * bottom — the prior version stretched height to 100% to compensate;
+ * per explicit direction this now uses the box's real height instead.
+ */
+.usecase-row--4 .usecase-row__backing {
+	left: 61.129%;
+	top: 0;
+	width: 36.048%;
+	height: 95.408%;
+	border-radius: 24px;
+}
+
+.usecase-row--4 .usecase-row__photo-frame {
+	left: 59.758%;
+	top: 3.132%;
+	width: 35.968%;
+	height: 96.868%;
+	border-radius: 24px;
+}
+
+/*
+ * Node 15150:2053 — "Multi-entity businesses" needs 494px to fit on one
+ * line at 38px Manrope SemiBold (its own natural text width per design
+ * context), but this row's text column was 27.5% (≈341px at the 1240px
+ * reference width) — too narrow, forcing a wrap. Widened to 39.839%
+ * (≈494px, matching rows 1 & 3's text-column width) so it fits; the
+ * photo doesn't start until 59.758%, leaving plenty of room.
+ */
+.usecase-row__text--4 {
+	left: 8.790%;
+	top: 24.426%;
+	width: 39.839%;
+}
+
+/*
+ * Shared floating-card chrome — every stat card and status badge across
+ * all 4 rows uses this same white-card-with-black-border language, so it's
+ * one base rule rather than repeated per row.
+ */
+.usecase-card {
+	position: absolute;
+	background: var(--color-neutral-white);
+	border: 1px solid var(--color-base-black);
+	border-radius: 16px;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+.usecase-card__title {
+	margin: 0;
+	font-family: var(--font-secondary);
+	font-weight: 700;
+	font-size: 12px;
+	color: var(--color-usecase-card-ink);
+}
+
+.usecase-badge {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	box-sizing: border-box;
+	border: 1px solid var(--color-base-black);
+	border-radius: 9999px;
+	background: var(--color-neutral-white);
+}
+
+.usecase-badge__label {
+	font-family: var(--font-secondary);
+	font-weight: 600;
+	font-size: 13px;
+	color: var(--color-usecase-card-ink);
+	white-space: nowrap;
+}
+
+.usecase-badge__icon {
+	width: 24px;
+	height: 24px;
+	flex-shrink: 0;
+}
+
+.usecase-badge__icon-stack {
+	position: relative;
+	width: 38px;
+	height: 38px;
+	flex-shrink: 0;
+}
+
+.usecase-badge__icon-bg,
+.usecase-badge__icon-check {
+	position: absolute;
+}
+
+.usecase-badge__icon-bg {
+	inset: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.usecase-badge__icon-check {
+	width: 42%;
+	height: 42%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+/* ============ Row 1 cards: invoice list, big stat, 2 badges ============ */
+.usecase-card--invoice-review {
+	left: 32.339%;
+	top: 0;
+	width: 15.081%;
+	height: 27.051%;
+	padding: 12px 13px;
+	border-radius: 12px;
+}
+
+.usecase-card--invoice-review .usecase-card__title {
+	display: inline-block;
+	max-width: 78%;
+	font-size: 13.273px;
+}
+
+.usecase-card__title-icon {
+	position: absolute;
+	top: 12px;
+	right: 13px;
+	width: 16px;
+	height: auto;
+	color: var(--color-brand-orange);
+}
+
+.usecase-card__invoice-list {
+	margin: 12px 0 0;
+	padding: 0;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+}
+
+/*
+ * Node 15150:2095 — row tops sit at 47.94px / 70.34px / 92.74px, i.e. an
+ * exact 22.4px row-to-row rhythm. Rather than deriving that from a
+ * font-size-dependent line-height, each row is given a fixed 22.4px box
+ * (gap:0 above) so the rhythm holds regardless of text-metrics rounding.
+ */
+.usecase-card__invoice-row {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	height: 22.4px;
+	font-family: var(--font-secondary);
+	font-size: 9.125px;
+	font-weight: 500;
+	color: var(--color-usecase-card-ink);
+}
+
+.usecase-card__invoice-id {
+	flex-shrink: 0;
+}
+
+.usecase-card__invoice-bar {
+	flex: 1 1 auto;
+	height: 5px;
+	border-radius: 3px;
+	background: #e8e3db;
+}
+
+.usecase-card__invoice-amount {
+	flex-shrink: 0;
+}
+
+.usecase-card--stat {
+	left: 2.867%;
+	top: 58.315%;
+	width: 11.708%;
+	height: 20.694%;
+	border-radius: 10px;
+	padding: 16.76px 14px 12px 20.45px;
+}
+
+.usecase-card__stat-value {
+	margin: 0;
+	font-family: var(--font-secondary);
+	font-weight: 600;
+	font-size: 29.865px;
+	color: var(--color-usecase-card-ink);
+}
+
+.usecase-card__stat-label {
+	margin: 6px 0 0;
+	font-family: var(--font-secondary);
+	font-weight: 400;
+	font-size: 11.199px;
+	color: var(--color-usecase-card-ink);
+}
+
+.usecase-badge--filed {
+	left: 0.323%;
+	top: 76.665%;
+	width: 7.339%;
+	height: 9.091%;
+	padding: 0 14px 0 8px;
+	background: var(--color-brand-orange);
+	border-radius: 10px;
+}
+
+.usecase-badge--filed .usecase-badge__label {
+	color: var(--color-neutral-white);
+}
+
+.usecase-badge--approved {
+	left: 5.806%;
+	top: 83.761%;
+	width: 9.919%;
+	height: 10.643%;
+	padding: 0 16px 0 8px;
+	border-radius: 10px;
+}
+
+/* Nodes 15150:2118/2119/2121 exact spec — circle 24.058px, check 15.347px
+   (not the 38px/42%-of-stack sizing the shared .usecase-badge__icon-stack
+   default uses for the other rows' stacked-icon badges), label 12.444px. */
+.usecase-badge--approved .usecase-badge__icon-stack {
+	width: 24.058px;
+	height: 24.058px;
+}
+
+.usecase-badge--approved .usecase-badge__icon-check {
+	width: 15.347px;
+	height: 15.347px;
+}
+
+.usecase-badge--approved .usecase-badge__label {
+	font-size: 12.444px;
+	line-height: normal;
+}
+
+/* ======== Row 2 cards: donut chart, reconciliation, profit chart ======== */
+.usecase-card--donut {
+	left: 48.710%;
+	top: 43.776%;
+	width: 16.487%;
+	height: 28.385%;
+	padding: 13px 14px;
+}
+
+/* This card's ink color reads #0f0f0f in Figma, not the site's usual
+   #260f05 card-ink token — a per-node drift confirmed via design context,
+   scoped here rather than changing the shared token used elsewhere. */
+.usecase-card--donut .usecase-card__title {
+	font-weight: 600;
+	font-size: 11.532px;
+	color: #0f0f0f;
+}
+
+.usecase-card--donut .usecase-card__legend-row {
+	color: #0f0f0f;
+}
+
+/*
+ * Node 15150:2122 metadata: card is 204.438x136.816px. Donut chart sits at
+ * 77.582x77.582px (not a 41%-of-card guess), and the legend column starts
+ * at absolute x:99.07/y varies by row — expressed here as a negative
+ * margin-top (= -chart height, pulling the list up beside the chart) and a
+ * margin-left matching the dot's measured offset from the card's padded
+ * content edge (99.07 - 14px padding = 85.07). Scoped to the donut card so
+ * row 3's Expense Summary card (same base classes) is untouched.
+ */
+.usecase-card__donut-img {
+	display: block;
+	width: 77.582px;
+	height: 77.582px;
+	margin-top: 10px;
+}
+
+.usecase-card--donut .usecase-card__legend {
+	margin: -77.582px 0 0 85.07px;
+	padding: 0;
+	gap: 0;
+}
+
+/* Nodes 15150:2126/2129/2132/2135 (labels) + 2127/2130/2133/2136 (percents)
+   — confirmed via design context: Inter, 10px, #0f0f0f, line-height normal,
+   label weight 400 / percent weight 500 (already set on the child classes
+   below). Explicit here for certainty rather than relying on the browser
+   default. */
+.usecase-card--donut .usecase-card__legend-row {
+	height: 20.97px;
+	gap: 6.814px;
+	line-height: normal;
+}
+
+.usecase-card--donut .usecase-card__legend-dot {
+	width: 7.339px;
+	height: 7.339px;
+	border-radius: 1.573px;
+}
+
+.usecase-card__legend {
+	margin: -34% 0 0 41%;
+	padding: 0 0 0 12px;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+}
+
+.usecase-card__legend-row {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-family: var(--font-secondary);
+	font-size: 10px;
+	color: var(--color-usecase-card-ink);
+}
+
+.usecase-card__legend-dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	flex-shrink: 0;
+}
+
+.usecase-card__legend-label {
+	flex: 1 1 auto;
+	font-weight: 400;
+}
+
+.usecase-card__legend-percent {
+	font-weight: 500;
+	flex-shrink: 0;
+}
+
+.usecase-card--reconciliation {
+	left: 49.597%;
+	top: 23.237%;
+	width: 15.565%;
+	height: 18.979%;
+	padding: 14px;
+	display: flex;
+	align-items: center;
+	gap: 13.61px;
+	border-radius: 12px;
+	/* Node 15150:2146 metadata — this card's own border is 1.116px, not
+	   the shared .usecase-card 1px default. */
+	border: 1.116px solid var(--color-base-black);
+}
+
+/* Node 15150:2147/2148 metadata — circle 37.429px, check 21.55px (not the
+   32px/42%-of-stack defaults used elsewhere for stacked-icon badges). */
+.usecase-card__reconciliation-icon {
+	width: 37.429px;
+	height: 37.429px;
+}
+
+/*
+ * Node 15150:2147/2148 literal offsets — circle at (16.46,18.17), check at
+ * (24.97,26.67), i.e. the check is inset 8.51px/8.50px from the circle's
+ * own top-left, NOT perfectly centered (perfect centering would be
+ * 7.94px). The shared .usecase-badge__icon-check default centers via a
+ * 50%/50%+translate trick, which doesn't reproduce that ~0.57px offset —
+ * overridden here with the literal inset instead.
+ */
+.usecase-card__reconciliation-icon .usecase-badge__icon-check {
+	top: 8.5px;
+	left: 8.51px;
+	transform: none;
+	width: 21.55px;
+	height: 21.55px;
+}
+
+.usecase-card__reconciliation-title {
+	margin: 0;
+	font-family: var(--font-secondary);
+	font-weight: 600;
+	font-size: 13.61px;
+	line-height: 1.25;
+	color: #0f0f0f;
+}
+
+.usecase-card__reconciliation-subtitle {
+	margin: 4px 0 0;
+	font-family: var(--font-secondary);
+	font-weight: 400;
+	font-size: 10.208px;
+	color: #6e6e6e;
+}
+
+.usecase-card--profit {
+	left: 87.984%;
+	top: 8.714%;
+	width: 12.339%;
+	height: 27.040%;
+	padding: 12px;
+}
+
+/* Node 15150:2174 exact spec — this card's title is Semibold/9.917px/
+   #0f0f0f, not the shared 700/12px/#260f05 .usecase-card__title default. */
+.usecase-card--profit .usecase-card__title {
+	font-weight: 600;
+	font-size: 9.917px;
+	color: #0f0f0f;
+}
+
+/*
+ * Node 15150:2175/2176 literal offsets (relative to card): value at
+ * (15.58,32.23), change at (96.33,38.25). Baseline-flex approximated this
+ * but depends on font-metric guesses the browser may round differently;
+ * switched to an explicit offset from the value's own box (left:
+ * 96.33-15.58=80.75px, top: 38.25-32.23=6.02px) so the change sits at the
+ * literal coordinate instead.
+ */
+.usecase-card__profit-row {
+	position: relative;
+	margin-top: 6px;
+}
+
+.usecase-card__profit-value {
+	margin: 0;
+	font-family: var(--font-secondary);
+	font-weight: 500;
+	font-size: 16.646px;
+	line-height: normal;
+	color: #0f0f0f;
+}
+
+.usecase-card__profit-change {
+	position: absolute;
+	left: 80.75px;
+	top: 6.02px;
+	font-family: var(--font-secondary);
+	font-weight: 600;
+	font-size: 8.5px;
+	color: #ff4714;
+}
+
+/* Node 15150:2177 exact size — 134.583x56.564px. This exceeds the card's
+   own padded content width (129px), so the sitewide `img { max-width:100% }`
+   reset (style.css:102) was silently capping it smaller than spec;
+   `max-width: none` overrides that, same idiom as .more-than-ocr__bg. */
+.usecase-card__profit-chart {
+	display: block;
+	width: 134.583px;
+	height: 56.564px;
+	max-width: none;
+	margin-top: 8px;
+}
+
+/*
+ * ======== Row 3 cards: receipt capture, expense summary, badge ========
+ * Padding dropped to 0 here (was 12px): every child below is now
+ * absolutely positioned with literal left/top pulled from design context,
+ * and CSS measures absolute-child offsets from the *padding* edge, so any
+ * non-zero padding would silently double-offset every one of them.
+ */
+.usecase-card--receipt {
+	left: 34.274%;
+	top: 0;
+	width: 13.688%;
+	height: 29.581%;
+	padding: 0;
+}
+
+/*
+ * This card's ink color reads #0d0d0d in Figma, not the site's usual
+ * #260f05 card-ink token — confirmed via design context, scoped here.
+ * Position note applying to every absolutely-positioned child in this
+ * card group: use design-context's reported left/top values verbatim.
+ * (An earlier pass additionally subtracted the card's 1px border from
+ * every value on the theory that design-context coordinates were
+ * relative to the true outer corner — verified wrong by rendering this
+ * exact card against Figma's own screenshot pixel-for-pixel: the raw,
+ * uncorrected numbers matched exactly, so that subtraction is reverted.)
+ */
+.usecase-card--receipt .usecase-card__title {
+	position: absolute;
+	left: 14.63px;
+	top: 14.19px;
+	font-weight: 600;
+	font-size: 11.167px;
+	color: #0d0d0d;
+}
+
+/*
+ * The uploaded asset (r3-camera-icon.svg) is the inner "Solid" glyph only
+ * — its native size is 25x20 (viewBox), not the 30x30 outer frame — with
+ * preserveAspectRatio="none", so forcing it into a 30x30 box was silently
+ * stretching it non-uniformly (1.2x horizontal, 1.5x vertical). Sized at
+ * its native 25x20 and inset from the frame's (125,7) origin by the
+ * frame's own 8.33%/16.67% padding (30*0.0833=2.5, 30*0.1667=5).
+ */
+.usecase-card__camera-icon {
+	position: absolute;
+	left: 127.5px;
+	top: 12px;
+	width: 25px;
+	height: 20px;
+}
+
+.usecase-card__receipt-preview {
+	position: absolute;
+	left: 15.63px;
+	top: 47.35px;
+	display: block;
+	width: 60.3px;
+	height: 64.767px;
+	padding: 7.15px 8.487px 0 8.04px;
+	box-sizing: border-box;
+	background: #ebe5de;
+	border-radius: 3.573px;
+}
+
+.usecase-card__receipt-label {
+	display: block;
+	margin: 0 0 6.06px 6.25px;
+	font-family: var(--font-secondary);
+	font-size: 4.913px;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	color: var(--color-usecase-card-muted);
+}
+
+.usecase-card__receipt-line {
+	display: block;
+	width: 100%;
+	height: 1.34px;
+	background: #bdb8b0;
+	border-radius: 0.893px;
+	margin-bottom: 5.36px;
+}
+
+.usecase-card__receipt-line--short {
+	width: 77.57%;
+}
+
+.usecase-card__receipt-total-label {
+	position: absolute;
+	left: 87px;
+	top: 47.35px;
+	margin: 0;
+	font-family: var(--font-secondary);
+	font-size: 8.04px;
+	color: var(--color-usecase-card-muted);
+}
+
+.usecase-card__receipt-total {
+	position: absolute;
+	left: 87px;
+	top: 63.87px;
+	margin: 0;
+	font-family: var(--font-secondary);
+	font-weight: 600;
+	font-size: 18.313px;
+	color: #0d0d0d;
+}
+
+.usecase-card__receipt-check {
+	position: absolute;
+	left: 87px;
+	top: 96.03px;
+	width: 15.187px;
+	height: 15.187px;
+}
+
+/* Literal check inset within the circle (3.57px/3.97px) — not perfectly
+   centered (would be 3.57/3.57), so the shared centered-transform default
+   is overridden here same as the Reconciliation badge fix. */
+.usecase-card__receipt-check .usecase-badge__icon-check {
+	top: 3.97px;
+	left: 3.57px;
+	transform: none;
+	width: 8.04px;
+	height: 8.04px;
+}
+
+.usecase-card__receipt-status {
+	position: absolute;
+	left: 106.1px;
+	top: 96.37px;
+	font-family: var(--font-secondary);
+	font-weight: 600;
+	font-size: 8.933px;
+	color: #0d0d0d;
+}
+
+.usecase-card--expense {
+	left: 1.452%;
+	top: 58.278%;
+	width: 16.855%;
+	height: 34.216%;
+	padding: 15px;
+}
+
+/* Node 15150:2153 exact spec — this card's title is Semibold/12.886px/
+   #0d0d0d, not the shared 700/12px/#260f05 .usecase-card__title default. */
+.usecase-card--expense .usecase-card__title {
+	font-weight: 600;
+	font-size: 12.886px;
+	color: #0d0d0d;
+}
+
+/*
+ * Node 15150:2170 exact spec: icon is 24x24 at card-relative (169,15),
+ * used verbatim as left/top — validated by rendering this exact card
+ * against Figma's own screenshot and matching pixel-for-pixel. (Two
+ * earlier passes tried to compensate for the card's border/padding via
+ * right/bottom arithmetic and landed 14px, then 1px, off — direct
+ * left/top with the raw design-context numbers is simplest and correct.)
+ */
+.usecase-card__file-icon {
+	position: absolute;
+	left: 169px;
+	top: 15px;
+	width: 24px;
+	height: 24px;
+}
+
+/*
+ * Nodes 15150:2155-2169 — row rhythm is an exact 23.09px cadence (dot
+ * tops: 58.52/81.61/104.7/127.79), and dot-to-label gap is 8.049px
+ * (34.97 - 19.33 - 8.591). Label/amount/percent all read #696b6b here
+ * (not the shared #260f05 ink token) at 10px — label weight 400, amount
+ * and percent both weight 500 (only two distinct styles, not three).
+ */
+.usecase-card--expense .usecase-card__legend {
+	margin: 20px 0 0;
+	padding: 0;
+	gap: 0;
+}
+
+.usecase-card--expense .usecase-card__legend-row {
+	height: 23.09px;
+	gap: 8.049px;
+	color: #696b6b;
+}
+
+.usecase-card--expense .usecase-card__legend-dot {
+	width: 8.591px;
+	height: 8.591px;
+}
+
+.usecase-card__legend-amount {
+	font-weight: 500;
+	flex-shrink: 0;
+	margin-right: 6px;
+}
+
+/*
+ * Node 15150:2071 exact spec — 16px-radius rounded rect with a 1.288px
+ * border, not the shared pill-shaped (9999px, 1px border) .usecase-badge
+ * default. Padding/gap recomputed from literal child coordinates (icon
+ * left:14.22, label left:55.45 width:82, badge content box after the
+ * 1.288px border = 162.424px wide): padding-left = 14.22-1.288 = 12.932;
+ * gap = 55.45-1.288 - (12.932+30.629) = 10.601; padding-right =
+ * 162.424 - (55.45-1.288+82) = 26.262. The previous padding-right (16px)
+ * left ~10px more room than Figma actually gives the label, which let it
+ * wrap wider/differently than intended and crowd the circle.
+ */
+.usecase-badge--organized {
+	left: 35.806%;
+	top: 77.483%;
+	width: 13.306%;
+	height: 11.734%;
+	padding: 0 26.262px 0 12.932px;
+	gap: 10.601px;
+	background: var(--color-brand-orange);
+	border: 1.288px solid var(--color-base-black);
+	border-radius: 16px;
+	box-shadow: 0 7px 18px rgba(26, 15, 8, 0.16);
+}
+
+/* Node 15150:2072 — a single flattened 30.629px icon (bg circle + check
+   baked into one asset), not a 2-layer stack like Approved/Reconciliation
+   — confirmed via design context, so only the container size needs fixing
+   (was the generic 24px .usecase-badge__icon default). */
+.usecase-badge--organized .usecase-badge__icon {
+	width: 30.629px;
+	height: 30.629px;
+	max-width: none;
+}
+
+/* Node 15150:2076 — label's own box is 82px wide in Figma; constraining
+   it here (rather than letting it wrap to whatever width the flex row
+   happens to leave over) guarantees the exact same "All documents" /
+   "organized" break Figma shows, independent of the padding/gap above. */
+.usecase-badge--organized .usecase-badge__label {
+	max-width: 82px;
+	color: var(--color-neutral-white);
+	white-space: normal;
+	font-size: 11.78px;
+	line-height: 1.25;
+}
+
+/* ============ Row 4 cards: entity list, synced, 2 badges ============ */
+/* Node 15150:2191 — this card's border reads 1.047px in Figma. */
+.usecase-card--entity {
+	left: 51.448%;
+	top: 20.877%;
+	width: 17.990%;
+	height: 41.582%;
+	border: 1.047px solid var(--color-base-black);
+	border-radius: 14px;
+}
+
+.usecase-card__entity-header {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 10px 12px;
+	background: var(--color-brand-orange);
+}
+
+.usecase-card__entity-header-icon {
+	width: 16px;
+	height: 16px;
+}
+
+.usecase-card__entity-header-title {
+	margin: 0;
+	font-family: var(--font-primary);
+	font-weight: 700;
+	font-size: 12.568px;
+	color: var(--color-neutral-white);
+}
+
+.usecase-card__entity-list {
+	margin: 0;
+	padding: 8px 10px;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+}
+
+/*
+ * Node 15150:2196/2207/2212 — row-to-row rhythm is an exact 51.79px
+ * cadence (icon tops 56.71/108.5/160.29, and the divider tops confirm
+ * the same gap), reproduced via a fixed row height + gap:0, same
+ * technique as the Invoice Review / donut-legend row-rhythm fixes.
+ * Divider color (#e0e0de) already matches Figma exactly — no change.
+ */
+.usecase-card__entity-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	height: 51.79px;
+	border-bottom: 1px solid #e0e0de;
+}
+
+.usecase-card__entity-row:last-child {
+	border-bottom: none;
+}
+
+/*
+ * Node 15150:2196 (background tile) vs 2197 (inner "Building" glyph) —
+ * the uploaded glyph asset is natively 14.341px, meant to sit centered
+ * inside a larger 27.885px colored tile, but the template rendered the
+ * glyph alone stretched to fill a 22px box, making it look oversized
+ * relative to Figma. Wrapped in a tile span sized to the true 27.885px
+ * box, with the glyph kept at its native size inside.
+ */
+.usecase-card__entity-icon-tile {
+	width: 27.885px;
+	height: 27.885px;
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 5.975px;
+	background: #ffe3d6;
+}
+
+.usecase-card__entity-icon {
+	width: 14.341px;
+	height: 14.341px;
+}
+
+.usecase-card__entity-name {
+	flex: 1 1 auto;
+	font-family: var(--font-primary);
+	font-weight: 600;
+	font-size: 11.154px;
+	color: #0d0d0d;
+}
+
+.usecase-card__entity-status {
+	flex-shrink: 0;
+	padding: 3px 8px;
+	font-family: var(--font-secondary);
+	font-weight: 500;
+	font-size: 10.473px;
+	color: #389447;
+	background: #e0f7e3;
+	border-radius: 9999px;
+}
+
+/* Node 15150:2216 — this card's border reads 1.202px in Figma. */
+.usecase-card--synced {
+	left: 85.806%;
+	top: 77.961%;
+	width: 15.806%;
+	height: 13.807%;
+	padding: 0;
+	border: 1.202px solid var(--color-base-black);
+}
+
+/*
+ * Node 15150:2217/2218 — the icon was rendering invisibly: the uploaded
+ * asset (r4-folder-icon.svg, the "Group" glyph) is WHITE-filled, meant to
+ * sit on the orange "Folder Tile" background — but the template only
+ * rendered the white glyph directly on the card's white background, with
+ * no tile behind it at all, so it was there in the DOM but invisible.
+ * Added a tile wrapper matching Figma's actual 2-layer structure.
+ */
+.usecase-card__folder-tile {
+	position: absolute;
+	left: 10.85px;
+	top: 11.23px;
+	width: 41.437px;
+	height: 41.437px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--color-brand-orange);
+	border-radius: 9.041px;
+}
+
+.usecase-card__folder-icon {
+	width: 18.32px;
+	height: 24.049px;
+}
+
+.usecase-card__synced-value {
+	position: absolute;
+	left: 64.93px;
+	top: 10.85px;
+	margin: 0;
+	font-family: var(--font-secondary);
+	font-weight: 500;
+	font-size: 18.082px;
+	color: #0d0d0d;
+}
+
+.usecase-card__synced-label {
+	position: absolute;
+	left: 64.93px;
+	top: 34.96px;
+	margin: 0;
+	font-family: var(--font-secondary);
+	font-weight: 400;
+	font-size: 12.025px;
+	color: #636363;
+}
+
+/*
+ * Node 15150:2227/2228 exact spec — circle is 30.019px (not the shared
+ * 24px .usecase-badge__icon default), badge border 1.36px / radius
+ * 12.865px (both distinct from the shared pill defaults). Padding/gap
+ * recomputed from literal child coordinates (circle left:7.72, label
+ * left:49, badge content box after the 1.36px border = 140.28px wide):
+ * gap = 49-7.72-30.019 = 11.261; padding-right = 140.28-(49+74) = 17.28.
+ */
+.usecase-badge--centralized {
+	left: 53.468%;
+	top: 64.092%;
+	width: 11.532%;
+	height: 9.812%;
+	padding: 0 17.28px 0 7.72px;
+	gap: 11.261px;
+	background: var(--color-brand-orange);
+	border: 1.36px solid var(--color-base-black);
+	border-radius: 12.865px;
+}
+
+.usecase-badge--centralized .usecase-badge__icon {
+	width: 30.019px;
+	height: 30.019px;
+}
+
+.usecase-badge--centralized .usecase-badge__label {
+	color: var(--color-neutral-white);
+	font-weight: 500;
+	font-size: 13.401px;
+}
+
+/*
+ * Node 15150:2232/2234 exact spec — icon is 35.366px (not 28px), same
+ * 1.36px border / 12.865px radius token as Centralized. Row-reverse
+ * keeps padding-left/right mapped to the visual left/right (only item
+ * ORDER reverses, not the box model), so padding-left is still the
+ * icon-side inset: icon left:7.88, label left:53.11, content box after
+ * border = 119.28px wide. gap = 53.11-7.88-35.366 = 9.864;
+ * padding-right = 119.28-(53.11+49) = 17.17.
+ */
+.usecase-badge--synced {
+	left: 57.500%;
+	top: 75.574%;
+	width: 9.839%;
+	height: 9.395%;
+	padding: 0 17.17px 0 7.88px;
+	gap: 9.864px;
+	flex-direction: row-reverse;
+	border: 1.36px solid var(--color-base-black);
+	border-radius: 12.865px;
+}
+
+.usecase-badge--synced .usecase-badge__label {
+	font-weight: 500;
+	font-size: 13.401px;
+	color: #0d0d0d;
+}
+
+.usecase-badge__synced-icon {
+	width: 35.366px;
+	height: 35.366px;
+	flex-shrink: 0;
+}
+
+/*
+ * Every floating card above (invoice review, stat, donut, reconciliation,
+ * receipt mockup, entity list, etc.) positions its OWN internal content
+ * (icons, text, mini charts) with literal px left/top/font-size values
+ * lifted straight from Figma — dozens of them per card. Below 1240px, the
+ * card's own outer box (left/top/width/height above) already shrinks
+ * fluidly since it's percentage-based, but none of that internal px
+ * content shrinks with it, so at in-between "desktop" widths (roughly
+ * 961-1288px, where .container is naturally narrower than the 1240px
+ * these percentages were computed against) the internal content started
+ * overflowing its own shrinking card — e.g. row 1's "12,480" stat value
+ * running into the "Filed" badge, row 3's receipt total ("$48...") getting
+ * clipped by its own card.
+ *
+ * Rather than converting every one of those internal values to a relative
+ * unit individually, this reuses the exact technique the ≤960px block
+ * below already uses successfully for the mobile crop: render the row at
+ * its native 1240px design width (so every percentage AND every literal
+ * px value inside every card resolves exactly as designed, wrapping
+ * nothing) and scale the whole thing down as one rigid unit via
+ * `transform`, driven by a container-query width so it always exactly
+ * fills the actual (narrower) column. Nothing inside ever reflows —
+ * it's a uniform zoom, so no internal element can ever collide with
+ * another. 1288px = 1240px design width + the .container's 2×24px pad,
+ * i.e. exactly the point below which .container first becomes narrower
+ * than 1240px.
+ */
+@media (max-width: 1288px) {
+	.usecase-row-frame {
+		container-type: inline-size;
+		position: relative;
+		width: 100%;
+		overflow: hidden;
+	}
+
+	.usecase-row-frame--1 { aspect-ratio: 1240 / 451; }
+	.usecase-row-frame--2 { aspect-ratio: 1240 / 482; }
+	.usecase-row-frame--3 { aspect-ratio: 1240 / 453; }
+	.usecase-row-frame--4 { aspect-ratio: 1240 / 479; }
+
+	.usecase-row {
+		width: 1240px;
+		transform-origin: top left;
+		transform: scale(calc(100cqw / 1240px));
+	}
+}
+
+@media (max-width: 960px) {
+	/* Same excessive-dead-space fix as the other main sections —
+	   116px/137px (desktop) stacked with neighbors' own padding left
+	   excessive gaps. */
+	.usecases {
+		padding-block: 56px;
+	}
+
+	/*
+	 * Same missing-mobile-override bug as Meet Snap/More Than OCR's
+	 * headlines — stuck at desktop's 46px, this wraps into cramped,
+	 * orphaned lines in a ~327px column. 34px matches the mobile size
+	 * already established for headlines in this size range (Meet Snap/
+	 * More Than OCR 48px→34px, Contact/Pricing hero 46px→34px).
+	 */
+	.usecases__headline {
+		font-size: 34px;
+	}
+
+	/*
+	 * The floating cards overlap the photo at specific desktop positions
+	 * (e.g. row 1's Invoice Review in the photo's upper-right, Filed/
+	 * Approved in the lower-left) — a stacked-below layout (an earlier
+	 * version of this block) lost that entirely, and picking just one
+	 * "hero" card per row (an even earlier version) dropped the rest.
+	 * Instead, .usecase-row (photo + every card, all still positioned
+	 * exactly per their desktop percentage rules, at the reference
+	 * 1240px width) is scaled down as one unit via `transform: scale()`,
+	 * same technique already used successfully for How Snap Works'
+	 * integration photo.
+	 *
+	 * Scaling against the FULL 1240px row (as an earlier version of this
+	 * block did) rendered the photo tiny — the photo is only ~32-39% of
+	 * that reference width to begin with (it shares the row with a text
+	 * column at desktop), so fitting the whole 1240px row into a ~327px
+	 * mobile column left the photo at only ~100-145px. Instead, each row
+	 * scales against the bounding box of just that row's photo + its own
+	 * floating cards (computed from their desktop left/top/width/height
+	 * percentages — every card's own top-left-most and bottom-right-most
+	 * edges, e.g. row 1's box runs from the Filed badge's left edge to
+	 * the Invoice Review card's right edge), not the full row width. That
+	 * box is narrower than 1240px, so the same uniform-scale technique
+	 * (nothing's relative position changes, just the reference frame)
+	 * puts the photo at ~65-75% of the mobile column instead of ~30%.
+	 * `left` shifts the scaled row so that box's own left edge lands at
+	 * the frame's left edge (its top edge already sits at row-top for
+	 * every row, so no vertical shift is needed).
+	 */
+	.usecase-row-frame {
+		container-type: inline-size;
+		position: relative;
+		width: 100%;
+		overflow: hidden;
+	}
+
+	/* aspect-ratio: box-width / row-height (box height always equals the
+	   full row height — every row's box spans from y:0 to the row's own
+	   bottom edge, just a horizontal slice, not a vertical one). */
+	.usecase-row-frame--1 { aspect-ratio: 584 / 451; }
+	.usecase-row-frame--2 { aspect-ratio: 640 / 482; }
+	.usecase-row-frame--3 { aspect-ratio: 591 / 453; }
+	.usecase-row-frame--4 { aspect-ratio: 622 / 479; }
+
+	.usecase-row {
+		width: 1240px;
+		transform-origin: top left;
+	}
+
+	/* Row 1 box: x 4px (Filed badge) to 588px (Invoice Review), width 584px. */
+	.usecase-row--1 {
+		transform: scale(calc(100cqw / 584px));
+		left: calc(100cqw * (-4 / 584));
+	}
+
+	/* Row 2 box: x 604px (donut chart) to 1244px (Monthly Profit), width 640px. */
+	.usecase-row--2 {
+		transform: scale(calc(100cqw / 640px));
+		left: calc(100cqw * (-604 / 640));
+	}
+
+	/* Row 3 box: x 18px (Expense Summary) to 609px (Organized badge), width 591px. */
+	.usecase-row--3 {
+		transform: scale(calc(100cqw / 591px));
+		left: calc(100cqw * (-18 / 591));
+	}
+
+	/* Row 4 box: x 638px (Entity list) to 1260px (Synced card), width 622px. */
+	.usecase-row--4 {
+		transform: scale(calc(100cqw / 622px));
+		left: calc(100cqw * (-638 / 622));
+	}
+
+	/*
+	 * Text pulled out of the image+cards cluster entirely, as a plain
+	 * full-width block below the photo — icon above title above body
+	 * (already the source order: icon-badge, then h3, then p). Left-
+	 * aligned, matching the left-aligned treatment this text has at
+	 * desktop (just stacked in one column now instead of sitting beside
+	 * the photo) — only the photo itself is centered.
+	 */
+	.usecase-row__text,
+	.usecase-row__text--1,
+	.usecase-row__text--2,
+	.usecase-row__text--3,
+	.usecase-row__text--4 {
+		position: static;
+		width: 100%;
+		margin-top: 20px;
+	}
+
+	.usecase-row__icon-badge {
+		width: 56px;
+		height: 56px;
+		margin: 0 0 12px;
+	}
+
+	.usecase-row__title {
+		font-size: 24px;
+	}
+
+	.usecase-row__body {
+		max-width: none;
+		font-size: 16px;
+	}
+
+	/*
+	 * 160px (the desktop row-to-row gap) is sized for a page where each
+	 * row itself is ~370-420px tall — once shrunk to a mobile photo plus
+	 * a normal-flow text block below it, that same fixed gap reads as a
+	 * huge dead space between rows. Reduced to a gap proportionate to
+	 * the rest of this page's mobile vertical rhythm.
+	 */
+	.usecase-row-group + .usecase-row-group {
+		margin-top: 48px;
+	}
+}
+
+/* ============================================================
+   CTA / Demo Form
+   Figma: node 15150:2028 ("Frame 3"), 1440x614, full-bleed.
+   ============================================================ */
+.screen-reader-text {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+.cta-demo {
+	position: relative;
+	overflow: hidden;
+	background: var(--color-brand-orange);
+	padding-block: 91px 151px;
+}
+
+.cta-demo__glow {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+}
+
+/*
+ * Each ring: a plain bordered circle, not a filled shape — confirmed via
+ * the downloaded SVGs (fill:none, stroke:black at stroke-opacity:0.5).
+ * Sized as %-of-1440 (this frame's native width) so it scales with the
+ * section; centered at a fixed vertical px reference since a %-based
+ * `top` would resolve against the section's height, not its width, and
+ * these 4 circles are meant to scale uniformly with the horizontal
+ * layout, not stretch with the (dynamic, text-driven) section height.
+ */
+.cta-demo__ellipse {
+	position: absolute;
+	left: 50%;
+	aspect-ratio: 1 / 1;
+	border: 1px solid var(--color-base-black);
+	border-radius: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.cta-demo__ellipse--1 {
+	top: 148.5px;
+	width: 55.347%;
+	opacity: 0.25;
+}
+
+.cta-demo__ellipse--2 {
+	top: 148.5px;
+	width: 80.208%;
+	opacity: 0.15;
+}
+
+.cta-demo__ellipse--3 {
+	top: 137.5px;
+	width: 104.097%;
+	opacity: 0.05;
+}
+
+.cta-demo__ellipse--4 {
+	top: 148.5px;
+	width: 32.292%;
+	opacity: 0.25;
+}
+
+.cta-demo__inner {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+.cta-demo__logo {
+	margin-bottom: 20px;
+}
+
+.cta-demo__logo-img {
+	display: block;
+	width: 90px;
+	height: 81.563px;
+}
+
+.cta-demo__headline {
+	margin: 0;
+	font-family: var(--font-primary);
+	font-weight: 800;
+	font-size: 57px;
+	line-height: 1.5;
+	letter-spacing: -2.85px;
+}
+
+.cta-demo__headline-white {
+	color: var(--color-neutral-white);
+}
+
+.cta-demo__headline-ink {
+	color: var(--color-neutral-ink);
+}
+
+.cta-demo__copy {
+	margin: 8px 0 0;
+	max-width: 650px;
+	font-family: var(--font-primary);
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 1.5;
+	color: var(--color-neutral-white);
+	opacity: 0.85;
+}
+
+/*
+ * The form itself is a real Contact Form 7 form (id 99), embedded via
+ * shortcode — CF7 wraps our form body in its own `.wpcf7` > `.wpcf7-form`
+ * elements, and its "wpautop" processing wraps our field/button markup in
+ * a `<p>` no matter how the form template is written, so the actual flex
+ * pill rules target `.cta-demo__form-fields` AND its auto-inserted `<p>`
+ * child, not `.cta-demo__form` (now just a sizing wrapper). The email
+ * input keeps our own class (added via CF7's `class:` tag option), so it
+ * styles identically to a hand-written input; `.wpcf7-form-control-wrap`
+ * is CF7's own wrapper span around it, flexed to fill the remaining row.
+ */
+.cta-demo__form {
+	margin-top: 20px;
+	width: 540px;
+	max-width: 100%;
+}
+
+.cta-demo__form-fields,
+.cta-demo__form-fields > p {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	width: 100%;
+	height: 64px;
+	margin: 0;
+}
+
+/*
+ * position:relative here (not just on the CF7-owned .wpcf7-form-control-
+ * wrap) makes THIS the anchor for the absolutely-positioned validation
+ * tip below — the wrap itself is only ~22px tall (sized to the input's
+ * content height, centered inside this 64px pill), so anchoring to the
+ * wrap alone would land the tip's `top: 100%` partway up the pill
+ * (white text on white background, invisible) instead of below it.
+ */
+.cta-demo__form-fields {
+	position: relative;
+	box-sizing: border-box;
+	padding: 8px;
+	background: var(--color-neutral-white);
+	border-radius: 999px;
+	box-shadow: 0 18px 36px 0 rgba(110, 33, 8, 0.2);
+}
+
+.cta-demo__form-fields .wpcf7-form-control-wrap {
+	position: static;
+	flex: 1 1 0;
+	min-width: 0;
+	display: block;
+}
+
+.cta-demo__input {
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	padding-left: 14px;
+	border: none;
+	background: transparent;
+	font-family: var(--font-primary);
+	font-weight: 400;
+	font-size: 14px;
+	color: var(--color-neutral-ink);
+}
+
+.cta-demo__input::placeholder {
+	color: var(--color-neutral-muted);
+}
+
+.cta-demo__input:focus {
+	outline: none;
+}
+
+.cta-demo__submit {
+	border-radius: 999px;
+}
+
+/* This button is a 999px pill (not the shared 16px --radius-button
+   token every other .btn uses), so its back layer needs the same
+   override to actually match — the shared .btn__stack-back default
+   would otherwise show square-ish corners peeking out of a pill. */
+.cta-demo__form-fields .btn__stack-back {
+	border-radius: 999px;
+}
+
+/* CF7's own a11y-announcement + validation-summary elements — visually
+   hidden like .screen-reader-text, and a plain centered message style
+   for the response banner (shown/positioned by CF7's own JS). */
+.cta-demo .screen-reader-response {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+.cta-demo .wpcf7-response-output {
+	margin: 12px 0 0 !important;
+	padding: 0 !important;
+	border: none !important;
+	font-family: var(--font-primary);
+	font-size: 14px;
+	color: var(--color-neutral-white);
+	opacity: 1;
+	transition: opacity 0.4s ease;
+}
+
+/* Auto-dismissed a few seconds after a successful submit by
+   assets/js/cta-demo-form.js (listens for CF7's `wpcf7mailsent` event) —
+   fades out, then leaves the layout via display:none once the fade
+   finishes, rather than sitting on the page indefinitely. */
+.cta-demo .wpcf7-response-output.is-dismissing {
+	opacity: 0;
+}
+
+.cta-demo .wpcf7-response-output.is-dismissed {
+	display: none;
+}
+
+/* Pricing page's no-form CTA (template-parts/cta-simple.php) — same
+   .cta-demo section otherwise, just a button in place of the email form. */
+.cta-simple__actions {
+	margin-top: 20px;
+}
+
+/* .btn--dark's default padding/weight are tuned for its original inline-
+   form-submit context (header, contact form) — too small for a standalone
+   CTA next to this section's big headline. Sized to match .btn--primary/
+   --secondary (e.g. the hero's "Watch product tour" button) instead,
+   keeping .btn--dark's black fill. */
+.cta-simple__actions .btn--dark {
+	padding: 15px 22px;
+	font-weight: 800;
+}
+
+/*
+ * CF7 renders this validation message `position: static` by default —
+ * in-flow, inside `.wpcf7-form-control-wrap` (a flex sibling of the
+ * submit button, centered via `align-items: center` on the row). Left
+ * in-flow, the tip's own height grows that flex item, and the row
+ * re-centers around the taller box — which reads as the input's text
+ * "jumping up" the moment the tip appears (e.g. on blur with an empty/
+ * invalid email). Taking it out of flow with `position: absolute`
+ * (anchored to `.wpcf7-form-control-wrap`, which CF7's own CSS already
+ * sets to `position: relative`) makes it float below the pill instead,
+ * so its appearance never affects the input's layout.
+ */
+.cta-demo .wpcf7-not-valid-tip {
+	position: absolute;
+	top: 100%;
+	left: 14px;
+	margin-top: 6px;
+	font-family: var(--font-primary);
+	font-size: 13px;
+	color: var(--color-neutral-white);
+	white-space: nowrap;
+}
+
+/*
+ * Being position:absolute (see above), the per-field tip doesn't push
+ * .wpcf7-response-output down the way in-flow content normally would —
+ * both ended up rendering at roughly the same vertical offset below the
+ * input row ("Please fill out this field." directly overlapping "One or
+ * more fields have an error..."). form.invalid/.unaccepted is CF7's own
+ * state class (added whenever that per-field tip is showing), so the
+ * extra clearance only appears when there's actually a tip to clear —
+ * a normal/success submission keeps the tighter default spacing.
+ */
+.cta-demo form.invalid .wpcf7-response-output,
+.cta-demo form.unaccepted .wpcf7-response-output {
+	margin-top: 36px !important;
+}
+
+@media (max-width: 640px) {
+	/* Same excessive-dead-space fix as the other main sections —
+	   91px/151px (desktop) left a large gap above and an even bigger one
+	   below, relative to the rest of the page's mobile vertical rhythm. */
+	.cta-demo {
+		padding-block: 56px 64px;
+	}
+
+	.cta-demo__headline {
+		font-size: 34px;
+	}
+
+	.cta-demo__form-fields,
+	.cta-demo__form-fields > p {
+		flex-direction: column;
+		height: auto;
+	}
+
+	.cta-demo__form-fields {
+		border-radius: var(--radius-header);
+	}
+
+	/*
+	 * text-align:center affects both entered text and the placeholder
+	 * (placeholder text always follows the input's own text-align).
+	 * padding-left:14px is a desktop-only artifact of the pill sitting
+	 * next to the submit button in one flex row — once the fields stack
+	 * (see .cta-demo__form-fields above), that left-only padding would
+	 * skew centered text/placeholder visually off-center, so it's
+	 * zeroed here in favor of the text-align doing the centering.
+	 */
+	.cta-demo__input {
+		height: 44px;
+		padding-left: 0;
+		text-align: center;
+	}
+
+	.cta-demo__submit {
+		width: 100%;
+		justify-content: center;
+	}
+}
+
+/* ============================================================
+   Site Footer
+   Figma: node 15150:2322 ("Footer" / "Frame 62"), 1440x397.
+   ============================================================ */
+html {
+	scroll-behavior: smooth;
+}
+
+#meet-snap,
+#more-than-ocr,
+#built-for-uk,
+#usecases,
+#contact-form,
+.usecase-row {
+	scroll-margin-top: 32px;
+}
+
+.site-footer {
+	background: var(--color-neutral-night);
+	padding-block: 66px 31px;
+}
+
+.site-footer__top {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 40px;
+	flex-wrap: wrap;
+}
+
+.site-footer__brand {
+	max-width: 335px;
+}
+
+.site-footer__logo {
+	display: inline-block;
+}
+
+.site-footer__logo-img {
+	display: block;
+	width: 119px;
+	height: 36px;
+}
+
+.site-footer__tagline {
+	margin: 4px 0 0;
+	font-family: var(--font-primary);
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 1.6;
+	color: var(--color-footer-muted);
+}
+
+.site-footer__columns {
+	display: flex;
+	gap: 78px;
+	flex-wrap: wrap;
+}
+
+.site-footer__column-heading {
+	margin: 0 0 10px;
+	font-family: var(--font-secondary);
+	font-weight: 500;
+	font-size: 14px;
+	letter-spacing: 0.7px;
+	text-transform: uppercase;
+	color: var(--color-neutral-white);
+}
+
+.site-footer__column-links {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.site-footer__link {
+	font-family: var(--font-primary);
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 1.5;
+	color: var(--color-footer-muted);
+	transition: color 0.2s ease;
+}
+
+.site-footer__link:hover {
+	color: var(--color-neutral-white);
+}
+
+.site-footer__bottom {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin-top: 146px;
+	padding-top: 24px;
+	border-top: 1px solid var(--color-footer-border);
+}
+
+.site-footer__legal {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 16px;
+}
+
+.site-footer__legal-links {
+	display: flex;
+	gap: 16px;
+}
+
+.site-footer__legal-links a {
+	font-family: var(--font-primary);
+	font-weight: 500;
+	font-size: 12px;
+	letter-spacing: 0.48px;
+	text-transform: uppercase;
+	color: var(--color-footer-muted);
+	text-decoration: none;
+}
+
+.site-footer__legal-links a:hover {
+	color: var(--color-neutral-white);
+}
+
+.site-footer__copyright,
+.site-footer__credit {
+	margin: 0;
+	font-family: var(--font-primary);
+	font-weight: 500;
+	font-size: 12px;
+	letter-spacing: 0.48px;
+	text-transform: uppercase;
+	color: var(--color-footer-muted);
+}
+
+@media (max-width: 720px) {
+	.site-footer {
+		padding-block: 48px 24px;
+	}
+
+	.site-footer__top {
+		flex-direction: column;
+		gap: 32px;
+	}
+
+	/* Was flex-wrap, which let 3 columns wrap unpredictably (2-then-1 at
+	   375-390px) depending on content width rather than a deliberate
+	   layout. A 2-column grid makes that deliberate instead: Product +
+	   For Teams pair up on the first row, Company (the 3rd/odd item)
+	   naturally falls to its own row below via grid auto-placement —
+	   no explicit span rule needed for 3 items in 2 columns. Each
+	   column's own heading-to-links spacing (.site-footer__column-heading
+	   margin-bottom, .site-footer__column-links gap) already reads fine
+	   on its own — the grid gap is what keeps the column GROUPS visually
+	   distinct from each other. */
+	.site-footer__columns {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		column-gap: 20px;
+		row-gap: 32px;
+		width: 100%;
+	}
+
+	/* 146px at rest assumes a wide desktop row with room to spare above
+	   the copyright bar — stacked on mobile that reads as a huge dead
+	   gap after "Back to top" instead of a divider. */
+	.site-footer__bottom {
+		margin-top: 40px;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 8px;
+	}
+
+	/* Plain inline text links (~21px line-height) are well under the
+	   ~44px WCAG tap-target guidance — block-level rows with real
+	   padding fix that without changing anything visually on desktop,
+	   where the tighter inline spacing was never a usability problem. */
+	.site-footer__link {
+		display: block;
+		padding-block: 12px;
+	}
+
+	.site-footer__column-links {
+		gap: 0;
+	}
+}
+
+/* ============================================================
+   Contact Page
+   No Figma design — reuses established tokens/components (see
+   template-parts/contact.php doc comment for the specific mapping).
+   Rebuilt from an earlier two-form layout to a single unified form +
+   contact-details column.
+   ============================================================ */
+.contact-hero {
+	padding-block: 96px 48px;
+	text-align: center;
+}
+
+.contact-hero__eyebrow {
+	margin: 0 0 12px;
+	font-family: var(--font-primary);
+	font-weight: 700;
+	font-size: var(--text-eyebrow);
+	letter-spacing: 0.5px;
+	color: var(--color-brand-orange);
+}
+
+.contact-hero__headline {
+	margin: 0;
+	font-family: var(--font-primary);
+	font-weight: 800;
+	font-size: 46px;
+	line-height: 1.1;
+	letter-spacing: -1.5px;
+	color: var(--color-neutral-ink);
+}
+
+/* Reassurance strip — same tight "transition, not another hero moment"
+   padding-block pattern as .trust (0 top, since the hero above already
+   provides the separation; a modest bottom before the two-column section
+   starts fresh). Icon + label pairing echoes the hero proof line's quiet,
+   minimal treatment rather than introducing a new visual language. */
+.contact-trust {
+	padding-block: 0 56px;
+}
+
+.contact-trust__list {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: 20px 44px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.contact-trust__item {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+/*
+ * flex-wrap left this to fall wherever each item's own text width
+ * happened to land — confirmed at 428px it produced an uneven 1/2/1
+ * pattern (the longer "Response within 1 business day" alone on its own
+ * row, the two short items paired on the next), not a deliberate
+ * layout. An explicit 2-column grid guarantees a clean 2x2 every time,
+ * regardless of exactly how each label's text happens to wrap.
+ */
+@media (max-width: 480px) {
+	.contact-trust__list {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		column-gap: 16px;
+		row-gap: 16px;
+	}
+
+	.contact-trust__item {
+		justify-content: center;
+		text-align: center;
+	}
+}
+
+.contact-trust__icon {
+	width: 20px;
+	height: 20px;
+	flex-shrink: 0;
+}
+
+.contact-trust__label {
+	font-family: var(--font-secondary);
+	font-weight: 600;
+	font-size: 14px;
+	letter-spacing: 0.2px;
+	color: var(--color-neutral-ink);
+}
+
+.contact-columns {
+	padding-block: 0 96px;
+}
+
+.contact-columns__inner {
+	display: grid;
+	grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+	gap: 32px;
+	align-items: start;
+}
+
+.contact-info__intro {
+	margin: 0 0 28px;
+	font-family: var(--font-primary);
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 1.5;
+	color: var(--color-usecase-body);
+}
+
+.contact-info__list {
+	margin: 0 0 28px;
+	padding: 0;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+/* Same hard-shadow card language as the form/map/pricing cards, just at
+   a tighter padding — each contact method now reads as its own small
+   card rather than a plain list row. */
+.contact-info__item {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	padding: 14px 16px;
+	background: var(--color-neutral-white);
+	border: 1.702px solid var(--color-base-black);
+	border-radius: 14px;
+	box-shadow: -2px -2px 0 0 var(--color-base-black);
+}
+
+/* Scaled-down version of the Real Usecases row icon badges (80x80,
+   same border/fill/shadow values) — not a new badge style. */
+.contact-info__icon-badge {
+	width: 40px;
+	height: 40px;
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	background: var(--color-brand-orange);
+	border: 1.702px solid var(--color-base-black);
+	border-radius: 10px;
+	box-shadow: -2px -2px 0 0 var(--color-base-black);
+}
+
+/* ~68% of the 40px badge — same icon-to-badge ratio as the Real
+   Usecases badges (their icon is 68% of an 80px badge). */
+.contact-info__icon {
+	width: 27px;
+	height: 27px;
+	flex-shrink: 0;
+}
+
+.contact-info__text {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.contact-info__label {
+	font-family: var(--font-secondary);
+	font-weight: 600;
+	font-size: 12px;
+	letter-spacing: 0.3px;
+	text-transform: uppercase;
+	color: var(--color-neutral-muted);
+}
+
+.contact-info__value {
+	font-family: var(--font-primary);
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 1.4;
+	color: var(--color-neutral-ink);
+}
+
+a.contact-info__value:hover {
+	color: var(--color-brand-orange);
+}
+
+/* Falls back to a static striped placeholder when no embed URL is set;
+   renders a real Google Maps iframe otherwise. Uses the same hard-shadow
+   card treatment as everywhere else. overflow:hidden clips the iframe
+   to the rounded border, since iframes ignore a parent's border-radius. */
+.contact-info__map {
+	height: 280px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	background: repeating-linear-gradient(
+		45deg,
+		#f0efe8,
+		#f0efe8 10px,
+		#e8e6dd 10px,
+		#e8e6dd 20px
+	);
+	border: 1.702px solid var(--color-base-black);
+	border-radius: 16px;
+	box-shadow: -2px -2px 0 0 var(--color-base-black);
+}
+
+/*
+ * This embed is Google's no-API-key "Maps Embed" iframe (a `pb=` query
+ * string), which has no styling hooks at all — no style-JSON param, no
+ * marker-color param. Real per-feature styling (muted roads/land/water,
+ * a brand-orange pin) needs either the Maps JavaScript API or the
+ * Static Maps API, both of which require an API key/billing that isn't
+ * set up for this project. This filter is the CSS-only compromise:
+ * it desaturates the whole rendered frame uniformly (roads, greenery,
+ * water, AND the pin together) — it can mute the palette but can't
+ * selectively recolor just the pin, since a filter can't target one
+ * element inside cross-origin iframe content.
+ */
+.contact-info__map iframe {
+	width: 100%;
+	height: 100%;
+	border: 0;
+	display: block;
+	filter: grayscale(55%) saturate(0.75) contrast(1.02);
+}
+
+.contact-info__map-label {
+	font-family: var(--font-secondary);
+	font-weight: 600;
+	font-size: 13px;
+	letter-spacing: 0.3px;
+	text-transform: uppercase;
+	color: var(--color-neutral-muted);
+	background: var(--color-neutral-white);
+	padding: 6px 14px;
+	border-radius: 9999px;
+	border: 1px solid var(--color-base-black);
+}
+
+/* margin-top: 52px lines this card's own top edge up with the info
+   column's first card (the intro line above the info list pushes that
+   column's content down, while this card starts flush at the grid row's
+   top) — matched to the info column's actual rendered offset, not a
+   guessed value. */
+.contact-form-card {
+	background: var(--color-neutral-white);
+	border: 1.702px solid var(--color-base-black);
+	border-radius: 20px;
+	box-shadow: -2px -2px 0 0 var(--color-base-black);
+	padding: 20px;
+	margin-top: 52px;
+	box-sizing: border-box;
+}
+
+.contact-form__field {
+	margin: 0 0 8px;
+}
+
+/* CF7 inserts a literal <br> between the label and the field tag (from
+   the form template's own line break) — that <br> renders at the
+   surrounding paragraph's line-height and was adding ~20px on top of
+   this margin, so the actual label-to-input gap was ~30px instead of
+   the 8px this margin alone implies. Hiding it removes that extra
+   height entirely, leaving this margin as the true, only gap. */
+.contact-form__label + br {
+	display: none;
+}
+
+.contact-form__label {
+	display: block;
+	margin-bottom: 8px;
+	font-family: var(--font-secondary);
+	font-weight: 700;
+	font-size: var(--text-nav);
+	color: var(--color-neutral-ink);
+}
+
+.contact-form__optional {
+	font-weight: 400;
+	color: var(--color-neutral-muted);
+}
+
+.contact-form__input,
+.contact-form__select,
+.contact-form__textarea {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 12px 14px;
+	border: 1px solid #d8d6d1;
+	border-radius: 10px;
+	background: var(--color-neutral-white);
+	font-family: var(--font-secondary);
+	font-size: 15px;
+	color: var(--color-neutral-ink);
+	transition: border-color 0.2s ease;
+}
+
+/* Browsers render the native <select> arrow flush against the field's
+   right edge — replaces it with a custom chevron inset the same 14px
+   as the field's own horizontal padding, so it doesn't crowd the border. */
+.contact-form__select {
+	appearance: none;
+	-webkit-appearance: none;
+	padding-right: 40px;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%2365645F' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: right 14px center;
+}
+
+.contact-form__textarea {
+	min-height: 102px;
+	resize: vertical;
+}
+
+.contact-form__input::placeholder,
+.contact-form__textarea::placeholder {
+	color: var(--color-neutral-muted);
+}
+
+.contact-form__input:focus,
+.contact-form__select:focus,
+.contact-form__textarea:focus {
+	outline: none;
+	border-color: var(--color-brand-orange);
+}
+
+.contact-form__submit {
+	width: 100%;
+}
+
+/* Full-width submit, scoped to this form only — the shared
+   .btn-stack-hover/.btn used elsewhere (header/hero/CTA) stays
+   content-width, this override doesn't touch that base component. */
+.contact-form-card .btn-stack-hover {
+	display: flex;
+	width: 100%;
+}
+
+.contact-form-card .screen-reader-response {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+.contact-form-card .wpcf7-response-output {
+	margin: 16px 0 0 !important;
+	padding: 12px 14px !important;
+	border-radius: 10px !important;
+	font-family: var(--font-secondary);
+	font-size: 14px;
+	border: 1px solid transparent !important;
+}
+
+.contact-form-card form.sent .wpcf7-response-output {
+	background: #e6f6ea;
+	color: #1f7a37;
+	border-color: #bfe6c9 !important;
+}
+
+.contact-form-card form.failed .wpcf7-response-output,
+.contact-form-card form.aborted .wpcf7-response-output {
+	background: #fdeceb;
+	color: #b3261e;
+	border-color: #f6c6c2 !important;
+}
+
+.contact-form-card form.invalid .wpcf7-response-output,
+.contact-form-card form.unaccepted .wpcf7-response-output {
+	background: #fff6e5;
+	color: #8a5a00;
+	border-color: #f0dfa8 !important;
+}
+
+.contact-form-card .wpcf7-not-valid-tip {
+	display: block;
+	margin-top: 6px;
+	font-family: var(--font-secondary);
+	font-size: 12px;
+	color: #d1332b;
+}
+
+.contact-response-note {
+	margin: 0 auto 96px;
+	text-align: center;
+	font-family: var(--font-primary);
+	font-size: 14px;
+	color: var(--color-neutral-muted);
+}
+
+@media (max-width: 860px) {
+	.contact-hero {
+		padding-block: 64px 32px;
+	}
+
+	.contact-hero__headline {
+		font-size: 34px;
+	}
+
+	/* Matches Pricing's equivalent bottom-padding reduction
+	   (.pricing-tiers, 96px→56px) — both pages share this same
+	   96px desktop value and should reduce it the same way. */
+	.contact-columns {
+		padding-block: 0 56px;
+	}
+
+	.contact-columns__inner {
+		grid-template-columns: 1fr;
+	}
+
+	.contact-form-card {
+		padding: 28px;
+	}
+}
+
+/* ============================================================
+   Pricing Page
+   No Figma design — reuses established tokens/components (see
+   template-parts/pricing.php doc comment for the specific mapping).
+   ============================================================ */
+.pricing-hero {
+	padding-block: 96px 48px;
+	text-align: center;
+}
+
+.pricing-hero__eyebrow {
+	margin: 0 0 12px;
+	font-family: var(--font-primary);
+	font-weight: 700;
+	font-size: var(--text-eyebrow);
+	letter-spacing: 0.5px;
+	color: var(--color-brand-orange);
+}
+
+.pricing-hero__headline {
+	margin: 0;
+	font-family: var(--font-primary);
+	font-weight: 800;
+	font-size: 46px;
+	line-height: 1.1;
+	letter-spacing: -1.5px;
+	color: var(--color-neutral-ink);
+}
+
+.pricing-hero__subhead {
+	margin: 14px auto 0;
+	max-width: 560px;
+	font-family: var(--font-primary);
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 1.6;
+	color: var(--color-usecase-body);
+}
+
+.pricing-tiers {
+	padding-block: 0 96px;
+}
+
+.pricing-tiers__inner {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 24px;
+	align-items: stretch;
+}
+
+/*
+ * Same hard-shadow card treatment as the Contact page cards (borrowed
+ * from the Real Usecases row icon badges) — 1.702px black border + a
+ * crisp -2px/-2px offset shadow.
+ */
+.pricing-tier {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	background: var(--color-neutral-white);
+	border: 1.702px solid var(--color-base-black);
+	border-radius: 20px;
+	box-shadow: -2px -2px 0 0 var(--color-base-black);
+	padding: 36px 32px;
+	box-sizing: border-box;
+}
+
+/*
+ * The recommended tier — same card language, just re-colored to the
+ * brand orange (border + shadow) and slightly elevated, rather than a
+ * different visual system.
+ */
+.pricing-tier--featured {
+	border-color: var(--color-brand-orange);
+	box-shadow: -2px -2px 0 0 var(--color-brand-orange);
+	transform: scale(1.03);
+	z-index: 1;
+}
+
+.pricing-tier__badge {
+	position: absolute;
+	top: -14px;
+	left: 50%;
+	transform: translateX(-50%);
+	background: var(--color-brand-orange);
+	color: var(--color-neutral-white);
+	font-family: var(--font-secondary);
+	font-weight: 700;
+	font-size: 12px;
+	letter-spacing: 0.4px;
+	text-transform: uppercase;
+	padding: 6px 14px;
+	border-radius: 9999px;
+	border: 1px solid var(--color-base-black);
+}
+
+.pricing-tier__name {
+	margin: 8px 0 0;
+	font-family: var(--font-primary);
+	font-weight: 800;
+	font-size: 24px;
+	color: var(--color-neutral-ink);
+}
+
+.pricing-tier__description {
+	margin: 8px 0 0;
+	font-family: var(--font-primary);
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 1.5;
+	color: var(--color-usecase-body);
+}
+
+.pricing-tier__price {
+	margin: 20px 0 0;
+	display: flex;
+	align-items: baseline;
+	gap: 4px;
+}
+
+.pricing-tier__price-amount {
+	font-family: var(--font-primary);
+	font-weight: 800;
+	font-size: 38px;
+	letter-spacing: -1px;
+	color: var(--color-neutral-ink);
+}
+
+.pricing-tier__price-suffix {
+	font-family: var(--font-secondary);
+	font-weight: 500;
+	font-size: 14px;
+	color: var(--color-usecase-body);
+}
+
+.pricing-tier__cta {
+	width: 100%;
+	display: flex;
+	margin: 24px 0 28px;
+}
+
+.pricing-tier__cta .btn {
+	width: 100%;
+}
+
+.pricing-tier__features {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.pricing-tier__feature {
+	display: flex;
+	align-items: flex-start;
+	gap: 10px;
+	font-family: var(--font-primary);
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 1.5;
+	color: var(--color-neutral-ink);
+}
+
+/* Reuses the exact same checkmark asset as More Than OCR's "Snap
+   understands" column (SNAP_OCR_ICON_CHECK_ID) — see template comment. */
+.pricing-tier__feature-icon {
+	width: 18px;
+	height: 18px;
+	flex-shrink: 0;
+	margin-top: 2px;
+}
+
+/* Neither the Problem section nor Built for UK use a background panel
+   for visual weight — they rely on generous padding-block (130px/120px,
+   131px/119px). Matching that pattern here rather than introducing a new
+   "boxed section" treatment the rest of the site doesn't use: this
+   section previously had no top padding of its own (relying entirely on
+   .pricing-tiers' bottom padding), which read as glued directly under
+   the cards instead of its own distinct section. */
+.pricing-faq {
+	padding-block: 72px 96px;
+}
+
+.pricing-faq__inner {
+	max-width: 760px;
+}
+
+.pricing-faq__heading {
+	margin: 0 0 24px;
+	font-family: var(--font-primary);
+	font-weight: 800;
+	font-size: 28px;
+	color: var(--color-neutral-ink);
+	text-align: center;
+}
+
+.pricing-faq__list {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.pricing-faq__item {
+	border: 1px solid #e4e1da;
+	border-radius: 14px;
+	padding: 18px 20px;
+	background: var(--color-neutral-white);
+}
+
+.pricing-faq__question-wrap {
+	margin: 0;
+	font: inherit;
+}
+
+/* A plain <button>, not <summary> — spans the full row (width:100%,
+   text-align:left) so the entire row stays the click target, same as
+   the native <details>/<summary> version it replaced. */
+.pricing-faq__question {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-family: var(--font-primary);
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 1.4;
+	color: var(--color-neutral-ink);
+	text-align: left;
+}
+
+/* CSS-only chevron (two borders of a square, rotated) — points down at
+   rest, flips to point up when its item opens. */
+.pricing-faq__icon {
+	position: relative;
+	flex-shrink: 0;
+	width: 14px;
+	height: 14px;
+}
+
+.pricing-faq__icon::before {
+	content: '';
+	position: absolute;
+	top: 1px;
+	left: 1px;
+	width: 8px;
+	height: 8px;
+	border-right: 2px solid var(--color-brand-orange);
+	border-bottom: 2px solid var(--color-brand-orange);
+	transform: rotate(45deg);
+	transition: transform 0.3s ease-in-out;
+}
+
+.pricing-faq__item.is-open .pricing-faq__icon::before {
+	transform: rotate(225deg);
+}
+
+/*
+ * Expand/collapse via grid-template-rows (0fr closed, 1fr open) rather
+ * than height/max-height — animates to the answer's true content height
+ * with no JS measurement (scrollHeight, etc.) needed, and 0fr genuinely
+ * reaches zero (unlike max-height, which either clips a tall answer or
+ * leaves a lingering transition delay on short ones). The panel is a
+ * single-row grid; overflow:hidden on the inner wrapper is required both
+ * to clip the collapsing content AND to give that wrapper an automatic
+ * minimum size of 0 (a grid item's default min-height:auto would
+ * otherwise refuse to shrink past its content's height, breaking the
+ * collapse). The answer text also fades in/out on the same schedule so
+ * it doesn't just pop in mid-expand.
+ */
+.pricing-faq__panel {
+	display: grid;
+	grid-template-rows: 0fr;
+	transition: grid-template-rows 0.3s ease-in-out;
+}
+
+.pricing-faq__item.is-open .pricing-faq__panel {
+	grid-template-rows: 1fr;
+}
+
+.pricing-faq__panel-inner {
+	overflow: hidden;
+}
+
+.pricing-faq__answer {
+	margin: 0;
+	padding-top: 12px;
+	font-family: var(--font-primary);
+	font-size: 14px;
+	line-height: 1.6;
+	color: var(--color-usecase-body);
+	opacity: 0;
+	transition: opacity 0.3s ease-in-out;
+}
+
+.pricing-faq__item.is-open .pricing-faq__answer {
+	opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.pricing-faq__icon::before,
+	.pricing-faq__panel,
+	.pricing-faq__answer {
+		transition-duration: 0.01ms;
+	}
+}
+
+@media (max-width: 960px) {
+	/* Same excessive-dead-space fix as the landing page's main sections —
+	   combined with .pricing-faq's own top padding, the desktop values
+	   below left ~190px of blank space between the last pricing card and
+	   the FAQ heading. */
+	.pricing-tiers {
+		padding-block: 0 56px;
+	}
+
+	.pricing-faq {
+		padding-block: 48px 56px;
+	}
+
+	.pricing-tiers__inner {
+		grid-template-columns: 1fr;
+	}
+
+	/*
+	 * Stacked single-column pricing pages commonly lead with the
+	 * recommended tier rather than preserving the desktop left-to-right
+	 * order — a visitor scrolling a stacked list should hit "this is the
+	 * one most people pick" first, not third. `order` only changes
+	 * visual position (grid-item flow), not DOM order, so reading order
+	 * for assistive tech stays Starter → Professional → Enterprise;
+	 * Starter and Enterprise both stay at the default order:0, so they
+	 * keep their own relative order to each other beneath Professional.
+	 */
+	.pricing-tier--featured {
+		order: -1;
+		transform: none;
+	}
+}
+
+@media (max-width: 860px) {
+	.pricing-hero {
+		padding-block: 64px 32px;
+	}
+
+	.pricing-hero__headline {
+		font-size: 34px;
+	}
+}
+
+/* ----------------------------------------------------------------------
+   Legal pages (Privacy Policy, Terms of Service) — page.php /
+   template-parts/legal-page.php. Deliberately plain: a single narrow
+   reading column, no cards/sections, since this is prose rather than a
+   marketing page. The narrower 720px measure (vs the sitewide 1240px
+   .container) is just for line-length readability at this font size —
+   the outer .container still centers/pads it the same as every other
+   section.
+   ---------------------------------------------------------------------- */
+.legal-page {
+	padding-block: 96px 120px;
+}
+
+.legal-page__inner {
+	max-width: 720px;
+}
+
+.legal-page__title {
+	margin: 0;
+	font-weight: 800;
+	font-size: 44px;
+	line-height: 1.15;
+	color: var(--color-neutral-ink);
+}
+
+.legal-page__updated {
+	margin: 12px 0 0;
+	font-size: var(--text-nav);
+	color: var(--color-neutral-muted);
+}
+
+.legal-page__body {
+	margin-top: 40px;
+	font-size: var(--text-body-lg);
+	line-height: var(--leading-body);
+	color: var(--color-neutral-ink);
+}
+
+.legal-page__body h2 {
+	margin: 40px 0 12px;
+	font-weight: 800;
+	font-size: 24px;
+	line-height: 1.3;
+	color: var(--color-neutral-ink);
+}
+
+.legal-page__body h2:first-child {
+	margin-top: 0;
+}
+
+.legal-page__body h3 {
+	margin: 28px 0 8px;
+	font-weight: 700;
+	font-size: 19px;
+	line-height: 1.3;
+	color: var(--color-neutral-ink);
+}
+
+.legal-page__body p,
+.legal-page__body ul,
+.legal-page__body ol {
+	margin: 0 0 16px;
+}
+
+.legal-page__body ul,
+.legal-page__body ol {
+	padding-left: 24px;
+}
+
+.legal-page__body li {
+	margin-bottom: 8px;
+}
+
+.legal-page__body a {
+	color: var(--color-brand-orange);
+	text-decoration: underline;
+}
+
+.legal-page__body strong {
+	font-weight: 700;
+}
+
+@media (max-width: 480px) {
+	.legal-page {
+		padding-block: 56px 72px;
+	}
+
+	.legal-page__title {
+		font-size: 32px;
+	}
+
+	.legal-page__body {
+		font-size: 16px;
+	}
+}

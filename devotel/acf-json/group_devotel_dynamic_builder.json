@@ -1,0 +1,253 @@
+{
+    "key": "group_devotel_dynamic_builder",
+    "title": "Devotel Dynamic Section Builder",
+    "fields": [
+        {
+            "key": "field_devotel_enable_dynamic_builder",
+            "label": "Enable Dynamic Section Builder",
+            "name": "devotel_enable_dynamic_builder",
+            "type": "true_false",
+            "ui": 1,
+            "default_value": 0,
+            "instructions": "Enable this to edit page sections from ACF instead of extracted Elementor markup."
+        },
+        {
+            "key": "field_devotel_dynamic_sections",
+            "label": "Dynamic Sections",
+            "name": "devotel_dynamic_sections",
+            "type": "flexible_content",
+            "button_label": "Add Section",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_devotel_enable_dynamic_builder",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "layouts": {
+                "layout_devotel_hero": {
+                    "key": "layout_devotel_hero",
+                    "name": "hero",
+                    "label": "Hero",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_devotel_hero_kicker_dynamic",
+                            "label": "Kicker",
+                            "name": "kicker",
+                            "type": "text"
+                        },
+                        {
+                            "key": "field_devotel_hero_title_dynamic",
+                            "label": "Title",
+                            "name": "title",
+                            "type": "text"
+                        },
+                        {
+                            "key": "field_devotel_hero_description_dynamic",
+                            "label": "Description",
+                            "name": "description",
+                            "type": "textarea",
+                            "rows": 4
+                        },
+                        {
+                            "key": "field_devotel_hero_primary_label",
+                            "label": "Primary Button Label",
+                            "name": "primary_button_label",
+                            "type": "text"
+                        },
+                        {
+                            "key": "field_devotel_hero_primary_url",
+                            "label": "Primary Button URL",
+                            "name": "primary_button_url",
+                            "type": "url"
+                        },
+                        {
+                            "key": "field_devotel_hero_secondary_label",
+                            "label": "Secondary Button Label",
+                            "name": "secondary_button_label",
+                            "type": "text"
+                        },
+                        {
+                            "key": "field_devotel_hero_secondary_url",
+                            "label": "Secondary Button URL",
+                            "name": "secondary_button_url",
+                            "type": "url"
+                        }
+                    ]
+                },
+                "layout_devotel_cards": {
+                    "key": "layout_devotel_cards",
+                    "name": "cards",
+                    "label": "Cards Grid",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_devotel_cards_title",
+                            "label": "Section Title",
+                            "name": "section_title",
+                            "type": "text"
+                        },
+                        {
+                            "key": "field_devotel_cards_description",
+                            "label": "Section Description",
+                            "name": "section_description",
+                            "type": "textarea",
+                            "rows": 3
+                        },
+                        {
+                            "key": "field_devotel_cards_repeater",
+                            "label": "Cards",
+                            "name": "cards",
+                            "type": "repeater",
+                            "layout": "row",
+                            "button_label": "Add Card",
+                            "sub_fields": [
+                                {
+                                    "key": "field_devotel_card_icon",
+                                    "label": "Icon",
+                                    "name": "card_icon",
+                                    "type": "image",
+                                    "return_format": "array",
+                                    "preview_size": "thumbnail",
+                                    "library": "all"
+                                },
+                                {
+                                    "key": "field_devotel_card_title",
+                                    "label": "Title",
+                                    "name": "card_title",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "field_devotel_card_description",
+                                    "label": "Description",
+                                    "name": "card_description",
+                                    "type": "textarea",
+                                    "rows": 3
+                                },
+                                {
+                                    "key": "field_devotel_card_link_label",
+                                    "label": "Link Label",
+                                    "name": "card_link_label",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "field_devotel_card_link_url",
+                                    "label": "Link URL",
+                                    "name": "card_link_url",
+                                    "type": "url"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "layout_devotel_faq": {
+                    "key": "layout_devotel_faq",
+                    "name": "faq",
+                    "label": "FAQ",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_devotel_faq_title",
+                            "label": "Section Title",
+                            "name": "section_title",
+                            "type": "text"
+                        },
+                        {
+                            "key": "field_devotel_faq_items",
+                            "label": "FAQ Items",
+                            "name": "faqs",
+                            "type": "repeater",
+                            "layout": "row",
+                            "button_label": "Add FAQ",
+                            "sub_fields": [
+                                {
+                                    "key": "field_devotel_faq_question",
+                                    "label": "Question",
+                                    "name": "question",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "field_devotel_faq_answer",
+                                    "label": "Answer",
+                                    "name": "answer",
+                                    "type": "textarea",
+                                    "rows": 3
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "layout_devotel_cta": {
+                    "key": "layout_devotel_cta",
+                    "name": "cta",
+                    "label": "CTA Banner",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_devotel_cta_title_dynamic",
+                            "label": "Title",
+                            "name": "title",
+                            "type": "text"
+                        },
+                        {
+                            "key": "field_devotel_cta_description_dynamic",
+                            "label": "Description",
+                            "name": "description",
+                            "type": "textarea",
+                            "rows": 3
+                        },
+                        {
+                            "key": "field_devotel_cta_button_label_dynamic",
+                            "label": "Button Label",
+                            "name": "button_label",
+                            "type": "text"
+                        },
+                        {
+                            "key": "field_devotel_cta_button_url_dynamic",
+                            "label": "Button URL",
+                            "name": "button_url",
+                            "type": "url"
+                        }
+                    ]
+                },
+                "layout_devotel_rich_text": {
+                    "key": "layout_devotel_rich_text",
+                    "name": "rich_text",
+                    "label": "Rich Text",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_devotel_rich_text_content",
+                            "label": "Content",
+                            "name": "content",
+                            "type": "wysiwyg"
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1779823000
+}
+

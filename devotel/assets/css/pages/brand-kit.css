@@ -1,0 +1,111 @@
+/* Brand Kit — Elementor 9513 compat + contact section + mobile hero */
+
+body.devotel-brand-kit-page .elementor.elementor-9513 {
+	width: 100%;
+	max-width: 100%;
+	display: block !important;
+}
+
+body.devotel-brand-kit-page .elementor-9513 .e-con.e-flex {
+	--display: flex;
+	display: flex;
+}
+
+body.devotel-brand-kit-page .elementor-9513 .e-con.e-grid {
+	--display: grid;
+	display: grid;
+}
+
+body.devotel-brand-kit-page .elementor-9513 .elementor-invisible {
+	visibility: visible !important;
+	opacity: 1 !important;
+	animation: none !important;
+	transform: none !important;
+}
+
+body.devotel-brand-kit-page .elementor-9513 .e-con > .e-con-inner {
+	width: 100%;
+	max-width: var(--content-width, 100%);
+	margin-inline: auto;
+}
+
+@media (max-width: 768px) {
+	/* Mobile hero — center badge, title, copy, and CTA */
+	body.devotel-brand-kit-page #brk9dvtl-mount.brk9dvtl__page .brk9dvtl__mob__frame-2147228540 {
+		justify-content: flex-start !important;
+		align-items: center !important;
+		padding-top: var(--devotel-mobile-content-gap, 56px) !important;
+		padding-bottom: var(--devotel-mobile-content-gap, 56px) !important;
+		text-align: center !important;
+		box-sizing: border-box !important;
+	}
+
+	body.devotel-brand-kit-page #brk9dvtl-mount.brk9dvtl__page .brk9dvtl__mob__frame-2147228553,
+	body.devotel-brand-kit-page #brk9dvtl-mount.brk9dvtl__page .brk9dvtl__mob__heading-and-supporting-text,
+	body.devotel-brand-kit-page #brk9dvtl-mount.brk9dvtl__page .brk9dvtl__mob__container2,
+	body.devotel-brand-kit-page #brk9dvtl-mount.brk9dvtl__page .brk9dvtl__mob__frame-2147228552 {
+		align-items: center !important;
+		align-self: center !important;
+		margin-left: auto !important;
+		margin-right: auto !important;
+	}
+
+	body.devotel-brand-kit-page #brk9dvtl-mount.brk9dvtl__page .brk9dvtl__mob__heading,
+	body.devotel-brand-kit-page #brk9dvtl-mount.brk9dvtl__page .brk9dvtl__mob__supporting-text {
+		text-align: center !important;
+	}
+
+	body.devotel-brand-kit-page #brk9dvtl-mount.brk9dvtl__page .brk9dvtl__mob__button {
+		margin-left: auto !important;
+		margin-right: auto !important;
+	}
+
+	/* Mobile contact band (cm7) — match other inner pages */
+	body.devotel-brand-kit-page .elementor-element-12a7dc8.cm7.elementor-hidden-desktop,
+	body.devotel-brand-kit-page .elementor-element-12a7dc8.cm7 {
+		--padding-top: 30px !important;
+		--padding-bottom: 56px !important;
+		padding-top: 30px !important;
+		padding-bottom: 56px !important;
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+
+	body.devotel-brand-kit-page .elementor-element-12a7dc8.cm7 > .e-con-inner {
+		padding: 0 var(--devotel-mobile-gutter, 16px) 56px !important;
+		max-width: 100% !important;
+	}
+
+	body.devotel-brand-kit-page .elementor-element-12a7dc8.cm7 .e-con:has(.final-cta-form-wrapper) {
+		border-radius: 24px !important;
+		margin-bottom: 0 !important;
+	}
+
+	body.devotel-brand-kit-page .elementor-element-12a7dc8 .final-cta-form-wrapper {
+		max-width: 100% !important;
+		width: 100% !important;
+		border-radius: 24px !important;
+		overflow: hidden;
+		box-sizing: border-box !important;
+	}
+
+	body.devotel-brand-kit-page .elementor-element-12a7dc8 .final-cta-form-wrapper .wpcf7-form {
+		padding: 20px 16px 24px !important;
+		border-radius: 24px !important;
+		gap: 20px !important;
+		box-sizing: border-box !important;
+	}
+
+	body.devotel-brand-kit-page .elementor-element-12a7dc8 .final-cta-form-wrapper .wpcf7-submit {
+		min-height: 48px !important;
+		width: 100% !important;
+	}
+}
+
+@media (min-width: 769px) {
+	body.devotel-brand-kit-page .elementor-element-44edcca > .e-con-inner {
+		max-width: 1440px !important;
+		margin-left: auto !important;
+		margin-right: auto !important;
+	}
+}

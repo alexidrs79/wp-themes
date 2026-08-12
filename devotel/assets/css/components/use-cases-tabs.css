@@ -1,0 +1,45 @@
+/**
+ * Use Cases tabs — shared styles for product subpages.
+ * Printed in the footer so it overrides inline widget styles.
+ */
+
+.use-case-section .use-case-tab-button {
+	border-radius: 16px;
+	transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.use-case-section .use-case-tab-button:hover,
+.use-case-section .use-case-tab-button.active {
+	border-radius: 16px;
+}
+
+.use-case-section .use-case-tab-text {
+	color: var(--Text-text-quaternary, #62748e);
+	font-family: var(--Font-family-font-family-body, Inter), sans-serif;
+	font-size: var(--Font-size-text-lg, 18px);
+	font-style: normal;
+	font-weight: 500;
+	line-height: var(--Line-height-text-lg, 28px);
+}
+
+.use-case-section .use-case-tab-button.active .use-case-tab-text {
+	color: var(--Text-text-white, #fff);
+}
+
+/* Orbit / long tab labels — keep on one row without shrinking typography */
+@media (min-width: 1025px) {
+	body.devotel-platforms-page .use-case-section .use-case-horizontal-tabs {
+		flex-wrap: nowrap;
+	}
+
+	body.devotel-platforms-page .use-case-section .use-case-tab-button {
+		flex: 1 1 0;
+		min-width: 0;
+	}
+
+	body.devotel-platforms-page .use-case-section .use-case-tab-text {
+		white-space: nowrap;
+		word-break: keep-all;
+		overflow-wrap: normal;
+	}
+}

@@ -1,0 +1,576 @@
+/* Shared site CTA — parity with about-us elementor-element-1dd90da */
+
+body.devotel-blog-page .elementor-element-3814e06,
+body.devotel-blog-single-page .elementor-element-3814e06,
+body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da,
+body.devotel-blog-single-page .devotel-site-cta-wrap.elementor-element-1dd90da {
+	width: 100% !important;
+	max-width: 100% !important;
+	--width: 100% !important;
+	--padding-left: 0 !important;
+	--padding-right: 0 !important;
+	--padding-inline-start: 0 !important;
+	--padding-inline-end: 0 !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+	margin: 0 !important;
+	overflow: hidden;
+}
+
+body.devotel-blog-page .devotel-site-cta,
+body.devotel-blog-single-page .devotel-site-cta,
+body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da section.relative,
+body.devotel-blog-single-page .elementor-element-1dd90da section.relative,
+body.devotel-about-page .elementor-element-1dd90da section.relative,
+body.elementor-page-12 .elementor-element-1dd90da section.relative {
+	width: 100%;
+	min-height: 0;
+	overflow: hidden;
+	background: linear-gradient(104.63deg, #1e318a 0%, #266df0 100%) !important;
+}
+
+body.devotel-blog-page .devotel-site-cta .cta-section-container,
+body.devotel-blog-single-page .devotel-site-cta .cta-section-container,
+body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .cta-section-container,
+body.devotel-blog-single-page .elementor-element-1dd90da .cta-section-container,
+body.devotel-about-page .elementor-element-1dd90da .cta-section-container,
+body.elementor-page-12 .elementor-element-1dd90da .cta-section-container {
+	max-width: 1440px;
+	width: 100%;
+	margin: 0 auto;
+	position: relative;
+	min-height: 376px;
+}
+
+body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da,
+body.devotel-blog-single-page .devotel-site-cta-wrap.elementor-element-1dd90da,
+body.devotel-blog-page .elementor-element-3814e06,
+body.devotel-blog-single-page .elementor-element-3814e06 {
+	margin-bottom: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+body.devotel-blog-page .devotel-site-cta,
+body.devotel-blog-single-page .devotel-site-cta {
+	display: block;
+	margin-bottom: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+body.devotel-blog-page .devotel-site-cta .video-wrapper,
+body.devotel-blog-single-page .devotel-site-cta .video-wrapper,
+body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .video-wrapper,
+body.devotel-blog-single-page .elementor-element-1dd90da .video-wrapper {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	overflow: hidden;
+}
+
+body.devotel-blog-page .devotel-site-cta .video-wrapper-mobile,
+body.devotel-blog-single-page .devotel-site-cta .video-wrapper-mobile,
+body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .video-wrapper-mobile,
+body.devotel-blog-single-page .elementor-element-1dd90da .video-wrapper-mobile {
+	display: none;
+}
+
+body.devotel-blog-page .devotel-site-cta .video-gradient-container,
+body.devotel-blog-single-page .devotel-site-cta .video-gradient-container,
+body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .video-gradient-container,
+body.devotel-blog-single-page .elementor-element-1dd90da .video-gradient-container {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+}
+
+body.devotel-blog-page .devotel-site-cta .video-wrapper .video-gradient-container video,
+body.devotel-blog-single-page .devotel-site-cta .video-wrapper .video-gradient-container video,
+body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .video-wrapper .video-gradient-container video,
+body.devotel-blog-single-page .elementor-element-1dd90da .video-wrapper .video-gradient-container video {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	object-position: right center;
+	right: 0;
+	top: 50%;
+	transform: translate(-25%, -50%) scale(1.6);
+	z-index: 2;
+	mix-blend-mode: screen;
+}
+
+body.devotel-blog-page .devotel-site-cta .content-wrapper,
+body.devotel-blog-single-page .devotel-site-cta .content-wrapper,
+body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .content-wrapper,
+body.devotel-blog-single-page .elementor-element-1dd90da .content-wrapper {
+	position: absolute;
+	top: 50%;
+	left: calc((100% - 1440px) / 2 + 80px);
+	transform: translateY(-50%);
+	width: 576px;
+	max-width: calc(100% - 160px);
+	z-index: 10;
+}
+
+body.devotel-blog-page .devotel-site-cta .content-wrapper > div,
+body.devotel-blog-single-page .devotel-site-cta .content-wrapper > div,
+body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .content-wrapper > div,
+body.devotel-blog-single-page .elementor-element-1dd90da .content-wrapper > div,
+body.devotel-blog-page .devotel-site-cta .flex.flex-col,
+body.devotel-blog-single-page .devotel-site-cta .flex.flex-col {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 32px;
+}
+
+body.devotel-blog-page .devotel-site-cta .content-wrapper h2,
+body.devotel-blog-single-page .devotel-site-cta .content-wrapper h2,
+body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .content-wrapper h2,
+body.devotel-blog-single-page .elementor-element-1dd90da .content-wrapper h2 {
+	font-family: 'Duplet', 'Inter', sans-serif !important;
+	font-size: 40px !important;
+	font-weight: 600 !important;
+	line-height: 50px !important;
+	letter-spacing: -0.8px !important;
+	color: #fff !important;
+	margin: 0;
+}
+
+body.devotel-blog-page .devotel-site-cta .content-wrapper .button,
+body.devotel-blog-single-page .devotel-site-cta .content-wrapper .button,
+body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .content-wrapper .button,
+body.devotel-blog-single-page .elementor-element-1dd90da .content-wrapper .button {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 12px;
+	width: max-content;
+	max-width: 100%;
+}
+
+body.devotel-blog-page .devotel-site-cta .button2,
+body.devotel-blog-single-page .devotel-site-cta .button2,
+body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .button2,
+body.devotel-blog-single-page .elementor-element-1dd90da .button2 {
+	border-radius: 10px;
+	background-color: #325fec !important;
+	display: inline-flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	padding: 0 15px;
+	width: 186px;
+	height: 40px;
+	box-sizing: border-box;
+	text-decoration: none;
+	color: #fff !important;
+	cursor: pointer;
+	overflow: hidden;
+}
+
+body.devotel-blog-page .devotel-site-cta .button2 .content,
+body.devotel-blog-single-page .devotel-site-cta .button2 .content,
+body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .button2 .content,
+body.devotel-blog-single-page .elementor-element-1dd90da .button2 .content {
+	display: flex !important;
+	flex-direction: row !important;
+	align-items: center !important;
+	justify-content: center !important;
+	gap: 4px !important;
+	width: auto !important;
+	max-width: none !important;
+	height: 40px !important;
+	flex-shrink: 0 !important;
+}
+
+body.devotel-blog-page .devotel-site-cta .button2 .talk-to-an,
+body.devotel-blog-single-page .devotel-site-cta .button2 .talk-to-an,
+body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .button2 .talk-to-an,
+body.devotel-blog-single-page .elementor-element-1dd90da .button2 .talk-to-an {
+	font-weight: 500;
+	line-height: 24px;
+	color: #fff !important;
+	transition: transform 0.3s ease;
+}
+
+body.devotel-blog-page .devotel-site-cta .button2 .icon,
+body.devotel-blog-single-page .devotel-site-cta .button2 .icon,
+body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .button2 .icon,
+body.devotel-blog-single-page .elementor-element-1dd90da .button2 .icon {
+	height: 20px;
+	width: 0;
+	opacity: 0;
+	flex-shrink: 0;
+	transform: translateX(-8px);
+	overflow: hidden;
+	transition: width 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+}
+
+body.devotel-blog-page .devotel-site-cta .button2:hover,
+body.devotel-blog-single-page .devotel-site-cta .button2:hover,
+body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .button2:hover,
+body.devotel-blog-single-page .elementor-element-1dd90da .button2:hover {
+	background-color: #1e4fd9 !important;
+}
+
+body.devotel-blog-page .devotel-site-cta .button2:hover .talk-to-an,
+body.devotel-blog-single-page .devotel-site-cta .button2:hover .talk-to-an,
+body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .button2:hover .talk-to-an,
+body.devotel-blog-single-page .elementor-element-1dd90da .button2:hover .talk-to-an {
+	transform: translateX(-6px);
+}
+
+body.devotel-blog-page .devotel-site-cta .button2:hover .icon,
+body.devotel-blog-single-page .devotel-site-cta .button2:hover .icon,
+body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .button2:hover .icon,
+body.devotel-blog-single-page .elementor-element-1dd90da .button2:hover .icon {
+	width: 20px;
+	opacity: 1;
+	transform: translateX(0);
+}
+
+@media (max-width: 1440px) {
+	body.devotel-blog-page .devotel-site-cta .cta-section-container,
+	body.devotel-blog-single-page .devotel-site-cta .cta-section-container,
+	body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .cta-section-container,
+	body.devotel-blog-single-page .elementor-element-1dd90da .cta-section-container {
+		padding: 0 24px;
+	}
+
+	body.devotel-blog-page .devotel-site-cta .content-wrapper,
+	body.devotel-blog-single-page .devotel-site-cta .content-wrapper,
+	body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .content-wrapper,
+	body.devotel-blog-single-page .elementor-element-1dd90da .content-wrapper {
+		left: 80px;
+	}
+}
+
+@media (max-width: 1024px) {
+	body.devotel-blog-page .devotel-site-cta .content-wrapper,
+	body.devotel-blog-single-page .devotel-site-cta .content-wrapper,
+	body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .content-wrapper,
+	body.devotel-blog-single-page .elementor-element-1dd90da .content-wrapper {
+		left: 40px;
+		max-width: calc(100% - 80px);
+	}
+}
+
+@media (max-width: 767px) {
+	/* Live mobile CTA — gradient band, copy on top, bird video below */
+	body.devotel-blog-page .devotel-site-cta,
+	body.devotel-blog-single-page .devotel-site-cta,
+	body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da section.relative,
+	body.devotel-blog-single-page .elementor-element-1dd90da section.relative,
+	body.devotel-about-page .elementor-element-1dd90da section.relative,
+	body.elementor-page-12 .elementor-element-1dd90da section.relative {
+		min-height: auto;
+		padding-bottom: 48px;
+		overflow: hidden;
+		background: linear-gradient(164deg, #1e318a 22.26%, #266df0 79.12%) !important;
+	}
+
+	body.devotel-blog-page .devotel-site-cta .cta-section-container,
+	body.devotel-blog-single-page .devotel-site-cta .cta-section-container,
+	body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .cta-section-container,
+	body.devotel-blog-single-page .elementor-element-1dd90da .cta-section-container,
+	body.devotel-about-page .elementor-element-1dd90da .cta-section-container,
+	body.elementor-page-12 .elementor-element-1dd90da .cta-section-container {
+		padding: 48px 16px 0 !important;
+		min-height: auto;
+		height: auto;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: flex-start;
+		gap: 32px;
+		position: relative;
+		box-sizing: border-box;
+		overflow: visible;
+	}
+
+	body.devotel-blog-page .devotel-site-cta .video-wrapper,
+	body.devotel-blog-single-page .devotel-site-cta .video-wrapper,
+	body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .video-wrapper,
+	body.devotel-blog-single-page .elementor-element-1dd90da .video-wrapper,
+	body.devotel-about-page .elementor-element-1dd90da .video-wrapper,
+	body.elementor-page-12 .elementor-element-1dd90da .video-wrapper {
+		display: none !important;
+	}
+
+	body.devotel-blog-page .devotel-site-cta .video-wrapper-mobile,
+	body.devotel-blog-single-page .devotel-site-cta .video-wrapper-mobile,
+	body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .video-wrapper-mobile,
+	body.devotel-blog-single-page .elementor-element-1dd90da .video-wrapper-mobile,
+	body.devotel-about-page .elementor-element-1dd90da .video-wrapper-mobile,
+	body.elementor-page-12 .elementor-element-1dd90da .video-wrapper-mobile {
+		display: block !important;
+		position: relative;
+		width: 100%;
+		height: 390px;
+		order: 4;
+		flex-shrink: 0;
+		inset: auto;
+		pointer-events: none;
+		overflow: visible;
+	}
+
+	body.devotel-blog-page .devotel-site-cta .video-wrapper-mobile .video-gradient-container,
+	body.devotel-blog-single-page .devotel-site-cta .video-wrapper-mobile .video-gradient-container,
+	body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .video-wrapper-mobile .video-gradient-container,
+	body.devotel-blog-single-page .elementor-element-1dd90da .video-wrapper-mobile .video-gradient-container,
+	body.devotel-about-page .elementor-element-1dd90da .video-wrapper-mobile .video-gradient-container,
+	body.elementor-page-12 .elementor-element-1dd90da .video-wrapper-mobile .video-gradient-container {
+		position: relative;
+		inset: auto;
+		width: 100%;
+		height: 100%;
+		background: transparent;
+	}
+
+	body.devotel-blog-page .devotel-site-cta .video-wrapper-mobile .video-gradient-container video,
+	body.devotel-blog-single-page .devotel-site-cta .video-wrapper-mobile .video-gradient-container video,
+	body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .video-wrapper-mobile .video-gradient-container video,
+	body.devotel-blog-single-page .elementor-element-1dd90da .video-wrapper-mobile .video-gradient-container video,
+	body.devotel-about-page .elementor-element-1dd90da .video-wrapper-mobile .video-gradient-container video,
+	body.elementor-page-12 .elementor-element-1dd90da .video-wrapper-mobile .video-gradient-container video {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		object-position: center center;
+		right: auto;
+		top: auto;
+		transform: none;
+		mix-blend-mode: screen;
+		background-color: transparent;
+	}
+
+	body.devotel-blog-page .devotel-site-cta .content-wrapper,
+	body.devotel-blog-single-page .devotel-site-cta .content-wrapper,
+	body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .content-wrapper,
+	body.devotel-blog-single-page .elementor-element-1dd90da .content-wrapper,
+	body.devotel-about-page .elementor-element-1dd90da .content-wrapper,
+	body.elementor-page-12 .elementor-element-1dd90da .content-wrapper {
+		position: relative;
+		top: auto;
+		left: auto;
+		right: auto;
+		transform: none;
+		width: 100%;
+		max-width: 100%;
+		order: 1;
+		z-index: 1;
+	}
+
+	body.devotel-blog-page .devotel-site-cta .content-wrapper > div,
+	body.devotel-blog-single-page .devotel-site-cta .content-wrapper > div,
+	body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .content-wrapper > div,
+	body.devotel-blog-single-page .elementor-element-1dd90da .content-wrapper > div,
+	body.devotel-blog-page .devotel-site-cta .flex.flex-col,
+	body.devotel-blog-single-page .devotel-site-cta .flex.flex-col,
+	body.devotel-about-page .elementor-element-1dd90da .content-wrapper > div,
+	body.elementor-page-12 .elementor-element-1dd90da .content-wrapper > div {
+		display: flex !important;
+		flex-direction: column !important;
+		align-items: flex-start !important;
+		gap: 32px !important;
+		width: 100%;
+		max-width: 100%;
+	}
+
+	body.devotel-blog-page .devotel-site-cta .content-wrapper h2,
+	body.devotel-blog-single-page .devotel-site-cta .content-wrapper h2,
+	body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .content-wrapper h2,
+	body.devotel-blog-single-page .elementor-element-1dd90da .content-wrapper h2,
+	body.devotel-about-page .elementor-element-1dd90da .content-wrapper h2,
+	body.elementor-page-12 .elementor-element-1dd90da .content-wrapper h2 {
+		font-size: 36px !important;
+		line-height: 44px !important;
+		letter-spacing: -0.72px !important;
+		width: 100%;
+		max-width: 100%;
+		color: #fff !important;
+	}
+
+	body.devotel-blog-page .devotel-site-cta .content-wrapper .button,
+	body.devotel-blog-single-page .devotel-site-cta .content-wrapper .button,
+	body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .content-wrapper .button,
+	body.devotel-blog-single-page .elementor-element-1dd90da .content-wrapper .button,
+	body.devotel-about-page .elementor-element-1dd90da .content-wrapper .button,
+	body.elementor-page-12 .elementor-element-1dd90da .content-wrapper .button {
+		display: flex !important;
+		flex-direction: column;
+		gap: 12px;
+		width: 100%;
+		max-width: 100%;
+		align-items: stretch;
+		margin: 0;
+		order: 2;
+	}
+
+	body.devotel-blog-page .devotel-site-cta .button2,
+	body.devotel-blog-single-page .devotel-site-cta .button2,
+	body.devotel-blog-page .devotel-site-cta-wrap.elementor-element-1dd90da .button2,
+	body.devotel-blog-single-page .elementor-element-1dd90da .button2,
+	body.devotel-about-page .elementor-element-1dd90da .button2,
+	body.elementor-page-12 .elementor-element-1dd90da .button2 {
+		width: 100% !important;
+		max-width: 100% !important;
+		min-width: 0 !important;
+		height: 40px;
+		align-self: stretch;
+		box-sizing: border-box;
+	}
+}
+
+/* Global CTA parity with blog archive (exclude home/platforms/sim-based). */
+body:not(.is-home-page):not(.devotel-platforms-page):not(.devotel-sim-based-page) .devotel-site-cta-wrap.elementor-element-1dd90da,
+body:not(.is-home-page):not(.devotel-platforms-page):not(.devotel-sim-based-page) .elementor-element-1dd90da.devotel-site-cta-wrap,
+body:not(.is-home-page):not(.devotel-platforms-page):not(.devotel-sim-based-page) .elementor-element-1dd90da[data-id="1dd90da"] {
+	width: 100% !important;
+	max-width: 100% !important;
+	--width: 100% !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+	margin: 0 !important;
+	overflow: hidden !important;
+}
+
+body:not(.is-home-page):not(.devotel-platforms-page):not(.devotel-sim-based-page) .elementor-element-1dd90da section.relative {
+	width: 100% !important;
+	min-height: 0 !important;
+	overflow: hidden !important;
+	background: linear-gradient(104.63deg, #1e318a 0%, #266df0 100%) !important;
+}
+
+body:not(.is-home-page):not(.devotel-platforms-page):not(.devotel-sim-based-page) .elementor-element-1dd90da .cta-section-container {
+	max-width: 1440px !important;
+	width: 100% !important;
+	margin: 0 auto !important;
+	position: relative !important;
+	min-height: 376px !important;
+}
+
+body:not(.is-home-page):not(.devotel-platforms-page):not(.devotel-sim-based-page) .elementor-element-1dd90da .video-wrapper {
+	position: absolute !important;
+	inset: 0 !important;
+	width: 100% !important;
+	height: 100% !important;
+	pointer-events: none !important;
+	overflow: hidden !important;
+}
+
+body:not(.is-home-page):not(.devotel-platforms-page):not(.devotel-sim-based-page) .elementor-element-1dd90da .content-wrapper {
+	position: absolute !important;
+	top: 50% !important;
+	left: calc((100% - 1440px) / 2 + 80px) !important;
+	transform: translateY(-50%) !important;
+	width: 576px !important;
+	max-width: calc(100% - 160px) !important;
+	z-index: 10 !important;
+}
+
+@media (max-width: 767px) {
+	body:not(.is-home-page):not(.devotel-platforms-page):not(.devotel-sim-based-page) .elementor-element-1dd90da section.relative {
+		min-height: auto !important;
+		padding-bottom: 48px !important;
+		background: linear-gradient(164deg, #1e318a 22.26%, #266df0 79.12%) !important;
+	}
+
+	body:not(.is-home-page):not(.devotel-platforms-page):not(.devotel-sim-based-page) .elementor-element-1dd90da .cta-section-container {
+		padding: 48px 16px 0 !important;
+		min-height: auto !important;
+		height: auto !important;
+		display: flex !important;
+		flex-direction: column !important;
+		align-items: center !important;
+		justify-content: flex-start !important;
+		gap: 32px !important;
+		overflow: visible !important;
+	}
+
+	body:not(.is-home-page):not(.devotel-platforms-page):not(.devotel-sim-based-page) .elementor-element-1dd90da .video-wrapper {
+		display: none !important;
+	}
+
+	body:not(.is-home-page):not(.devotel-platforms-page):not(.devotel-sim-based-page) .elementor-element-1dd90da .video-wrapper-mobile {
+		display: block !important;
+		position: relative !important;
+		width: 100% !important;
+		height: 390px !important;
+		order: 4 !important;
+		flex-shrink: 0 !important;
+		pointer-events: none !important;
+		overflow: visible !important;
+	}
+
+	body:not(.is-home-page):not(.devotel-platforms-page):not(.devotel-sim-based-page) .elementor-element-1dd90da .content-wrapper {
+		position: relative !important;
+		top: auto !important;
+		left: auto !important;
+		right: auto !important;
+		transform: none !important;
+		width: 100% !important;
+		max-width: 100% !important;
+		order: 1 !important;
+	}
+}
+
+/* Canonical mobile CTA logo animation — blog archive reference (wins over page/widget overrides). */
+@media (max-width: 767px) {
+	.devotel-site-cta .video-wrapper-mobile,
+	.devotel-site-cta-wrap .video-wrapper-mobile,
+	.elementor-element-1dd90da .video-wrapper-mobile,
+	.cta-section-container .video-wrapper-mobile,
+	section.relative .cta-section-container .video-wrapper-mobile {
+		display: block !important;
+		position: relative !important;
+		width: 100% !important;
+		height: 390px !important;
+		min-height: 390px !important;
+		max-height: none !important;
+		order: 4 !important;
+		flex-shrink: 0 !important;
+		pointer-events: none !important;
+		overflow: visible !important;
+		margin-bottom: 0 !important;
+	}
+
+	.devotel-site-cta .video-wrapper-mobile .video-gradient-container,
+	.devotel-site-cta-wrap .video-wrapper-mobile .video-gradient-container,
+	.elementor-element-1dd90da .video-wrapper-mobile .video-gradient-container,
+	.cta-section-container .video-wrapper-mobile .video-gradient-container {
+		position: relative !important;
+		inset: auto !important;
+		width: 100% !important;
+		height: 100% !important;
+		min-height: 0 !important;
+		max-height: none !important;
+		background: transparent !important;
+	}
+
+	.devotel-site-cta .video-wrapper-mobile .video-gradient-container video,
+	.devotel-site-cta-wrap .video-wrapper-mobile .video-gradient-container video,
+	.elementor-element-1dd90da .video-wrapper-mobile .video-gradient-container video,
+	.cta-section-container .video-wrapper-mobile .video-gradient-container video {
+		position: relative !important;
+		width: 100% !important;
+		height: 100% !important;
+		min-height: 0 !important;
+		max-height: none !important;
+		object-fit: contain !important;
+		object-position: center center !important;
+		right: auto !important;
+		top: auto !important;
+		transform: none !important;
+		mix-blend-mode: screen !important;
+		background-color: transparent !important;
+		display: block !important;
+	}
+}

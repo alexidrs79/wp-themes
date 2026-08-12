@@ -1,0 +1,283 @@
+{
+    "key": "group_devotel_theme_settings",
+    "title": "Devotel Theme Settings",
+    "fields": [
+        {
+            "key": "field_devotel_tab_site_brand",
+            "label": "Site & Brand",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_devotel_site_brand_notice",
+            "label": "",
+            "name": "",
+            "type": "message",
+            "message": "Controls site-wide brand assets shown in the header and footer. Layout and navigation structure stay in the theme extract.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
+            "key": "field_devotel_site_tagline",
+            "label": "Footer Brand Description",
+            "name": "devotel_site_tagline",
+            "type": "textarea",
+            "instructions": "Shown below the footer logo in the brand column.",
+            "rows": 3,
+            "default_value": "Innovating in the telecommunications sector since 2018, Devotel specialises in delivering comprehensive communication and connectivity solutions globally."
+        },
+        {
+            "key": "field_devotel_logo_default",
+            "label": "Header Logo (Inner Pages)",
+            "name": "devotel_logo_default",
+            "type": "image",
+            "instructions": "Used on all pages except the homepage. Falls back to uploads/2025/12/Group-20.png when empty.",
+            "return_format": "url",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_devotel_logo_home",
+            "label": "Header Logo (Homepage)",
+            "name": "devotel_logo_home",
+            "type": "image",
+            "instructions": "Used on the homepage header only. Falls back to uploads/2025/12/Group-20-2.png when empty.",
+            "return_format": "url",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_devotel_favicon_note",
+            "label": "Favicon",
+            "name": "",
+            "type": "message",
+            "message": "Set the site favicon under Appearance → Customize → Site Identity.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
+            "key": "field_devotel_tab_ctas_contact",
+            "label": "CTAs & Contact",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_devotel_cta_notice",
+            "label": "",
+            "name": "",
+            "type": "message",
+            "message": "Updates the primary header CTA on desktop and mobile. Contact defaults are available to templates via devotel_get_contact_defaults().",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
+            "key": "field_devotel_header_cta_text",
+            "label": "Header CTA Text",
+            "name": "devotel_header_cta_text",
+            "type": "text",
+            "default_value": "Talk to an expert"
+        },
+        {
+            "key": "field_devotel_header_cta_url",
+            "label": "Header CTA URL",
+            "name": "devotel_header_cta_url",
+            "type": "url",
+            "instructions": "Leave empty to use the default contact page below."
+        },
+        {
+            "key": "field_devotel_header_cta_open_new_tab",
+            "label": "Open Header CTA in New Tab",
+            "name": "devotel_header_cta_open_new_tab",
+            "type": "true_false",
+            "ui": 1,
+            "default_value": 0
+        },
+        {
+            "key": "field_devotel_default_contact_page",
+            "label": "Default Contact Page",
+            "name": "devotel_default_contact_page",
+            "type": "page_link",
+            "instructions": "Fallback URL for the header CTA when Header CTA URL is empty.",
+            "post_type": ["page"],
+            "allow_null": 1,
+            "return_format": "url"
+        },
+        {
+            "key": "field_devotel_sales_email",
+            "label": "Sales Email",
+            "name": "devotel_sales_email",
+            "type": "email",
+            "default_value": "sales@devotel.com"
+        },
+        {
+            "key": "field_devotel_support_email",
+            "label": "Support Email",
+            "name": "devotel_support_email",
+            "type": "email"
+        },
+        {
+            "key": "field_devotel_phone_display",
+            "label": "Phone (Display)",
+            "name": "devotel_phone_display",
+            "type": "text",
+            "instructions": "Human-readable phone number shown on the site.",
+            "default_value": "+1 (919) 263 24 06"
+        },
+        {
+            "key": "field_devotel_phone_tel",
+            "label": "Phone (tel: link)",
+            "name": "devotel_phone_tel",
+            "type": "text",
+            "instructions": "Digits and + only, used in tel: links (e.g. +442012345678).",
+            "default_value": "+19192632406"
+        },
+        {
+            "key": "field_devotel_tab_footer",
+            "label": "Footer",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_devotel_footer_notice",
+            "label": "",
+            "name": "",
+            "type": "message",
+            "message": "Footer newsletter, legal row, social links, and external platform URLs. Nav columns remain in the footer extract unless overridden below.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
+            "key": "field_devotel_footer_newsletter_title",
+            "label": "Newsletter Title",
+            "name": "devotel_footer_newsletter_title",
+            "type": "text",
+            "default_value": "Devotel Newsletter"
+        },
+        {
+            "key": "field_devotel_footer_newsletter_text",
+            "label": "Newsletter Description",
+            "name": "devotel_footer_newsletter_text",
+            "type": "text",
+            "default_value": "The latest experience tips and trends. No spam!"
+        },
+        {
+            "key": "field_devotel_newsletter_shortcode",
+            "label": "Newsletter Form Shortcode",
+            "name": "devotel_newsletter_shortcode",
+            "type": "text",
+            "instructions": "Optional Contact Form 7 shortcode, e.g. [contact-form-7 id=\"9119\" title=\"Newsletter\"]. Replaces the bundled newsletter form when set.",
+            "default_value": "[contact-form-7 id=\"9119\" title=\"Newsletter\"]"
+        },
+        {
+            "key": "field_devotel_footer_copyright",
+            "label": "Copyright Text",
+            "name": "devotel_footer_copyright",
+            "type": "text",
+            "instructions": "Use {year} for the current year.",
+            "default_value": "© {year} Devotel LTD. All rights reserved."
+        },
+        {
+            "key": "field_devotel_footer_social_links",
+            "label": "Social Links",
+            "name": "devotel_footer_social_links",
+            "type": "repeater",
+            "layout": "table",
+            "button_label": "Add Social Link",
+            "sub_fields": [
+                {
+                    "key": "field_devotel_footer_social_network",
+                    "label": "Network",
+                    "name": "network",
+                    "type": "select",
+                    "choices": {
+                        "linkedin": "LinkedIn",
+                        "x": "X (Twitter)",
+                        "youtube": "YouTube"
+                    },
+                    "default_value": "linkedin"
+                },
+                {
+                    "key": "field_devotel_footer_social_url",
+                    "label": "URL",
+                    "name": "url",
+                    "type": "url"
+                },
+                {
+                    "key": "field_devotel_footer_social_aria",
+                    "label": "Aria Label",
+                    "name": "aria_label",
+                    "type": "text",
+                    "instructions": "Optional. Defaults to the network name."
+                }
+            ]
+        },
+        {
+            "key": "field_devotel_footer_external_links",
+            "label": "External Platform Links",
+            "name": "devotel_footer_external_links",
+            "type": "group",
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_devotel_footer_esimora_url",
+                    "label": "Esimora URL",
+                    "name": "esimora_url",
+                    "type": "url",
+                    "default_value": "https://esimora.com/"
+                },
+                {
+                    "key": "field_devotel_footer_devhub_url",
+                    "label": "Devhub URL",
+                    "name": "devhub_url",
+                    "type": "url",
+                    "default_value": "https://hub.devotel.com/#home"
+                }
+            ]
+        },
+        {
+            "key": "field_devotel_footer_legal_links",
+            "label": "Footer Legal Links",
+            "name": "devotel_footer_legal_links",
+            "type": "repeater",
+            "instructions": "Optional. When set, replaces the Privacy Policy and Brand Kit links in the footer bottom bar.",
+            "layout": "table",
+            "button_label": "Add Legal Link",
+            "sub_fields": [
+                {
+                    "key": "field_devotel_footer_legal_label",
+                    "label": "Label",
+                    "name": "label",
+                    "type": "text"
+                },
+                {
+                    "key": "field_devotel_footer_legal_url",
+                    "label": "URL",
+                    "name": "url",
+                    "type": "url"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "devotel-theme-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Site-wide content and integration settings wired to header/footer extracts.",
+    "show_in_rest": 0,
+    "modified": 1780300000
+}

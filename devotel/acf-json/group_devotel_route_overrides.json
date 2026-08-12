@@ -1,0 +1,98 @@
+{
+    "key": "group_devotel_route_overrides",
+    "title": "Devotel Route Content Overrides",
+    "fields": [
+        {
+            "key": "field_devotel_enable_route_overrides",
+            "label": "Enable Text\/URL Overrides",
+            "name": "devotel_enable_route_overrides",
+            "type": "true_false",
+            "ui": 1,
+            "default_value": 0,
+            "instructions": "When enabled, replacements below are applied to extracted markup on this page."
+        },
+        {
+            "key": "field_devotel_route_text_replacements",
+            "label": "Text Replacements",
+            "name": "devotel_route_text_replacements",
+            "type": "repeater",
+            "layout": "row",
+            "button_label": "Add Text Replacement",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_devotel_enable_route_overrides",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "sub_fields": [
+                {
+                    "key": "field_devotel_route_find_text",
+                    "label": "Find Text",
+                    "name": "find_text",
+                    "type": "textarea",
+                    "rows": 2
+                },
+                {
+                    "key": "field_devotel_route_replace_text",
+                    "label": "Replace With",
+                    "name": "replace_text",
+                    "type": "textarea",
+                    "rows": 2
+                }
+            ]
+        },
+        {
+            "key": "field_devotel_route_url_replacements",
+            "label": "URL Replacements",
+            "name": "devotel_route_url_replacements",
+            "type": "repeater",
+            "layout": "row",
+            "button_label": "Add URL Replacement",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_devotel_enable_route_overrides",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "sub_fields": [
+                {
+                    "key": "field_devotel_route_find_url",
+                    "label": "Find URL",
+                    "name": "find_url",
+                    "type": "url"
+                },
+                {
+                    "key": "field_devotel_route_replace_url",
+                    "label": "Replace URL",
+                    "name": "replace_url",
+                    "type": "url"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 1,
+    "modified": 1780000000
+}

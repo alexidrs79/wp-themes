@@ -1,0 +1,1200 @@
+/* Blog archive + single route polish — archive layout owned by post-872.css + post-880.css */
+
+body.devotel-blog-page .devotel-blog-archive,
+body.devotel-blog-single-page .devotel-blog-single {
+	width: 100%;
+	max-width: 100%;
+	overflow-x: clip;
+}
+
+/* Theme-added title arrows */
+body.devotel-blog-page .devotel-blog-title-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	text-decoration: none;
+	color: inherit;
+}
+
+body.devotel-blog-page .devotel-blog-title-link:hover {
+	color: #325fec;
+}
+
+body.devotel-blog-page .devotel-blog-title-arrow {
+	flex-shrink: 0;
+	color: #90a1b9;
+	transition: color 0.2s ease;
+}
+
+body.devotel-blog-page .devotel-blog-title-link:hover .devotel-blog-title-arrow,
+body.devotel-blog-page .e-loop-item:hover .devotel-blog-title-arrow,
+body.devotel-blog-page .elementor-element-61b4ffc:hover .devotel-blog-title-arrow {
+	color: #325fec;
+}
+
+/* Grid fallback */
+body.devotel-blog-page .elementor-element-504959e .elementor-loop-container {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	column-gap: 32px;
+	row-gap: 64px;
+}
+
+@media (max-width: 1024px) {
+	body.devotel-blog-page .elementor-element-504959e .elementor-loop-container {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (max-width: 767px) {
+	/*
+	 * Unified mobile shell — 16px gutters match single Latest blog posts (98c7270 / 7fe62a2).
+	 */
+	body.devotel-blog-page .elementor-element-b617508 > .e-con-inner,
+	body.devotel-blog-page .elementor-element-3158c58 > .e-con-inner,
+	body.devotel-blog-page .elementor-element-a743aca > .e-con-inner,
+	body.devotel-blog-single-page .elementor-element-9344109 > .e-con-inner,
+	body.devotel-blog-single-page .elementor-element-425aac5 > .e-con-inner,
+	body.devotel-blog-single-page .elementor-element-98c7270 > .e-con-inner,
+	body.devotel-blog-single-page .elementor-element-7fe62a2 > .e-con-inner {
+		padding-left: 16px !important;
+		padding-right: 16px !important;
+		box-sizing: border-box;
+	}
+
+	/* Strip nested/legacy horizontal padding so one shell controls width */
+	body.devotel-blog-page .elementor-element-b617508,
+	body.devotel-blog-page .elementor-872 .elementor-element-b617508,
+	body.devotel-blog-page .elementor-element-a743aca,
+	body.devotel-blog-page .elementor-872 .elementor-element-a743aca {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+		--padding-left: 0px !important;
+		--padding-right: 0px !important;
+	}
+
+	body.devotel-blog-page .elementor-element-abb4f7b,
+	body.devotel-blog-page .elementor-element-d385dc9,
+	body.devotel-blog-page .elementor-872 .elementor-element-abb4f7b,
+	body.devotel-blog-page .elementor-872 .elementor-element-d385dc9 {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+		--padding-left: 0px !important;
+		--padding-right: 0px !important;
+	}
+
+	body.devotel-blog-page .elementor-element-504959e .elementor-loop-container {
+		grid-template-columns: 1fr;
+		row-gap: 48px;
+	}
+
+	/* Hero + featured — match post-872 mobile */
+	body.devotel-blog-page .elementor-element-b617508 {
+		margin-left: 0 !important;
+	}
+
+	body.devotel-blog-page .elementor-element-01ca74e {
+		width: 100% !important;
+		max-width: 100% !important;
+		--container-widget-width: 100% !important;
+	}
+
+	body.devotel-blog-page .elementor-element-3158c58 > .e-con-inner {
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		gap: 0;
+	}
+
+	body.devotel-blog-page .elementor-element-abb4f7b,
+	body.devotel-blog-page .elementor-element-d385dc9 {
+		width: 100% !important;
+		max-width: 100% !important;
+		flex: 0 0 auto !important;
+	}
+
+	/* Grid cards — drop extra boxed padding so images match featured width */
+	body.devotel-blog-page .elementor-element-504959e > .elementor-widget-container {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+
+	body.devotel-blog-page .elementor-element-504959e .e-loop-item .elementor-element-350c5b6,
+	body.devotel-blog-page .elementor-element-504959e .e-loop-item .elementor-element-e5b0a22 {
+		--padding-top: 0px !important;
+		--padding-bottom: 0px !important;
+		--padding-left: 0px !important;
+		--padding-right: 0px !important;
+		padding: 0 !important;
+		width: 100% !important;
+		max-width: 100% !important;
+	}
+
+	body.devotel-blog-page .elementor-element-504959e .e-loop-item .elementor-element-e5b0a22 > .e-con-inner {
+		padding: 0 !important;
+		padding-inline: 0 !important;
+		width: 100% !important;
+		max-width: 100% !important;
+		box-sizing: border-box;
+	}
+
+	/* Featured hero + grid cards — same mobile image size (327×226 live) */
+	body.devotel-blog-page .elementor-element-5ecc0b7,
+	body.devotel-blog-page .elementor-element-504959e .elementor-element-8a7194b {
+		width: 100% !important;
+		max-width: 100% !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+	}
+
+	body.devotel-blog-page .elementor-element-5ecc0b7 a,
+	body.devotel-blog-page .elementor-element-504959e .elementor-element-8a7194b a {
+		display: block;
+		width: 100%;
+	}
+
+	body.devotel-blog-page .elementor-element-5ecc0b7 img,
+	body.devotel-blog-page .elementor-element-504959e .elementor-element-8a7194b img,
+	body.devotel-blog-single-page .elementor-element-a1361e9 img,
+	body.devotel-blog-single-page .devotel-blog-related-card__thumb img,
+	body.devotel-blog-single-page .elementor-element-b1db0c6 .elementor-element-8a7194b img {
+		width: 100% !important;
+		max-width: 100% !important;
+		height: auto !important;
+		min-height: 0 !important;
+		aspect-ratio: 327 / 226;
+		object-fit: cover;
+		object-position: center center;
+		border-radius: 24px;
+		display: block;
+	}
+
+	body.devotel-blog-page .elementor-element-e5db5b6 {
+		margin-left: 0 !important;
+		width: 100%;
+	}
+
+	/* Archive title "The Devotel Blog" — gap below fixed header (live: b617508 56px) */
+	body.devotel-blog-page .elementor-element-b617508,
+	body.devotel-blog-page .elementor-872 .elementor-element-b617508 {
+		margin-top: 0 !important;
+		margin-bottom: 0 !important;
+		--margin-top: 0px !important;
+		padding-top: var(--devotel-mobile-content-gap, 56px) !important;
+		--padding-top: var(--devotel-mobile-content-gap, 56px) !important;
+		box-sizing: border-box;
+	}
+
+	body.devotel-blog-page .elementor-element-b617508 > .e-con-inner,
+	body.devotel-blog-page .elementor-872 .elementor-element-b617508 > .e-con-inner {
+		padding-top: 0 !important;
+		--padding-top: 0px !important;
+	}
+
+	/* No lift hover on touch */
+	body.devotel-blog-page .elementor-element-504959e .elementor-loop-container .e-loop-item:hover {
+		transform: none;
+	}
+}
+
+/* Category filters — live spacing + hover/active (post-872.css base) */
+body.devotel-blog-page .elementor-872 .elementor-element-e5db5b6 {
+	--e-filter-space-between: 16px !important;
+	overflow: hidden;
+}
+
+body.devotel-blog-page .elementor-872 .elementor-element-e5db5b6 #filters.e-filter,
+body.devotel-blog-page .elementor-872 .elementor-element-e5db5b6 .e-filter {
+	display: flex !important;
+	flex-direction: row !important;
+	align-items: flex-end !important;
+	gap: 16px !important;
+	column-gap: 16px !important;
+}
+
+@media (min-width: 768px) {
+	body.devotel-blog-page .elementor-872 .elementor-element-e5db5b6 #filters.e-filter,
+	body.devotel-blog-page .elementor-872 .elementor-element-e5db5b6 .e-filter {
+		flex-wrap: wrap !important;
+	}
+}
+
+@media (max-width: 767px) {
+	/* Filters — single swipeable row (overrides post-872 wrap + blog.css desktop rules) */
+	body.devotel-blog-page .elementor-872 .elementor-element-e5db5b6 #filters.e-filter,
+	body.devotel-blog-page .elementor-872 .elementor-element-e5db5b6 .e-filter,
+	body.devotel-blog-page .elementor-element-e5db5b6 #filters.e-filter,
+	body.devotel-blog-page .elementor-element-e5db5b6 .e-filter {
+		flex-wrap: nowrap !important;
+		justify-content: flex-start !important;
+		overflow-x: auto;
+		overflow-y: hidden;
+		-webkit-overflow-scrolling: touch;
+		gap: 10px !important;
+		column-gap: 10px !important;
+		padding-bottom: 8px;
+		scrollbar-width: none;
+		max-width: 100%;
+	}
+
+	body.devotel-blog-page .elementor-872 .elementor-element-e5db5b6 #filters.e-filter::-webkit-scrollbar,
+	body.devotel-blog-page .elementor-872 .elementor-element-e5db5b6 .e-filter::-webkit-scrollbar,
+	body.devotel-blog-page .elementor-element-e5db5b6 #filters.e-filter::-webkit-scrollbar,
+	body.devotel-blog-page .elementor-element-e5db5b6 .e-filter::-webkit-scrollbar {
+		display: none;
+	}
+
+	body.devotel-blog-page .elementor-872 .elementor-element-e5db5b6 .e-filter-item,
+	body.devotel-blog-page .elementor-element-e5db5b6 .e-filter-item {
+		flex: 0 0 auto;
+		white-space: nowrap;
+	}
+}
+
+body.devotel-blog-page .elementor-872 .elementor-element-e5db5b6 .e-filter-item {
+	margin-inline: 0 !important;
+	padding-inline: 0;
+}
+
+body.devotel-blog-page .e-filter-item {
+	display: inline-flex;
+	align-items: center;
+	border: 0;
+	background: transparent;
+	text-decoration: none;
+	cursor: pointer;
+	color: #62748e;
+	font: inherit;
+}
+
+body.devotel-blog-page .e-filter-item:hover {
+	color: #325fec;
+}
+
+body.devotel-blog-page .e-filter-item[aria-pressed="true"] {
+	color: #325fec;
+	border-bottom: 2px solid #325fec;
+}
+
+/* Multi-category labels on cards + featured */
+body.devotel-blog-page .devotel-blog-categories {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+body.devotel-blog-page .devotel-blog-categories a {
+	color: #325fec;
+	text-decoration: none;
+}
+
+body.devotel-blog-page .devotel-blog-categories a:hover {
+	text-decoration: underline;
+}
+
+body.devotel-blog-page .devotel-blog-category-sep {
+	color: #325fec;
+}
+
+body.devotel-blog-page .devotel-blog-categories--inline {
+	display: inline-flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+}
+
+/* Grid card hovers — ported from homepage blog loop (main.css b95a90f) */
+body.devotel-blog-page .elementor-element-504959e .elementor-loop-container .e-loop-item {
+	transition: transform 0.28s ease, box-shadow 0.28s ease;
+	transform: translateY(0);
+}
+
+body.devotel-blog-page .elementor-element-504959e .elementor-loop-container .e-loop-item:hover {
+	transform: translateY(-8px);
+}
+
+body.devotel-blog-page .elementor-element-504959e .elementor-loop-container .e-loop-item:hover .elementor-element-8a7194b img {
+	box-shadow: 0 16px 34px rgba(15, 23, 43, 0.14);
+}
+
+body.devotel-blog-page .elementor-element-504959e .elementor-loop-container .e-loop-item:hover .elementor-element-15a46e6 .elementor-heading-title a,
+body.devotel-blog-page .elementor-element-504959e .elementor-loop-container .e-loop-item:hover .devotel-blog-title-link {
+	color: #325fec;
+}
+
+body.devotel-blog-page .elementor-element-8a7194b img.elementor-animation-float {
+	transition: transform 0.3s ease, box-shadow 0.28s ease;
+}
+
+body.devotel-blog-page .elementor-element-504959e .elementor-loop-container .e-loop-item:hover .elementor-element-8a7194b img.elementor-animation-float {
+	transform: translateY(-4px);
+}
+
+/* Circular avatars — featured + grid */
+body.devotel-blog-page .elementor-author-box__avatar {
+	border-radius: 50%;
+	overflow: hidden;
+	flex-shrink: 0;
+}
+
+body.devotel-blog-page .elementor-author-box__avatar img {
+	border-radius: 50%;
+	object-fit: cover;
+	display: block;
+}
+
+/* Author | date meta row */
+body.devotel-blog-page .elementor-element-3158c58 .elementor-element-3bf6b7d,
+body.devotel-blog-page .elementor-element-504959e .elementor-element-6f2f221,
+body.devotel-blog-page .elementor-880 .elementor-element.elementor-element-6f2f221,
+body.devotel-blog-page .elementor-872 .elementor-element.elementor-element-3bf6b7d {
+	display: flex !important;
+	flex-direction: row !important;
+	align-items: center !important;
+	flex-wrap: nowrap !important;
+	gap: 8px !important;
+	--align-items: center !important;
+}
+
+body.devotel-blog-page .elementor-element-504959e .elementor-element-ce2259a .elementor-author-box,
+body.devotel-blog-page .elementor-element-3158c58 .elementor-element-2b24e5d .elementor-author-box {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin: 0;
+}
+
+body.devotel-blog-page .elementor-element-504959e .elementor-element-ce2259a .elementor-author-box__avatar,
+body.devotel-blog-page .elementor-880 .elementor-element.elementor-element-ce2259a .elementor-author-box__avatar,
+body.devotel-blog-page .elementor-872 .elementor-element.elementor-element-2b24e5d .elementor-author-box__avatar {
+	margin-right: 8px !important;
+	margin-left: 0 !important;
+	transform: none !important;
+}
+
+body.devotel-blog-page .elementor-872 .elementor-element.elementor-element-933ccd0,
+body.devotel-blog-page .elementor-880 .elementor-element.elementor-element-bfc32a3 {
+	position: relative !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	align-self: center !important;
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+	line-height: 20px !important;
+	padding-left: 12px !important;
+	margin-left: 2px !important;
+}
+
+body.devotel-blog-page .elementor-872 .elementor-element.elementor-element-933ccd0::before,
+body.devotel-blog-page .elementor-880 .elementor-element.elementor-element-bfc32a3::before {
+	content: "" !important;
+	position: absolute !important;
+	left: 0 !important;
+	top: 50% !important;
+	transform: translateY(-50%) !important;
+	width: 1px !important;
+	height: 14px !important;
+	background: #90a1b9 !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	font-size: 0 !important;
+	line-height: 0 !important;
+	font-weight: normal !important;
+	border: 0 !important;
+}
+
+body.devotel-blog-page .elementor-pagination .page-numbers.disabled {
+	opacity: 0.4;
+	pointer-events: none;
+}
+
+body.devotel-blog-page .devotel-blog-empty {
+	grid-column: 1 / -1;
+	text-align: center;
+	color: #62748e;
+	padding: 48px 16px;
+}
+
+body.devotel-blog-page .elementor-element-504959e.is-loading {
+	opacity: 0.55;
+	transition: opacity 0.2s ease;
+	pointer-events: none;
+}
+
+/* CTA flush to footer — no white band below archive */
+body.devotel-blog-page .devotel-blog-archive,
+body.devotel-blog-page article.devotel-page {
+	margin-bottom: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+body.devotel-blog-page .devotel-blog-archive .elementor-element-3814e06,
+body.devotel-blog-page .devotel-blog-archive .devotel-site-cta-wrap {
+	margin-bottom: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+body.devotel-blog-page .devotel-blog-archive .devotel-fade-section.is-visible:last-child {
+	margin-bottom: 0 !important;
+}
+
+/* Single — layout owned by post-908.css; route fixes only */
+
+/* Article body images — match hero featured image radius (24px) */
+body.devotel-blog-single-page #blogsss img,
+body.devotel-blog-single-page .devotel-blog-single-content img {
+	border-radius: 24px;
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+body.devotel-blog-single-page #blogsss figure,
+body.devotel-blog-single-page #blogsss .wp-block-image {
+	overflow: hidden;
+	border-radius: 24px;
+}
+
+body.devotel-blog-single-page #blogsss figure img,
+body.devotel-blog-single-page #blogsss .wp-block-image img {
+	border-radius: 24px;
+}
+
+/* Blog single — live color parity (post-908 + loop-880 tokens) */
+body.devotel-blog-single-page .elementor-908 .elementor-element-728e256 .elementor-icon-list-text,
+body.devotel-blog-single-page .elementor-908 .elementor-element-728e256 .elementor-icon-list-text a,
+body.devotel-blog-single-page .devotel-blog-categories,
+body.devotel-blog-single-page .devotel-blog-categories a,
+body.devotel-blog-single-page .devotel-blog-category-sep {
+	color: #325fec;
+}
+
+body.devotel-blog-single-page .elementor-908 .elementor-element-a6c0969 .elementor-icon-list-text,
+body.devotel-blog-single-page .elementor-908 .elementor-element-a6c0969 .elementor-icon-list-text a {
+	color: #325fec;
+}
+
+body.devotel-blog-single-page .elementor-908 .elementor-element-062c490 .elementor-heading-title,
+body.devotel-blog-single-page .elementor-908 .elementor-element-bf785a3 .elementor-heading-title {
+	color: #0f172b;
+}
+
+body.devotel-blog-single-page .elementor-908 .elementor-element-d97dd2f,
+body.devotel-blog-single-page .elementor-908 .elementor-element-d97dd2f p,
+body.devotel-blog-single-page .elementor-908 .elementor-element-45dfe62,
+body.devotel-blog-single-page .elementor-908 .elementor-element-45dfe62 p {
+	color: #45556c;
+}
+
+body.devotel-blog-single-page .elementor-908 .elementor-element-a0951e2 .elementor-heading-title,
+body.devotel-blog-single-page .elementor-908 .elementor-element-66fa37e .elementor-toc__header-title {
+	color: #325fec;
+}
+
+body.devotel-blog-single-page .elementor-908 .elementor-element-ffb1353,
+body.devotel-blog-single-page .elementor-908 #blogsss,
+body.devotel-blog-single-page .elementor-908 #blogsss h2,
+body.devotel-blog-single-page .elementor-908 #blogsss h3,
+body.devotel-blog-single-page .elementor-908 #blogsss h4 {
+	color: #0f172b;
+}
+
+body.devotel-blog-single-page .elementor-908 #blogsss p {
+	color: #45556c;
+}
+
+body.devotel-blog-single-page .elementor-908 .elementor-element-79652aa .elementor-author-box__name {
+	color: #0f172b;
+}
+
+body.devotel-blog-single-page .elementor-908 .elementor-element-79652aa .elementor-author-box__bio {
+	color: #45556c;
+}
+
+body.devotel-blog-single-page .elementor-908 .elementor-element-3343994 .elementor-button {
+	background-color: #325fec;
+	color: #fff;
+}
+
+body.devotel-blog-single-page .devotel-blog-single-article {
+	max-width: none;
+	margin: 0;
+	padding: 0;
+}
+
+/* Hero bottom rule — full viewport width (content stays centered above) */
+body.devotel-blog-single-page .elementor-element-9344109 {
+	position: relative;
+	border-bottom: 0 !important;
+}
+
+body.devotel-blog-single-page .elementor-element-9344109::after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	width: 100vw;
+	height: 1px;
+	margin-left: -50vw;
+	background: #e2e8f0;
+	pointer-events: none;
+}
+
+body.devotel-blog-single-page .devotel-blog-toc-sticky {
+	position: sticky;
+	top: 120px;
+	align-self: flex-start;
+	max-height: calc(100vh - 144px);
+	overflow-y: auto;
+}
+
+body.devotel-blog-single-page .elementor-element-66fa37e .elementor-toc__header {
+	padding-top: 18px;
+	padding-bottom: 14px;
+}
+
+body.devotel-blog-single-page .elementor-element-66fa37e .elementor-toc__body {
+	padding-top: 4px;
+	padding-bottom: 18px;
+}
+
+body.devotel-blog-single-page .elementor-element-66fa37e .elementor-toc__list-wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+body.devotel-blog-single-page .elementor-element-66fa37e .elementor-toc__list-item {
+	margin: 0;
+	line-height: 26px;
+}
+
+body.devotel-blog-single-page .elementor-element-66fa37e .elementor-toc__list-item a {
+	display: block;
+	padding: 2px 0;
+}
+
+body.devotel-blog-single-page .elementor-908 .elementor-toc__list-item a {
+	color: #45556c;
+	text-decoration: none;
+}
+
+body.devotel-blog-single-page .elementor-908 .elementor-toc__list-item a:hover,
+body.devotel-blog-single-page .elementor-908 .elementor-toc__list-item a.is-active {
+	color: #325fec;
+}
+
+/* Author + share — inside content column (eebd6da), not full-width */
+body.devotel-blog-single-page .elementor-element-eebd6da {
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+}
+
+body.devotel-blog-single-page .elementor-element-eebd6da .devotel-blog-author-share.elementor-element-a314b5d {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: center;
+	width: 100%;
+	max-width: 100%;
+	margin-top: 48px;
+	padding-top: 32px;
+	border-top: 1px solid #e2e8f0;
+	box-sizing: border-box;
+}
+
+body.devotel-blog-single-page .elementor-element-79652aa {
+	width: auto;
+	max-width: 100%;
+	justify-self: start;
+}
+
+body.devotel-blog-single-page .elementor-element-79652aa .elementor-author-box {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 12px;
+	margin: 0;
+}
+
+body.devotel-blog-single-page .elementor-element-79652aa .elementor-author-box__avatar {
+	flex-shrink: 0;
+}
+
+body.devotel-blog-single-page .elementor-element-79652aa .elementor-author-box__avatar img {
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+}
+
+body.devotel-blog-single-page .elementor-element-f47042b {
+	width: auto;
+	justify-self: end;
+}
+
+body.devotel-blog-single-page .elementor-element-f47042b .elementor-widget-container {
+	width: auto;
+}
+
+body.devotel-blog-single-page .elementor-element-f47042b {
+	--e-share-buttons-secondary-color: #90a1b9;
+}
+
+body.devotel-blog-single-page .elementor-element-f47042b .elementor-share-buttons.elementor-grid {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	gap: 12px;
+	margin: 0;
+}
+
+body.devotel-blog-single-page .elementor-element-f47042b .elementor-share-btn {
+	display: inline-flex !important;
+	align-items: center;
+	justify-content: center;
+	width: 43px;
+	height: 43px;
+	padding: 10px !important;
+	box-sizing: border-box;
+	cursor: pointer;
+	color: #90a1b9 !important;
+	background: #fff !important;
+	border: 1px solid #cad5e2 !important;
+	border-radius: 8px !important;
+	transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+body.devotel-blog-single-page .elementor-element-f47042b .elementor-share-btn__icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #90a1b9 !important;
+}
+
+body.devotel-blog-single-page .elementor-element-f47042b .elementor-share-btn svg {
+	display: block;
+	width: 20px !important;
+	height: 20px !important;
+	color: #90a1b9 !important;
+	fill: currentColor !important;
+}
+
+body.devotel-blog-single-page .elementor-element-f47042b .elementor-share-btn svg path {
+	fill: currentColor !important;
+}
+
+body.devotel-blog-single-page .elementor-element-f47042b .elementor-share-btn:hover,
+body.devotel-blog-single-page .elementor-element-f47042b .elementor-share-btn:focus-visible {
+	color: #325fec !important;
+	background: #f8fafc !important;
+	border-color: #90a1b9 !important;
+}
+
+body.devotel-blog-single-page .elementor-element-f47042b .elementor-share-btn:hover .elementor-share-btn__icon,
+body.devotel-blog-single-page .elementor-element-f47042b .elementor-share-btn:focus-visible .elementor-share-btn__icon,
+body.devotel-blog-single-page .elementor-element-f47042b .elementor-share-btn:hover svg,
+body.devotel-blog-single-page .elementor-element-f47042b .elementor-share-btn:focus-visible svg {
+	color: #325fec !important;
+}
+
+body.devotel-blog-single-page .elementor-element-98c7270,
+body.devotel-blog-single-page .elementor-element-7fe62a2 {
+	width: 100vw;
+	max-width: 100vw;
+	margin-left: calc(50% - 50vw);
+	margin-right: calc(50% - 50vw);
+}
+
+body.devotel-blog-single-page .elementor-element-98c7270 > .e-con-inner,
+body.devotel-blog-single-page .elementor-element-7fe62a2 > .e-con-inner {
+	max-width: 1173px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+	box-sizing: border-box;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+body.devotel-blog-single-page .elementor-element-fad9316 {
+	align-items: flex-end !important;
+	justify-content: center;
+}
+
+body.devotel-blog-single-page .elementor-element-3343994.elementor-widget {
+	width: auto !important;
+	max-width: none !important;
+	height: auto !important;
+	--container-widget-width: auto !important;
+	flex: 0 0 auto;
+	align-self: flex-end;
+}
+
+body.devotel-blog-single-page .elementor-element-3343994 > .elementor-widget-container {
+	width: auto !important;
+	height: auto !important;
+	align-self: flex-end;
+}
+
+body.devotel-blog-single-page .elementor-element-3343994 .elementor-button-wrapper {
+	display: inline-block;
+	width: auto !important;
+	height: auto !important;
+	text-align: right;
+}
+
+body.devotel-blog-single-page .elementor-element-3343994 .elementor-button {
+	display: inline-flex !important;
+	align-items: center;
+	justify-content: center;
+	width: auto !important;
+	max-width: none !important;
+	min-width: 0 !important;
+	min-height: 0 !important;
+	height: auto !important;
+	flex: 0 0 auto;
+	padding: 10px 18px !important;
+	box-sizing: border-box;
+	line-height: 24px;
+}
+
+body.devotel-blog-single-page .elementor-element-3343994 .elementor-button-content-wrapper {
+	display: inline-flex !important;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	width: auto;
+	max-width: none;
+	height: auto;
+	flex-shrink: 0;
+}
+
+body.devotel-blog-single-page .elementor-element-3343994 .elementor-button-text {
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 24px;
+	white-space: nowrap;
+}
+
+body.devotel-blog-single-page .elementor-element-b1db0c6 .elementor-loop-container {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 32px;
+}
+
+body.devotel-blog-single-page .devotel-blog-related-card__row {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	gap: 20px;
+}
+
+body.devotel-blog-single-page .devotel-blog-related-card__thumb {
+	flex: 0 0 255px;
+	width: 255px;
+	max-width: 255px;
+	overflow: visible;
+	border-radius: 0;
+}
+
+body.devotel-blog-single-page .devotel-blog-related-card__thumb img {
+	width: 255px;
+	height: 210px;
+	max-width: 255px;
+	object-fit: cover;
+	border-radius: 16px;
+}
+
+body.devotel-blog-single-page .devotel-blog-related-card__thumb img.elementor-animation-float {
+	transition: box-shadow 0.28s ease;
+	transform: none !important;
+}
+
+body.devotel-blog-single-page .elementor-element-b1db0c6 .elementor-loop-container .e-loop-item:hover .devotel-blog-related-card__thumb img.elementor-animation-float {
+	transform: none !important;
+}
+
+body.devotel-blog-single-page .devotel-blog-related-card__body {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+body.devotel-blog-single-page .devotel-blog-related-card__body .e-con-inner {
+	padding: 0;
+	gap: 10px;
+}
+
+body.devotel-blog-single-page .devotel-blog-related-card .elementor-element-aa71598 .elementor-heading-title,
+body.devotel-blog-single-page .devotel-blog-related-card .devotel-blog-categories,
+body.devotel-blog-single-page .devotel-blog-related-card .devotel-blog-categories a,
+body.devotel-blog-single-page .devotel-blog-related-card .devotel-blog-category-sep {
+	color: #325fec;
+}
+
+body.devotel-blog-single-page .devotel-blog-related-card .elementor-element-72570d9,
+body.devotel-blog-single-page .devotel-blog-related-card .elementor-element-72570d9 p {
+	font-size: 14px;
+	line-height: 20px;
+	color: #45556c;
+}
+
+body.devotel-blog-single-page .devotel-blog-related-card .elementor-element-ce2259a .elementor-author-box__name,
+body.devotel-blog-single-page .devotel-blog-related-card .elementor-element-bfc32a3 .elementor-heading-title {
+	color: #45556c;
+}
+
+body.devotel-blog-single-page .devotel-blog-related-card.elementor-880 .elementor-element-6f2f221,
+body.devotel-blog-single-page .elementor-element-b1db0c6 .elementor-element-6f2f221 {
+	display: flex !important;
+	flex-direction: row !important;
+	align-items: center !important;
+	flex-wrap: nowrap !important;
+	gap: 8px !important;
+	--align-items: center !important;
+}
+
+body.devotel-blog-single-page .devotel-blog-related-card.elementor-880 .elementor-element-ce2259a .elementor-author-box {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin: 0;
+}
+
+body.devotel-blog-single-page .devotel-blog-related-card.elementor-880 .elementor-element-ce2259a .elementor-author-box__avatar {
+	margin-right: 8px !important;
+	margin-left: 0 !important;
+	transform: none !important;
+	border-radius: 50%;
+	overflow: hidden;
+	flex-shrink: 0;
+	width: 28px;
+	height: 28px;
+}
+
+body.devotel-blog-single-page .devotel-blog-related-card.elementor-880 .elementor-element-ce2259a .elementor-author-box__avatar img {
+	width: 28px !important;
+	height: 28px !important;
+	border-radius: 50% !important;
+	object-fit: cover;
+	display: block;
+}
+
+body.devotel-blog-single-page .devotel-blog-related-card.elementor-880 .elementor-element-bfc32a3 {
+	position: relative !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	align-self: center !important;
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+	line-height: 20px !important;
+	padding-left: 12px !important;
+	margin-left: 2px !important;
+}
+
+body.devotel-blog-single-page .devotel-blog-related-card.elementor-880 .elementor-element-bfc32a3::before {
+	content: "" !important;
+	position: absolute !important;
+	left: 0 !important;
+	top: 50% !important;
+	transform: translateY(-50%) !important;
+	width: 1px !important;
+	height: 14px !important;
+	background: #90a1b9 !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	font-size: 0 !important;
+	line-height: 0 !important;
+	border: 0 !important;
+}
+
+body.devotel-blog-single-page .devotel-blog-related-card .elementor-element-15a46e6 .elementor-heading-title {
+	font-size: 18px;
+	font-weight: 500;
+	line-height: 28px;
+}
+
+body.devotel-blog-single-page .devotel-blog-related-card .elementor-element-15a46e6 .elementor-heading-title,
+body.devotel-blog-single-page .devotel-blog-related-card .elementor-element-15a46e6 .elementor-heading-title a {
+	color: #0f172b;
+	text-decoration: none;
+	transition: color 0.2s ease;
+}
+
+/* Related cards — archive-style image/title hover (no card lift; avoids grey gap under thumb) */
+body.devotel-blog-single-page .elementor-element-b1db0c6 .elementor-loop-container .e-loop-item:hover .devotel-blog-related-card__thumb img,
+body.devotel-blog-single-page .elementor-element-b1db0c6 .elementor-loop-container .e-loop-item:hover .elementor-element-8a7194b img {
+	box-shadow: 0 16px 34px rgba(15, 23, 43, 0.14);
+}
+
+body.devotel-blog-single-page .elementor-element-b1db0c6 .elementor-loop-container .e-loop-item:hover .elementor-element-15a46e6 .elementor-heading-title a {
+	color: #325fec;
+}
+
+body.devotel-blog-single-page .devotel-blog-single,
+body.devotel-blog-single-page .devotel-blog-single-article {
+	margin-bottom: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+body.devotel-blog-single-page .devotel-site-cta-wrap {
+	margin-bottom: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+@media (min-width: 768px) {
+	body.devotel-blog-single-page .devotel-blog-see-all--footer {
+		display: none !important;
+	}
+
+	/*
+	 * Hero + body share one centered 1440px shell.
+	 * TOC inset matches the hero title column (526px) under space-around.
+	 */
+	body.devotel-blog-single-page .elementor-element-9344109,
+	body.devotel-blog-single-page .elementor-element-425aac5 {
+		margin-left: auto !important;
+		margin-right: auto !important;
+		width: 100%;
+		max-width: 1440px;
+		box-sizing: border-box;
+	}
+
+	body.devotel-blog-single-page .elementor-element-9344109 > .e-con-inner {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-around;
+		flex-wrap: nowrap;
+		width: 100%;
+		max-width: 1440px;
+		margin-left: auto;
+		margin-right: auto;
+		box-sizing: border-box;
+	}
+
+	body.devotel-blog-single-page .elementor-element-47c1414 {
+		flex: 0 0 526px;
+		width: 526px;
+		max-width: 526px;
+	}
+
+	body.devotel-blog-single-page .elementor-element-232765e {
+		flex: 0 0 637px;
+		width: 637px;
+		max-width: 637px;
+	}
+
+	body.devotel-blog-single-page .elementor-element-425aac5 {
+		align-items: flex-start;
+	}
+
+	body.devotel-blog-single-page .elementor-element-425aac5 > .e-con-inner {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+		flex-wrap: nowrap;
+		width: 100%;
+		max-width: 1440px;
+		margin-left: auto;
+		margin-right: auto;
+		padding-left: max(0px, calc((100% - 526px - 637px) / 4));
+		box-sizing: border-box;
+	}
+
+	body.devotel-blog-single-page .elementor-element-7a37905 {
+		flex: 0 0 280px;
+		width: 280px;
+		max-width: 280px;
+	}
+
+	body.devotel-blog-single-page .elementor-element-eebd6da {
+		flex: 0 0 720px;
+		width: 720px;
+		max-width: 720px;
+		margin-left: 133px;
+	}
+}
+
+@media (max-width: 767px) {
+	/* Hero — image on top, copy below (post-908 mobile) */
+	body.devotel-blog-single-page .elementor-element-9344109,
+	body.devotel-blog-single-page .elementor-element-425aac5 {
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+		max-width: 100% !important;
+		width: 100% !important;
+	}
+
+	body.devotel-blog-single-page .elementor-element-9344109 {
+		--padding-top: 32px !important;
+		padding-top: 32px !important;
+	}
+
+	body.devotel-blog-single-page .elementor-element-7a37905,
+	body.devotel-blog-single-page .devotel-blog-toc-sticky {
+		display: none !important;
+	}
+
+	body.devotel-blog-single-page .elementor-element-9344109 > .e-con-inner {
+		display: flex;
+		flex-direction: column-reverse;
+		flex-wrap: nowrap;
+		align-items: stretch;
+	}
+
+	body.devotel-blog-single-page .elementor-element-47c1414,
+	body.devotel-blog-single-page .elementor-element-232765e {
+		width: 100% !important;
+		max-width: 100% !important;
+		flex: 0 0 auto !important;
+	}
+
+	body.devotel-blog-single-page .elementor-element-a1361e9,
+	body.devotel-blog-single-page .elementor-element-a1361e9 a {
+		display: block;
+		width: 100%;
+		max-width: 100%;
+	}
+
+	body.devotel-blog-single-page .elementor-element-425aac5 {
+		margin-top: 0 !important;
+		margin-bottom: 48px !important;
+	}
+
+	body.devotel-blog-single-page .elementor-element-425aac5 > .e-con-inner {
+		flex-direction: column;
+		flex-wrap: wrap;
+	}
+
+	body.devotel-blog-single-page .elementor-element-7a37905,
+	body.devotel-blog-single-page .elementor-element-eebd6da {
+		flex: 0 0 auto;
+		width: 100%;
+		max-width: 100%;
+		margin-left: 0;
+	}
+
+	body.devotel-blog-single-page .devotel-blog-toc-sticky {
+		position: static;
+		max-height: none;
+		overflow: visible;
+	}
+
+	body.devotel-blog-single-page .elementor-element-eebd6da .devotel-blog-author-share.elementor-element-a314b5d {
+		grid-template-columns: 1fr !important;
+		row-gap: 24px;
+		margin-top: 32px;
+		padding-top: 24px;
+	}
+
+	body.devotel-blog-single-page .elementor-element-f47042b {
+		display: none !important;
+	}
+
+	/* Related band — no 100vw breakout on small screens */
+	body.devotel-blog-single-page .elementor-element-98c7270,
+	body.devotel-blog-single-page .elementor-element-7fe62a2 {
+		width: 100% !important;
+		max-width: 100% !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+	}
+
+	body.devotel-blog-single-page .elementor-element-98c7270 > .e-con-inner {
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		max-width: 100%;
+	}
+
+	body.devotel-blog-single-page .elementor-element-b47177a,
+	body.devotel-blog-single-page .elementor-element-fad9316 {
+		width: 100% !important;
+		max-width: 100% !important;
+	}
+
+	body.devotel-blog-single-page .devotel-blog-see-all--header {
+		display: none !important;
+	}
+
+	body.devotel-blog-single-page .devotel-blog-see-all--footer {
+		display: flex !important;
+		align-items: stretch !important;
+		width: 100% !important;
+		max-width: 100% !important;
+		margin-top: 32px;
+		padding-top: 0;
+	}
+
+	body.devotel-blog-single-page .elementor-element-bf785a3 .elementor-heading-title {
+		font-size: 30px;
+		line-height: 38px;
+		letter-spacing: -0.6px;
+	}
+
+	body.devotel-blog-single-page .elementor-element-45dfe62,
+	body.devotel-blog-single-page .elementor-element-45dfe62 p {
+		font-size: 16px;
+		line-height: 24px;
+	}
+
+	body.devotel-blog-single-page .elementor-element-7fe62a2 > .e-con-inner {
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		max-width: 100%;
+	}
+
+	body.devotel-blog-single-page .elementor-element-b1db0c6 > .elementor-widget-container {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+
+	body.devotel-blog-single-page .elementor-element-b1db0c6 .e-loop-item .elementor-element-350c5b6,
+	body.devotel-blog-single-page .elementor-element-b1db0c6 .devotel-blog-related-card__row {
+		padding: 0 !important;
+		margin: 0 !important;
+		width: 100% !important;
+		max-width: 100% !important;
+	}
+
+	body.devotel-blog-single-page .elementor-element-b1db0c6 .elementor-loop-container {
+		grid-template-columns: 1fr;
+		gap: 32px;
+	}
+
+	body.devotel-blog-single-page .devotel-blog-related-card__thumb,
+	body.devotel-blog-single-page .elementor-element-b1db0c6 .elementor-element-8a7194b {
+		flex-basis: auto;
+		width: 100% !important;
+		max-width: 100% !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+	}
+
+	body.devotel-blog-single-page .devotel-blog-related-card__row {
+		flex-direction: column;
+	}
+
+	body.devotel-blog-single-page .elementor-element-3343994.elementor-widget {
+		width: 100% !important;
+		align-self: stretch;
+	}
+
+	body.devotel-blog-single-page .elementor-element-3343994 > .elementor-widget-container {
+		width: 100% !important;
+		align-self: stretch;
+	}
+
+	body.devotel-blog-single-page .elementor-element-3343994 .elementor-button-wrapper {
+		display: block;
+		width: 100% !important;
+		text-align: center;
+	}
+
+	body.devotel-blog-single-page .elementor-element-3343994 .elementor-button {
+		width: 100% !important;
+		justify-content: center;
+	}
+}
+

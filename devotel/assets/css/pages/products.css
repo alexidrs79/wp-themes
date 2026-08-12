@@ -1,0 +1,423 @@
+/**
+ * Products page — document-flow layout without Elementor runtime.
+ * Overrides absolute positioning baked into the HTML widget snapshot.
+ */
+
+/* Widget sets animation-fill-mode:both on all animate-* classes (opacity starts at 0). */
+body.devotel-products-page .d-devotel-products-all-products [class*="animate-"],
+body.elementor-page-495 .d-devotel-products-all-products [class*="animate-"],
+.devotel-cached-snapshot .d-devotel-products-all-products [class*="animate-"] {
+	opacity: 1 !important;
+	animation: none !important;
+	transform: none !important;
+}
+
+body.devotel-products-page article.devotel-page,
+body.elementor-page-495 article.devotel-page {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+	max-width: 100% !important;
+}
+
+body.devotel-products-page .d-devotel-products-all-products,
+body.elementor-page-495 .d-devotel-products-all-products,
+.devotel-cached-snapshot .d-devotel-products-all-products,
+.devotel-page .d-devotel-products-all-products {
+	display: flex !important;
+	flex-direction: column !important;
+	align-items: stretch !important;
+	height: auto !important;
+	min-height: 0 !important;
+	overflow: visible !important;
+	position: relative !important;
+	width: 100% !important;
+	max-width: 100% !important;
+	background: #f8fafb !important;
+}
+
+body.devotel-products-page .d-devotel-products-all-products > .header-section,
+body.devotel-products-page .d-devotel-products-all-products > .frame-2147227641,
+body.devotel-products-page .d-devotel-products-all-products > .cta-main-dark,
+body.elementor-page-495 .d-devotel-products-all-products > .header-section,
+body.elementor-page-495 .d-devotel-products-all-products > .frame-2147227641,
+body.elementor-page-495 .d-devotel-products-all-products > .cta-main-dark,
+.devotel-cached-snapshot .d-devotel-products-all-products > .header-section,
+.devotel-cached-snapshot .d-devotel-products-all-products > .frame-2147227641,
+.devotel-cached-snapshot .d-devotel-products-all-products > .cta-main-dark,
+.devotel-page .d-devotel-products-all-products > .header-section,
+.devotel-page .d-devotel-products-all-products > .frame-2147227641,
+.devotel-page .d-devotel-products-all-products > .cta-main-dark {
+	position: relative !important;
+	top: auto !important;
+	left: auto !important;
+	right: auto !important;
+	translate: none !important;
+	transform: none !important;
+	width: 100% !important;
+	max-width: 100% !important;
+}
+
+body.devotel-products-page .d-devotel-products-all-products .header-section,
+body.elementor-page-495 .d-devotel-products-all-products .header-section,
+.devotel-cached-snapshot .d-devotel-products-all-products .header-section,
+.devotel-page .d-devotel-products-all-products .header-section {
+	overflow: visible !important;
+	min-height: 0 !important;
+	padding-bottom: 48px !important;
+}
+
+body.devotel-products-page .d-devotel-products-all-products .header-section .frame-2147227575,
+body.elementor-page-495 .d-devotel-products-all-products .header-section .frame-2147227575,
+.devotel-cached-snapshot .d-devotel-products-all-products .header-section .frame-2147227575,
+.devotel-page .d-devotel-products-all-products .header-section .frame-2147227575 {
+	position: relative !important;
+	top: auto !important;
+	left: auto !important;
+	right: auto !important;
+	translate: none !important;
+	transform: none !important;
+	width: 100% !important;
+	max-width: 1240px !important;
+	margin: 32px auto 0 !important;
+	display: flex !important;
+	flex-direction: row !important;
+	flex-wrap: wrap !important;
+	gap: 32px !important;
+	align-items: stretch !important;
+	justify-content: center !important;
+	z-index: 20 !important;
+}
+
+body.devotel-products-page .d-devotel-products-all-products .frame-2147227641,
+body.elementor-page-495 .d-devotel-products-all-products .frame-2147227641,
+.devotel-cached-snapshot .d-devotel-products-all-products .frame-2147227641,
+.devotel-page .d-devotel-products-all-products .frame-2147227641 {
+	max-width: 1240px !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+	padding-left: 16px !important;
+	padding-right: 16px !important;
+	background: #f8fafb !important;
+	z-index: 1 !important;
+}
+
+body.devotel-products-page .d-devotel-products-all-products .cta-main-dark,
+body.elementor-page-495 .d-devotel-products-all-products .cta-main-dark,
+.devotel-cached-snapshot .d-devotel-products-all-products .cta-main-dark,
+.devotel-page .d-devotel-products-all-products .cta-main-dark {
+	margin-top: 0 !important;
+	overflow: hidden !important;
+}
+
+body.devotel-products-page .d-devotel-products-all-products .frame-2147227640,
+body.elementor-page-495 .d-devotel-products-all-products .frame-2147227640,
+.devotel-cached-snapshot .d-devotel-products-all-products .frame-2147227640,
+.devotel-page .d-devotel-products-all-products .frame-2147227640 {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+	width: 100% !important;
+}
+
+body.devotel-products-page .d-devotel-products-all-products .tabs-and-sort,
+body.elementor-page-495 .d-devotel-products-all-products .tabs-and-sort,
+.devotel-cached-snapshot .d-devotel-products-all-products .tabs-and-sort,
+.devotel-page .d-devotel-products-all-products .tabs-and-sort {
+	position: sticky !important;
+	top: 72px !important;
+	z-index: 100 !important;
+	width: 100% !important;
+	background: #f8fafb !important;
+}
+
+body.devotel-products-page .d-devotel-products-all-products #applications-section,
+body.devotel-products-page .d-devotel-products-all-products #communication-apis-section,
+body.devotel-products-page .d-devotel-products-all-products #connectivity-section,
+body.elementor-page-495 .d-devotel-products-all-products #applications-section,
+body.elementor-page-495 .d-devotel-products-all-products #communication-apis-section,
+body.elementor-page-495 .d-devotel-products-all-products #connectivity-section {
+	scroll-margin-top: 104px;
+}
+
+body.devotel-products-page .d-devotel-products-all-products .card-17,
+body.devotel-products-page .d-devotel-products-all-products .card-13,
+body.devotel-products-page .d-devotel-products-all-products .card-15,
+body.devotel-products-page .d-devotel-products-all-products .card-20,
+body.devotel-products-page .d-devotel-products-all-products .card-21,
+body.devotel-products-page .d-devotel-products-all-products .card-22,
+body.elementor-page-495 .d-devotel-products-all-products .card-17,
+body.elementor-page-495 .d-devotel-products-all-products .card-13,
+body.elementor-page-495 .d-devotel-products-all-products .card-15,
+body.elementor-page-495 .d-devotel-products-all-products .card-20,
+body.elementor-page-495 .d-devotel-products-all-products .card-21,
+body.elementor-page-495 .d-devotel-products-all-products .card-22,
+.devotel-cached-snapshot .d-devotel-products-all-products .card-17,
+.devotel-cached-snapshot .d-devotel-products-all-products .card-13,
+.devotel-cached-snapshot .d-devotel-products-all-products .card-15,
+.devotel-cached-snapshot .d-devotel-products-all-products .card-20,
+.devotel-cached-snapshot .d-devotel-products-all-products .card-21,
+.devotel-cached-snapshot .d-devotel-products-all-products .card-22,
+.devotel-page .d-devotel-products-all-products .card-17,
+.devotel-page .d-devotel-products-all-products .card-13,
+.devotel-page .d-devotel-products-all-products .card-15,
+.devotel-page .d-devotel-products-all-products .card-20,
+.devotel-page .d-devotel-products-all-products .card-21,
+.devotel-page .d-devotel-products-all-products .card-22 {
+	position: relative !important;
+	overflow: hidden !important;
+	display: flex !important;
+	flex-direction: column !important;
+	align-items: flex-start !important;
+	justify-content: flex-start !important;
+	height: auto !important;
+	min-height: 264px !important;
+	padding: 34px 32px 24px !important;
+	box-sizing: border-box !important;
+}
+
+body.devotel-products-page .d-devotel-products-all-products .frame-2147227576,
+body.devotel-products-page .d-devotel-products-all-products .frame-2147227617,
+body.devotel-products-page .d-devotel-products-all-products .frame-2147227618,
+body.elementor-page-495 .d-devotel-products-all-products .frame-2147227576,
+body.elementor-page-495 .d-devotel-products-all-products .frame-2147227617,
+body.elementor-page-495 .d-devotel-products-all-products .frame-2147227618,
+.devotel-cached-snapshot .d-devotel-products-all-products .frame-2147227576,
+.devotel-cached-snapshot .d-devotel-products-all-products .frame-2147227617,
+.devotel-cached-snapshot .d-devotel-products-all-products .frame-2147227618,
+.devotel-page .d-devotel-products-all-products .frame-2147227576,
+.devotel-page .d-devotel-products-all-products .frame-2147227617,
+.devotel-page .d-devotel-products-all-products .frame-2147227618 {
+	height: auto !important;
+	align-items: stretch !important;
+	align-content: flex-start !important;
+}
+
+body.devotel-products-page .d-devotel-products-all-products .orbit-product-icon-img,
+body.devotel-products-page .d-devotel-products-all-products .product-icon-wrapper-1,
+body.devotel-products-page .d-devotel-products-all-products .product-icon-wrapper-2,
+body.devotel-products-page .d-devotel-products-all-products .product-icon-wrapper-3,
+body.elementor-page-495 .d-devotel-products-all-products .orbit-product-icon-img,
+body.elementor-page-495 .d-devotel-products-all-products .product-icon-wrapper-1,
+body.elementor-page-495 .d-devotel-products-all-products .product-icon-wrapper-2,
+body.elementor-page-495 .d-devotel-products-all-products .product-icon-wrapper-3,
+.devotel-cached-snapshot .d-devotel-products-all-products .orbit-product-icon-img,
+.devotel-cached-snapshot .d-devotel-products-all-products .product-icon-wrapper-1,
+.devotel-cached-snapshot .d-devotel-products-all-products .product-icon-wrapper-2,
+.devotel-cached-snapshot .d-devotel-products-all-products .product-icon-wrapper-3,
+.devotel-page .d-devotel-products-all-products .orbit-product-icon-img,
+.devotel-page .d-devotel-products-all-products .product-icon-wrapper-1,
+.devotel-page .d-devotel-products-all-products .product-icon-wrapper-2,
+.devotel-page .d-devotel-products-all-products .product-icon-wrapper-3 {
+	order: 1 !important;
+	position: relative !important;
+	left: auto !important;
+	top: auto !important;
+	flex-shrink: 0 !important;
+}
+
+body.devotel-products-page .d-devotel-products-all-products .frame-2147227540,
+body.elementor-page-495 .d-devotel-products-all-products .frame-2147227540,
+.devotel-cached-snapshot .d-devotel-products-all-products .frame-2147227540,
+.devotel-page .d-devotel-products-all-products .frame-2147227540 {
+	order: 2 !important;
+	position: relative !important;
+	left: auto !important;
+	top: auto !important;
+	width: 100% !important;
+	max-width: 100% !important;
+	margin-top: 14px !important;
+	flex: 1 1 auto !important;
+	min-height: 0 !important;
+}
+
+body.devotel-products-page .d-devotel-products-all-products [class*="one-place-to-start-manage"],
+body.elementor-page-495 .d-devotel-products-all-products [class*="one-place-to-start-manage"],
+.devotel-cached-snapshot .d-devotel-products-all-products [class*="one-place-to-start-manage"],
+.devotel-page .d-devotel-products-all-products [class*="one-place-to-start-manage"] {
+	height: auto !important;
+	min-height: 0 !important;
+	overflow: visible !important;
+}
+
+body.devotel-products-page .d-devotel-products-all-products a.content2,
+body.elementor-page-495 .d-devotel-products-all-products a.content2,
+.devotel-cached-snapshot .d-devotel-products-all-products a.content2,
+.devotel-page .d-devotel-products-all-products a.content2 {
+	order: 3 !important;
+	color: #325fec !important;
+	text-decoration: none !important;
+	position: relative !important;
+	left: auto !important;
+	top: auto !important;
+	height: auto !important;
+	min-height: 36px !important;
+	margin-top: 16px !important;
+	align-self: flex-start !important;
+	justify-content: flex-start !important;
+	display: inline-flex !important;
+	flex-shrink: 0 !important;
+}
+
+body.devotel-products-page .d-devotel-products-all-products a.content2 .learn-more,
+body.elementor-page-495 .d-devotel-products-all-products a.content2 .learn-more,
+.devotel-cached-snapshot .d-devotel-products-all-products a.content2 .learn-more {
+	color: #325fec !important;
+}
+
+body.devotel-products-page .d-devotel-products-all-products a.content2 svg path,
+body.elementor-page-495 .d-devotel-products-all-products a.content2 svg path,
+.devotel-cached-snapshot .d-devotel-products-all-products a.content2 svg path {
+	stroke: #325fec !important;
+}
+
+/* CTA button — match about-us bottom CTA (a.button2, hover arrow slide-in). */
+body.devotel-products-page .d-devotel-products-all-products .cta-main-dark a.button2,
+body.elementor-page-495 .d-devotel-products-all-products .cta-main-dark a.button2,
+.devotel-cached-snapshot .d-devotel-products-all-products .cta-main-dark a.button2 {
+	background-color: #325fec !important;
+	color: #fff !important;
+	border-color: transparent !important;
+	text-decoration: none !important;
+}
+
+body.devotel-products-page .d-devotel-products-all-products .cta-main-dark a.button2:hover,
+body.elementor-page-495 .d-devotel-products-all-products .cta-main-dark a.button2:hover,
+.devotel-cached-snapshot .d-devotel-products-all-products .cta-main-dark a.button2:hover {
+	background-color: #1e4fd9 !important;
+	color: #fff !important;
+}
+
+body.devotel-products-page .d-devotel-products-all-products .cta-main-dark a.button2 *,
+body.elementor-page-495 .d-devotel-products-all-products .cta-main-dark a.button2 *,
+.devotel-cached-snapshot .d-devotel-products-all-products .cta-main-dark a.button2 * {
+	color: #fff !important;
+}
+
+body.devotel-products-page .d-devotel-products-all-products .cta-main-dark a.button2 .content,
+body.elementor-page-495 .d-devotel-products-all-products .cta-main-dark a.button2 .content,
+.devotel-cached-snapshot .d-devotel-products-all-products .cta-main-dark a.button2 .content {
+	display: flex !important;
+	flex-direction: row !important;
+	align-items: center !important;
+	justify-content: center !important;
+	gap: 4px !important;
+	width: auto !important;
+	max-width: none !important;
+	height: 40px !important;
+}
+
+body.devotel-products-page .d-devotel-products-all-products .cta-main-dark a.button2 .talk-to-an,
+body.elementor-page-495 .d-devotel-products-all-products .cta-main-dark a.button2 .talk-to-an,
+.devotel-cached-snapshot .d-devotel-products-all-products .cta-main-dark a.button2 .talk-to-an {
+	transition: transform 0.3s ease;
+}
+
+body.devotel-products-page .d-devotel-products-all-products .cta-main-dark a.button2:hover .talk-to-an,
+body.elementor-page-495 .d-devotel-products-all-products .cta-main-dark a.button2:hover .talk-to-an,
+.devotel-cached-snapshot .d-devotel-products-all-products .cta-main-dark a.button2:hover .talk-to-an {
+	transform: translateX(-6px);
+}
+
+body.devotel-products-page .d-devotel-products-all-products .cta-main-dark a.button2 .icon,
+body.elementor-page-495 .d-devotel-products-all-products .cta-main-dark a.button2 .icon,
+.devotel-cached-snapshot .d-devotel-products-all-products .cta-main-dark a.button2 .icon {
+	height: 20px;
+	width: 0;
+	opacity: 0;
+	flex-shrink: 0;
+	transform: translateX(-8px);
+	transition: width 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+	overflow: hidden;
+}
+
+body.devotel-products-page .d-devotel-products-all-products .cta-main-dark a.button2:hover .icon,
+body.elementor-page-495 .d-devotel-products-all-products .cta-main-dark a.button2:hover .icon,
+.devotel-cached-snapshot .d-devotel-products-all-products .cta-main-dark a.button2:hover .icon {
+	width: 20px !important;
+	opacity: 1 !important;
+	transform: translateX(0) !important;
+}
+
+body.devotel-products-page .d-devotel-products-all-products .cta-main-dark a.button2 .icon path,
+body.elementor-page-495 .d-devotel-products-all-products .cta-main-dark a.button2 .icon path,
+.devotel-cached-snapshot .d-devotel-products-all-products .cta-main-dark a.button2 .icon path,
+body.devotel-products-page .d-devotel-products-all-products .cta-main-dark a.button2:hover .icon path,
+body.elementor-page-495 .d-devotel-products-all-products .cta-main-dark a.button2:hover .icon path,
+.devotel-cached-snapshot .d-devotel-products-all-products .cta-main-dark a.button2:hover .icon path {
+	stroke: #fff !important;
+}
+
+body.devotel-products-page .d-devotel-products-all-products .product-icon-wrapper-1,
+body.devotel-products-page .d-devotel-products-all-products .product-icon-wrapper-2,
+body.devotel-products-page .d-devotel-products-all-products .product-icon-wrapper-3,
+body.devotel-products-page .d-devotel-products-all-products .orbit-product-icon-img,
+body.elementor-page-495 .d-devotel-products-all-products .product-icon-wrapper-1,
+body.elementor-page-495 .d-devotel-products-all-products .product-icon-wrapper-2,
+body.elementor-page-495 .d-devotel-products-all-products .product-icon-wrapper-3,
+body.elementor-page-495 .d-devotel-products-all-products .orbit-product-icon-img {
+	position: relative !important;
+	left: auto !important;
+	top: auto !important;
+}
+
+@media (min-width: 769px) {
+	body.devotel-products-page .d-devotel-products-all-products .header-section,
+	body.elementor-page-495 .d-devotel-products-all-products .header-section,
+	.devotel-cached-snapshot .d-devotel-products-all-products .header-section {
+		padding-bottom: 120px !important;
+	}
+
+	body.devotel-products-page .d-devotel-products-all-products .tabs-and-sort,
+	body.elementor-page-495 .d-devotel-products-all-products .tabs-and-sort,
+	.devotel-cached-snapshot .d-devotel-products-all-products .tabs-and-sort {
+		top: 0 !important;
+	}
+
+	body.devotel-products-page .d-devotel-products-all-products .frame-2147227641,
+	body.elementor-page-495 .d-devotel-products-all-products .frame-2147227641,
+	.devotel-cached-snapshot .d-devotel-products-all-products .frame-2147227641 {
+		padding-left: 100px !important;
+		padding-right: 100px !important;
+	}
+
+	body.devotel-products-page .d-devotel-products-all-products .frame-2147227640,
+	body.elementor-page-495 .d-devotel-products-all-products .frame-2147227640,
+	.devotel-cached-snapshot .d-devotel-products-all-products .frame-2147227640 {
+		padding-left: 100px !important;
+		padding-right: 100px !important;
+		padding-bottom: 40px !important;
+	}
+
+	body.devotel-products-page .d-devotel-products-all-products .frame-2147227576,
+	body.devotel-products-page .d-devotel-products-all-products .frame-2147227617,
+	body.devotel-products-page .d-devotel-products-all-products .frame-2147227618,
+	body.elementor-page-495 .d-devotel-products-all-products .frame-2147227576,
+	body.elementor-page-495 .d-devotel-products-all-products .frame-2147227617,
+	body.elementor-page-495 .d-devotel-products-all-products .frame-2147227618 {
+		flex-direction: row !important;
+		flex-wrap: wrap !important;
+		height: auto !important;
+	}
+}
+
+@media (max-width: 768px) {
+	body.devotel-products-page .d-devotel-products-all-products .header-section,
+	body.elementor-page-495 .d-devotel-products-all-products .header-section,
+	.devotel-cached-snapshot .d-devotel-products-all-products .header-section {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+
+	body.devotel-products-page .d-devotel-products-all-products .header-section .container,
+	body.elementor-page-495 .d-devotel-products-all-products .header-section .container,
+	.devotel-cached-snapshot .d-devotel-products-all-products .header-section .container {
+		padding-left: var(--devotel-mobile-gutter, 16px) !important;
+		padding-right: var(--devotel-mobile-gutter, 16px) !important;
+	}
+
+	body.devotel-products-page .d-devotel-products-all-products .header-section .heading-and-subheading,
+	body.elementor-page-495 .d-devotel-products-all-products .header-section .heading-and-subheading,
+	.devotel-cached-snapshot .d-devotel-products-all-products .header-section .heading-and-subheading,
+	.devotel-page .d-devotel-products-all-products .header-section .heading-and-subheading {
+		margin-top: var(--devotel-mobile-content-gap, 56px) !important;
+	}
+}

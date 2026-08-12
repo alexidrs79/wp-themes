@@ -1,0 +1,93 @@
+/**
+ * Homepage testimonials — seamless vertical column loops.
+ * Flex gap makes plain -50% miss the seam; measure the duplicate offset in px.
+ */
+
+.testimonials-section .testimonials-column-track {
+	--testimonials-loop-gap: 16px;
+	/* Fallback until JS measures the first card of the duplicated half. */
+	--testimonials-loop-distance: calc(50% + (var(--testimonials-loop-gap) / 2));
+	will-change: transform;
+}
+
+@keyframes testimonials-scroll-top-down {
+	0% {
+		transform: translateY(0);
+	}
+	100% {
+		transform: translateY(calc(-1 * var(--testimonials-loop-distance)));
+	}
+}
+
+@keyframes testimonials-scroll-down-up {
+	0% {
+		transform: translateY(calc(-1 * var(--testimonials-loop-distance)));
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+
+.testimonials-section .testimonials-column--left .testimonials-column-track,
+.testimonials-section .testimonials-column--right .testimonials-column-track {
+	animation: testimonials-scroll-top-down 20s linear infinite;
+}
+
+.testimonials-section .testimonials-column--center .testimonials-column-track {
+	animation: testimonials-scroll-down-up 20s linear infinite;
+}
+
+.testimonials-section .testimonials-column-mobile .testimonials-column-track {
+	animation: testimonials-scroll-top-down 35s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.testimonials-section .testimonials-column-track {
+		animation: none !important;
+		transform: none !important;
+	}
+}
+
+@media (min-width: 769px) {
+	.testimonials-section .testimonials-cards-outer {
+		align-self: center !important;
+		width: 100%;
+		max-width: 1320px;
+	}
+
+	.testimonials-section .testimonials-cards-inner {
+		align-self: center !important;
+		width: 100%;
+		max-width: 1320px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.testimonials-section .testimonials-cards {
+		align-self: center !important;
+		width: 100%;
+		max-width: 1240px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.testimonials-section .testimonials-columns-desktop {
+		flex: none !important;
+		width: 100%;
+		max-width: 1240px;
+		margin-left: auto;
+		margin-right: auto;
+		align-self: center !important;
+	}
+
+	.testimonials-section .testimonials-column {
+		flex: 1 1 0 !important;
+		min-width: 0;
+		max-width: calc((1240px - 32px) / 3);
+	}
+
+	.testimonials-section .testimonial-card {
+		width: 100%;
+		max-width: 100%;
+	}
+}

@@ -1,0 +1,689 @@
+/**
+ * Communication APIs product subpages — layout polish (Phase 1c + 1d).
+ */
+
+body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .e-con,
+body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .e-con,
+body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .e-con,
+body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .e-con {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+body.devotel-communication-apis-page .devotel-cached-snapshot .cta-button--primary,
+body.devotel-communication-apis-page .devotel-cached-snapshot .cta-button--secondary {
+	cursor: pointer;
+}
+
+body.devotel-communication-apis-page .devotel-cached-snapshot .cta-button--primary .cta-button__icon path,
+body.devotel-communication-apis-page .devotel-cached-snapshot .cta-button--primary:hover .cta-button__icon path {
+	stroke: #ffffff !important;
+}
+
+/* Hero CTA — keep label stable when arrow appears on hover */
+body.devotel-communication-apis-page .devotel-cached-snapshot .cta-button--primary {
+	min-width: 180px;
+	width: auto;
+}
+
+body.devotel-communication-apis-page .devotel-cached-snapshot .cta-button--primary > .flex {
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	gap: 4px;
+}
+
+body.devotel-communication-apis-page .devotel-cached-snapshot .cta-button--primary span {
+	white-space: nowrap !important;
+	flex-shrink: 0 !important;
+}
+
+body.devotel-communication-apis-page .devotel-cached-snapshot .cta-button__icon {
+	width: 20px !important;
+	max-width: 0 !important;
+	opacity: 0 !important;
+	transform: none !important;
+	overflow: hidden !important;
+	flex-shrink: 0 !important;
+	transition: max-width 0.3s ease, opacity 0.3s ease !important;
+}
+
+body.devotel-communication-apis-page .devotel-cached-snapshot .cta-button--primary:hover .cta-button__icon,
+body.devotel-communication-apis-page .devotel-cached-snapshot .cta-button--secondary:hover .cta-button__icon {
+	max-width: 20px !important;
+	opacity: 1 !important;
+	transform: none !important;
+}
+
+@media (min-width: 769px) {
+	/* In-flow header — legacy 64px hero padding was overlay clearance. */
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-30937a10,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-8062c05,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-3948d70d,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-b583e7c {
+		padding-top: 32px !important;
+		--padding-top: 32px !important;
+	}
+}
+
+@media (min-width: 768px) {
+	body.devotel-communication-apis-page .devotel-cached-snapshot .e-con-boxed > .e-con-inner {
+		width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+		box-sizing: border-box;
+	}
+
+	/* elementor-2002 */
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-30937a10 > .e-con-inner {
+		max-width: 1600px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-15144a3c {
+		flex: 0 0 50%;
+		max-width: 50%;
+		padding-left: 100px;
+		padding-top: 0;
+		align-self: center;
+		justify-content: center;
+		box-sizing: border-box;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-306ad9c {
+		flex: 0 0 50%;
+		max-width: 50%;
+		align-self: center;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-6f9bd1ef {
+		max-width: 72%;
+		width: 72%;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-184bd519 {
+		max-width: 770px;
+		width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-19772dfe > .e-con-inner,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-920f69e > .e-con-inner,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-3b65851 > .e-con-inner,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-22658afa > .e-con-inner {
+		max-width: 1440px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-2c5ae9cf,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-f7eb477,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-6015fc5e,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-20df8643 {
+		flex: 0 0 45%;
+		max-width: 45%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+		align-self: center;
+		box-sizing: border-box;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-2e2028f8,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-d276e0c,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-49254a8,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-58da620c {
+		flex: 0 0 50%;
+		max-width: 50%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		align-self: center;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-2c5ae9cf,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-6015fc5e {
+		padding-left: 63px !important;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-920f69e,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-3b65851,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-22658afa {
+		padding-top: 96px;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-6092b545,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-b7b8d68,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-536f1a0c,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-431bf04 {
+		max-width: 520px;
+		width: 100%;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-c6a87fd,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-a47cd81,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-631d242,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-bd5a4b7 {
+		max-width: 583px;
+		width: 100%;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-6db40139 {
+		max-width: 100% !important;
+		width: 100%;
+		margin-left: 0;
+		margin-right: 0;
+		padding: 120px 0 96px;
+		background-image: var(--devotel-contact-section-bg);
+		background-position: center right;
+		background-repeat: no-repeat;
+		background-size: auto;
+		box-sizing: border-box;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-6db40139 > .e-con-inner {
+		max-width: 1440px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+		padding: 0 100px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: flex-start;
+		box-sizing: border-box;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-787ae69c {
+		flex: 0 0 44%;
+		max-width: 44%;
+		align-items: flex-start;
+		align-self: flex-start;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-4fce889b {
+		flex: 0 0 50%;
+		max-width: 50%;
+		margin-right: -127px;
+		margin-top: -24px;
+		align-self: flex-start;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-3cfba928 {
+		max-width: 524px;
+		width: 100%;
+	}
+
+	/* elementor-2326 */
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-8062c05 > .e-con-inner {
+		max-width: 1600px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-9d35e89 {
+		flex: 0 0 50%;
+		max-width: 50%;
+		padding-left: 100px;
+		padding-top: 0;
+		align-self: center;
+		justify-content: center;
+		box-sizing: border-box;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-2e8148c {
+		flex: 0 0 50%;
+		max-width: 50%;
+		align-self: center;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-1f991c9 {
+		max-width: 72%;
+		width: 72%;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-f3df69d {
+		max-width: 770px;
+		width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-bc73539 > .e-con-inner,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-3e0dd75 > .e-con-inner,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-a8807d1 > .e-con-inner,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-e60fdf7 > .e-con-inner {
+		max-width: 1440px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-3928ce0,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-7a8f273,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-cd119d1,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-f42c398 {
+		flex: 0 0 45%;
+		max-width: 45%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+		align-self: center;
+		box-sizing: border-box;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-e16c444,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-010d5a9,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-7ecc3dd,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-a4ed87b {
+		flex: 0 0 50%;
+		max-width: 50%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		align-self: center;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-3928ce0,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-cd119d1 {
+		padding-left: 63px !important;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-3e0dd75,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-a8807d1,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-e60fdf7 {
+		padding-top: 96px;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-f46611f,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-cb9bcaf,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-b422a2b,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-55bde32 {
+		max-width: 520px;
+		width: 100%;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-d3c1d5d,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-5396f64,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-2dc1cc3,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-6880ddb {
+		max-width: 583px;
+		width: 100%;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-289209c {
+		max-width: 100% !important;
+		width: 100%;
+		margin-left: 0;
+		margin-right: 0;
+		padding: 120px 0 96px;
+		background-image: var(--devotel-contact-section-bg);
+		background-position: center right;
+		background-repeat: no-repeat;
+		background-size: auto;
+		box-sizing: border-box;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-289209c > .e-con-inner {
+		max-width: 1440px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+		padding: 0 100px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: flex-start;
+		box-sizing: border-box;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-b93c139 {
+		flex: 0 0 44%;
+		max-width: 44%;
+		align-items: flex-start;
+		align-self: flex-start;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-931ac25 {
+		flex: 0 0 50%;
+		max-width: 50%;
+		margin-right: -127px;
+		margin-top: -24px;
+		align-self: flex-start;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-ee50a7f {
+		max-width: 524px;
+		width: 100%;
+	}
+
+	/* elementor-2276 */
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-3948d70d > .e-con-inner {
+		max-width: 1600px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-6b94840d {
+		flex: 0 0 50%;
+		max-width: 50%;
+		padding-left: 100px;
+		padding-top: 0;
+		align-self: center;
+		justify-content: center;
+		box-sizing: border-box;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-56aab809 {
+		flex: 0 0 50%;
+		max-width: 50%;
+		align-self: center;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-6ee11f4d {
+		max-width: 72%;
+		width: 72%;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-50e7ab17 {
+		max-width: 770px;
+		width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-1b5acb36 > .e-con-inner,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-609a773c > .e-con-inner,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-3cce407 > .e-con-inner,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-a88f0b2 > .e-con-inner {
+		max-width: 1440px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-5557f931,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-5203bc61,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-b4d9254,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-81a7868 {
+		flex: 0 0 45%;
+		max-width: 45%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+		align-self: center;
+		box-sizing: border-box;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-141c712,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-56d3a629,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-2ed921e,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-945e974 {
+		flex: 0 0 50%;
+		max-width: 50%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		align-self: center;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-81a7868 {
+		padding-left: 63px !important;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-609a773c,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-3cce407,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-a88f0b2 {
+		padding-top: 96px;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-b76b03b,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-a67871a,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-55db106,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-68704b3 {
+		max-width: 520px;
+		width: 100%;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-84676b8,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-5a1a659,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-12ad405,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-6f55d14 {
+		max-width: 583px;
+		width: 100%;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-77ea6d4 {
+		max-width: 100% !important;
+		width: 100%;
+		margin-left: 0;
+		margin-right: 0;
+		padding: 120px 0 96px;
+		background-image: var(--devotel-contact-section-bg);
+		background-position: center right;
+		background-repeat: no-repeat;
+		background-size: auto;
+		box-sizing: border-box;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-77ea6d4 > .e-con-inner {
+		max-width: 1440px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+		padding: 0 100px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: flex-start;
+		box-sizing: border-box;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-137ffb8 {
+		flex: 0 0 44%;
+		max-width: 44%;
+		align-items: flex-start;
+		align-self: flex-start;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-51c2f9e {
+		flex: 0 0 50%;
+		max-width: 50%;
+		margin-right: -127px;
+		margin-top: -24px;
+		align-self: flex-start;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-463bd58 {
+		max-width: 524px;
+		width: 100%;
+	}
+
+	/* elementor-2342 */
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-b583e7c > .e-con-inner {
+		max-width: 1600px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-2798162 {
+		flex: 0 0 50%;
+		max-width: 50%;
+		padding-left: 100px;
+		padding-top: 0;
+		align-self: center;
+		justify-content: center;
+		box-sizing: border-box;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-ffffba9 {
+		flex: 0 0 50%;
+		max-width: 50%;
+		align-self: center;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-b7c3925 {
+		max-width: 72%;
+		width: 72%;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-c085e2d {
+		max-width: 770px;
+		width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-6c94a0c > .e-con-inner,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-f91adf7 > .e-con-inner,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-dd9b5d7 > .e-con-inner,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-7b28add > .e-con-inner,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-b55b24b > .e-con-inner,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-1fb96ad > .e-con-inner {
+		max-width: 1440px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-2407770,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-3adcd11,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-3df5f62,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-0c45193,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-5aff627,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-bb7b34a {
+		flex: 0 0 45%;
+		max-width: 45%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+		align-self: center;
+		box-sizing: border-box;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-18dd5a5,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-7855d26,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-42b92e7,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-fc3b5a7,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-df342db,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-8c5652f {
+		flex: 0 0 50%;
+		max-width: 50%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		align-self: center;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-2407770,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-3df5f62,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-5aff627,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-bb7b34a {
+		padding-left: 63px !important;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-f91adf7,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-dd9b5d7,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-7b28add,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-b55b24b,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-1fb96ad {
+		padding-top: 96px;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-0fec222,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-7ee8c12,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-5bb76c8,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-2bea973,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-852d4b8,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-8575ba6 {
+		max-width: 520px;
+		width: 100%;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-93d6f66,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-50a18ef,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-3d767ec,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-6c257ba,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-6137fbe,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-f242145 {
+		max-width: 583px;
+		width: 100%;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-1a6650d {
+		max-width: 100% !important;
+		width: 100%;
+		margin-left: 0;
+		margin-right: 0;
+		padding: 120px 0 96px;
+		background-image: var(--devotel-contact-section-bg);
+		background-position: center right;
+		background-repeat: no-repeat;
+		background-size: auto;
+		box-sizing: border-box;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-1a6650d > .e-con-inner {
+		max-width: 1440px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+		padding: 0 100px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: flex-start;
+		box-sizing: border-box;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-3e032a8 {
+		flex: 0 0 44%;
+		max-width: 44%;
+		align-items: flex-start;
+		align-self: flex-start;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-c410447 {
+		flex: 0 0 50%;
+		max-width: 50%;
+		margin-right: -127px;
+		margin-top: -24px;
+		align-self: flex-start;
+	}
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-7372087 {
+		max-width: 524px;
+		width: 100%;
+	}
+
+}
+
+/* SMS hero band (outer container background) — desktop only */
+@media (min-width: 769px) {
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-30937a10 {
+		display: flex;
+		flex-direction: column;
+		padding: 64px 0 96px;
+		background-color: #fdfdfe;
+		background-image: url("/wp-content/uploads/2025/11/Background-pattern.png");
+		background-repeat: no-repeat;
+		background-position: center center;
+		background-size: cover;
+	}
+}
+
+@media (max-width: 767px) {
+	body.devotel-communication-apis-page section.devotel-cached-snapshot {
+		background: #fdfdfe !important;
+		background-image: none !important;
+	}
+
+	/*
+	 * Figma mobile (2262:34859): 56px below header on copy, 16px gutters.
+	 * In-flow header — gap on inner copy column, not outer hero band (orbit model).
+	 */
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-30937a10,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-8062c05,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-3948d70d,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-b583e7c {
+		margin-top: 0 !important;
+		--margin-top: 0px !important;
+		padding: 0 !important;
+		--padding-top: 0px !important;
+		--padding-bottom: 0px !important;
+		--padding-left: 0px !important;
+		--padding-right: 0px !important;
+	}
+
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-15144a3c,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2326 .elementor-element-9d35e89,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2276 .elementor-element-6b94840d,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2342 .elementor-element-2798162 {
+		margin-top: var(--devotel-mobile-content-gap, 56px) !important;
+		--margin-top: var(--devotel-mobile-content-gap, 56px) !important;
+		padding-left: var(--devotel-mobile-hero-gutter, 16px) !important;
+		padding-right: var(--devotel-mobile-hero-gutter, 16px) !important;
+		box-sizing: border-box;
+	}
+
+	body.devotel-communication-apis-page .devotel-cached-snapshot #cm7 {
+		padding: 30px 0 0 !important;
+	}
+
+	body.devotel-communication-apis-page .devotel-cached-snapshot #cm7 > .e-con-inner {
+		padding: 0 var(--devotel-mobile-hero-gutter, 16px) !important;
+	}
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-30937a10 {
+		padding: 64px var(--devotel-mobile-hero-gutter, 16px) 64px;
+	}
+
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor.elementor-2002 .elementor-element-15144a3c {
+		padding-left: var(--devotel-desktop-hero-gutter, 100px);
+		padding-top: 0;
+		max-width: 100%;
+		flex: 1 1 100%;
+	}
+}

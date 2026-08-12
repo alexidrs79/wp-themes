@@ -1,0 +1,18 @@
+<?php
+/** about - hero (7ee2817 + cb4f458) */
+if (!defined('ABSPATH')) exit;
+?>
+<div class="elementor elementor-12 devotel-about-hero-wrap"><div class="elementor-element elementor-element-7ee2817 e-flex e-con-boxed elementor-invisible e-con e-parent" data-id="7ee2817" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;gradient&quot;,&quot;animation&quot;:&quot;fadeIn&quot;}">
+					<div class="e-con-inner">
+				<div class="elementor-element elementor-element-c1cc0f1 elementor-invisible elementor-widget elementor-widget-heading" data-id="c1cc0f1" data-element_type="widget" data-e-type="widget" data-settings="{&quot;_animation&quot;:&quot;fadeIn&quot;}" data-widget_type="heading.default">
+					<h1 class="elementor-heading-title elementor-size-default">Instantly Everywhere,
+Always Connected</h1>				</div>
+				<div class="elementor-element elementor-element-f91cfcb elementor-widget__width-initial elementor-widget-mobile__width-inherit elementor-invisible elementor-widget elementor-widget-text-editor" data-id="f91cfcb" data-element_type="widget" data-e-type="widget" data-settings="{&quot;_animation&quot;:&quot;fadeIn&quot;}" data-widget_type="text-editor.default">
+									<p>We build the telecommunications infrastructure that powers global<br> connectivity.</p>								</div>
+					</div>
+				</div><div class="elementor-element elementor-element-cb4f458 e-con-full e-flex e-con e-child" data-id="cb4f458" data-element_type="container" data-e-type="container">
+				<div class="elementor-element elementor-element-92dbb07 elementor-invisible elementor-widget elementor-widget-image" data-id="92dbb07" data-element_type="widget" data-e-type="widget" data-settings="{&quot;_animation&quot;:&quot;fadeIn&quot;}" data-widget_type="image.default">
+															<img decoding="async" width="424" height="615" src="https://devotel.com/wp-content/uploads/2025/11/authentic-small-youthful-marketing-agency-1.png" class="attachment-full size-full wp-image-306" alt="" data-srcset="https://devotel.com/wp-content/uploads/2025/11/authentic-small-youthful-marketing-agency-1.png 424w, https://devotel.com/wp-content/uploads/2025/11/authentic-small-youthful-marketing-agency-1-207x300.png 207w" data-sizes="(max-width: 424px) 100vw, 424px" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjwvc3ZnPg==" style="--smush-placeholder-width: 424px; --smush-placeholder-aspect-ratio: 424/615;" />															</div>
+				<div class="elementor-element elementor-element-b68bc90 elementor-invisible elementor-widget elementor-widget-image" data-id="b68bc90" data-element_type="widget" data-e-type="widget" data-settings="{&quot;_animation&quot;:&quot;fadeIn&quot;}" data-widget_type="image.default">
+															<img decoding="async" width="785" height="615" src="https://devotel.com/wp-content/uploads/2025/11/people-working-marketing-agency_39759282.htmfromViewserieposition8.png" class="attachment-full size-full wp-image-307" alt="" data-srcset="https://devotel.com/wp-content/uploads/2025/11/people-working-marketing-agency_39759282.htmfromViewserieposition8.png 785w, https://devotel.com/wp-content/uploads/2025/11/people-working-marketing-agency_39759282.htmfromViewserieposition8-300x235.png 300w, https://devotel.com/wp-content/uploads/2025/11/people-working-marketing-agency_39759282.htmfromViewserieposition8-768x602.png 768w" data-sizes="(max-width: 785px) 100vw, 785px" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjwvc3ZnPg==" style="--smush-placeholder-width: 785px; --smush-placeholder-aspect-ratio: 785/615;" />															</div>
+				</div></div>

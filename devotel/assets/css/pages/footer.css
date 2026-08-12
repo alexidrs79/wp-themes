@@ -1,0 +1,1282 @@
+
+/**
+ * Footer — ported from footer.html (reference lines 246-890) + desktop layout.
+ */
+
+/* Desktop base layout (replaces Tailwind utilities) */
+#devotel-footer-wrapper {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	background-color: #020618;
+	color: #90a1b9;
+	font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+#devotel-footer-wrapper .devotel-footer-top {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 64px 100px 40px;
+}
+
+#devotel-footer-wrapper .devotel-footer-top-inner {
+	width: 100%;
+	max-width: 1280px;
+}
+
+#devotel-footer-wrapper .devotel-footer-top-stack {
+	display: flex;
+	flex-direction: column;
+	gap: 48px;
+	width: 100%;
+}
+
+#devotel-footer-wrapper .devotel-footer-brand-row {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 48px;
+	padding-bottom: 64px;
+	border-bottom: 1px solid #314158;
+}
+
+#devotel-footer-wrapper .devotel-footer-brand {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	max-width: 100%;
+}
+
+#devotel-footer-wrapper .devotel-footer-brand-text {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+#devotel-footer-wrapper .devotel-footer-logo {
+	width: 126px;
+	height: auto;
+	display: block;
+}
+
+#devotel-footer-wrapper .devotel-footer-description {
+	color: #90a1b9;
+	font-size: 14px;
+	line-height: 20px;
+}
+
+#devotel-footer-wrapper .devotel-footer-certs {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 16px;
+}
+
+#devotel-footer-wrapper .devotel-cert-badge {
+	flex-shrink: 0;
+	width: 65px;
+}
+
+#devotel-footer-wrapper .devotel-cert-badge-img {
+	width: 46px;
+	height: 46px;
+	object-fit: contain;
+}
+
+#devotel-footer-wrapper .devotel-footer-newsletter {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	max-width: 100%;
+}
+
+#devotel-footer-wrapper .devotel-footer-newsletter-header {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+#devotel-footer-wrapper .devotel-footer-newsletter-title {
+	color: #f8fafc;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 24px;
+}
+
+#devotel-footer-wrapper .devotel-footer-newsletter-subtitle {
+	color: #90a1b9;
+	font-size: 14px;
+	line-height: 20px;
+}
+
+#devotel-footer-wrapper .devotel-footer-nav {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 24px;
+	width: 100%;
+	min-width: 0;
+}
+
+#devotel-footer-wrapper .devotel-footer-nav-col {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	flex: 0 1 140px;
+	min-width: 96px;
+}
+
+#devotel-footer-wrapper .devotel-footer-nav-title {
+	color: #cad5e2;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 20px;
+}
+
+#devotel-footer-wrapper .devotel-footer-nav-links {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+#devotel-footer-wrapper .devotel-footer-nav-links a {
+	color: #90a1b9;
+	font-size: 14px;
+	line-height: 20px;
+	text-decoration: none;
+}
+
+#devotel-footer-wrapper .devotel-footer-bottom {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 32px 100px 48px;
+	border-top: 1px solid #314158;
+}
+
+#devotel-footer-wrapper .devotel-footer-bottom-inner {
+	width: 100%;
+	max-width: 1280px;
+}
+
+#devotel-footer-wrapper .devotel-footer-bottom-row {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 24px;
+	width: 100%;
+}
+
+#devotel-footer-wrapper .devotel-footer-legal-links {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 16px 24px;
+}
+
+#devotel-footer-wrapper .devotel-footer-copyright,
+#devotel-footer-wrapper .devotel-footer-legal-links a {
+	color: #90a1b9;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 20px;
+	text-decoration: none;
+}
+
+#devotel-footer-wrapper .devotel-footer-social {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 24px;
+}
+
+#devotel-footer-wrapper .devotel-footer-social-link {
+	display: block;
+	width: 18px;
+	height: 18px;
+	transition: transform 0.2s ease;
+}
+
+#devotel-footer-wrapper .devotel-footer-social-link svg {
+	display: block;
+	width: 18px;
+	height: 18px;
+}
+
+#devotel-footer-wrapper .devotel-newsletter-field {
+	flex: 1 1 0;
+	min-width: 280px;
+}
+
+#devotel-footer-wrapper .devotel-newsletter-submit {
+	margin: 0;
+	padding: 0;
+}
+
+#devotel-footer-wrapper .devotel-newsletter-submit input {
+	margin: 0;
+}
+
+@media (max-width: 768px) {
+	#devotel-footer-wrapper .devotel-footer-nav {
+		min-width: 0;
+	}
+}
+
+
+#devotel-footer-wrapper .devotel-cert-badge:hover .devotel-cert-badge-label {
+	opacity: 0 !important;
+	visibility: hidden !important;
+	transform: translateY(-8px) !important;
+}
+
+#devotel-footer-wrapper .devotel-cert-badge-label {
+	transition: none;
+}
+
+/* ============================================
+   CRITICAL: Complete isolation for blog content
+   Prevents ALL footer/Tailwind styles from affecting Elementor blog content
+   ============================================ */
+
+/* Create isolation layer for blog content - prevents style leakage */
+#asd,
+.elementor-element-ffb1353,
+.elementor-widget-theme-post-content,
+[data-id="ffb1353"][id="asd"] {
+/* Isolation and containment to prevent style leakage */
+isolation: isolate !important;
+contain: layout style paint !important;
+position: relative !important;
+z-index: auto !important;
+box-sizing: border-box !important;
+
+/* Reset any potential Tailwind/footer interference */
+margin: 0 !important;
+padding: 0 !important;
+border: none !important;
+background: transparent !important;
+width: auto !important;
+height: auto !important;
+min-width: 0 !important;
+min-height: 0 !important;
+max-width: none !important;
+max-height: none !important;
+display: block !important;
+}
+
+/* Ensure children maintain Elementor's default styling */
+#asd *,
+.elementor-element-ffb1353 *,
+.elementor-widget-theme-post-content * {
+              box-sizing: border-box;
+          }
+          
+/* Protect paragraph and text element styling */
+#asd p,
+#asd .wp-block-paragraph,
+.elementor-element-ffb1353 p,
+.elementor-widget-theme-post-content p {
+margin: revert !important;
+margin-top: 1em !important;
+margin-bottom: 1em !important;
+padding: 0 !important;
+line-height: 1.6 !important;
+/* Removed font-size and color to allow Elementor to control them */
+font-family: revert !important;
+font-weight: revert !important;
+text-align: revert !important;
+}
+
+/* Protect heading styles - ONLY spacing, NO font/color overrides */
+#asd h1,
+#asd h2,
+#asd h3,
+#asd h4,
+#asd h5,
+#asd h6,
+#asd .wp-block-heading,
+.elementor-element-ffb1353 h1,
+.elementor-element-ffb1353 h2,
+.elementor-element-ffb1353 h3,
+.elementor-element-ffb1353 h4,
+.elementor-element-ffb1353 h5,
+.elementor-element-ffb1353 h6 {
+margin: revert !important;
+margin-top: 1.5em !important;
+margin-bottom: 0.5em !important;
+padding: 0 !important;
+line-height: 1.2 !important;
+/* NO font-family, font-size, font-weight, or color - let Elementor control all fonts and colors */
+}
+
+/* Protect list styles */
+#asd ul,
+#asd ol,
+#asd .wp-block-list,
+.elementor-element-ffb1353 ul,
+.elementor-element-ffb1353 ol {
+margin: revert !important;
+margin-top: 1em !important;
+margin-bottom: 1em !important;
+padding-left: revert !important;
+list-style: revert !important;
+}
+
+#asd li,
+.elementor-element-ffb1353 li {
+margin: revert !important;
+padding: revert !important;
+line-height: revert !important;
+}
+
+/* Protect link styles */
+#asd a,
+.elementor-element-ffb1353 a {
+/* Removed color to allow Elementor to control it */
+text-decoration: revert !important;
+font-weight: revert !important;
+}
+
+/* Protect image styles */
+#asd img,
+#asd figure,
+.elementor-element-ffb1353 img,
+.elementor-element-ffb1353 figure {
+margin: revert !important;
+padding: revert !important;
+max-width: 100% !important;
+height: auto !important;
+}
+
+/* Protect blockquote styles */
+#asd blockquote,
+.elementor-element-ffb1353 blockquote {
+margin: revert !important;
+padding: revert !important;
+border: revert !important;
+font-style: revert !important;
+}
+
+/* Protect all text content from footer interference */
+#asd *:not(script):not(style),
+.elementor-element-ffb1353 *:not(script):not(style) {
+/* NO font-family, font-size, or color overrides - let Elementor control all fonts and colors */
+}
+
+/* Ensure proper spacing between elements in blog content */
+#asd > *:first-child,
+.elementor-element-ffb1353 > *:first-child {
+margin-top: 0 !important;
+}
+
+#asd > *:last-child,
+.elementor-element-ffb1353 > *:last-child {
+margin-bottom: 0 !important;
+}
+
+/* Protect spacing between sibling elements */
+#asd p + p,
+.elementor-element-ffb1353 p + p {
+margin-top: 1em !important;
+}
+
+#asd h2 + p,
+#asd h3 + p,
+.elementor-element-ffb1353 h2 + p,
+.elementor-element-ffb1353 h3 + p {
+margin-top: 1em !important;
+}
+
+/* Ensure proper line height for readability */
+#asd,
+.elementor-element-ffb1353 {
+line-height: 1.6 !important;
+}
+
+/* Prevent footer wrapper from affecting blog content */
+
+
+/* Additional protection: If blog content is a sibling of footer */
+#devotel-footer-wrapper ~ #asd,
+#devotel-footer-wrapper ~ .elementor-element-ffb1353 {
+isolation: isolate !important;
+}
+
+/* Prevent any Tailwind utility classes from affecting blog content */
+#asd[class*="bg-"],
+#asd[class*="text-"],
+#asd[class*="p-"],
+#asd[class*="m-"],
+#asd[class*="flex"],
+#asd[class*="grid"] {
+/* These should be handled by Elementor, not Tailwind */
+}
+
+/* Override any Tailwind spacing utilities on blog content */
+#asd[class*="p-"] p,
+#asd[class*="m-"] p,
+.elementor-element-ffb1353[class*="p-"] p,
+.elementor-element-ffb1353[class*="m-"] p {
+margin: 1em 0 !important;
+padding: 0 !important;
+}
+
+/* Ensure WordPress block editor styles are preserved */
+#asd .wp-block-paragraph,
+.elementor-element-ffb1353 .wp-block-paragraph {
+margin: 1em 0 !important;
+padding: 0 !important;
+}
+
+#asd .wp-block-heading,
+.elementor-element-ffb1353 .wp-block-heading {
+margin: 1.5em 0 0.5em 0 !important;
+padding: 0 !important;
+}
+
+#asd .wp-block-list,
+.elementor-element-ffb1353 .wp-block-list {
+margin: 1em 0 !important;
+padding-left: 2em !important;
+}
+
+#asd .wp-block-image,
+.elementor-element-ffb1353 .wp-block-image {
+margin: 1em 0 !important;
+}
+
+/* Scoped to footer container only - prevents Elementor conflicts */
+#devotel-footer-wrapper,
+#devotel-footer-wrapper * {
+box-sizing: border-box;
+}
+
+/* Ensure footer styles NEVER affect blog content */
+#devotel-footer-wrapper #asd,
+#devotel-footer-wrapper .elementor-element-ffb1353,
+#devotel-footer-wrapper .elementor-widget-theme-post-content {
+/* If blog content somehow ends up in footer, reset it */
+all: revert !important;
+}
+#devotel-footer-wrapper .devotel-cert-badge {
+backface-visibility: hidden;
+-webkit-backface-visibility: hidden;
+transform: translateZ(0);
+-webkit-transform: translateZ(0);
+}
+#devotel-footer-wrapper .devotel-cert-badge img {
+image-rendering: auto;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+transform: translateZ(0);
+-webkit-transform: translateZ(0);
+}
+#devotel-footer-wrapper .devotel-cert-badge {
+overflow: visible;
+}
+#devotel-footer-wrapper .devotel-cert-badge-container {
+position: relative;
+overflow: visible;
+height: 65px;
+border-radius: 10px;
+}
+#devotel-footer-wrapper .devotel-cert-badge-icon {
+height: 65px;
+background-color: #172154;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+border-radius: 10px;
+    position: relative;
+z-index: 2;
+}
+#devotel-footer-wrapper .devotel-cert-badge-label {
+position: absolute;
+top: 51px;
+left: 0;
+width: 65px;
+height: 32px;
+background-color: rgba(60, 117, 246, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+padding: 0 4px;
+border-radius: 0 0 10px 10px;
+opacity: 0;
+visibility: hidden;
+transform: translateY(-8px);
+z-index: 1;
+}
+#devotel-footer-wrapper .devotel-cert-badge-label-text {
+color: #ffffff;
+        text-align: center;
+line-height: normal;
+font-family: 'Inter', sans-serif;
+    display: flex;
+        flex-direction: column;
+        align-items: center;
+    justify-content: center;
+gap: 2px;
+}
+#devotel-footer-wrapper .devotel-cert-badge-label-text .label-line-first {
+color: #FFF;
+font-family: 'Inter', sans-serif;
+font-size: 11px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+#devotel-footer-wrapper .devotel-cert-badge-label-text .label-line-second {
+color: #FFF;
+font-family: 'Inter', sans-serif;
+font-size: 5px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+letter-spacing: 0.2px;
+}
+#devotel-footer-wrapper .devotel-subscribe-btn,
+#devotel-footer-wrapper #devotel-subscribe-btn {
+border: none !important;
+outline: none !important;
+box-shadow: none !important;
+}
+#devotel-footer-wrapper .devotel-subscribe-btn:focus,
+#devotel-footer-wrapper .devotel-subscribe-btn:active,
+#devotel-footer-wrapper .devotel-subscribe-btn:focus-visible,
+#devotel-footer-wrapper .devotel-subscribe-btn:visited,
+#devotel-footer-wrapper #devotel-subscribe-btn:focus,
+#devotel-footer-wrapper #devotel-subscribe-btn:active,
+#devotel-footer-wrapper #devotel-subscribe-btn:focus-visible,
+#devotel-footer-wrapper #devotel-subscribe-btn:visited {
+border: none !important;
+outline: none !important;
+box-shadow: none !important;
+background-color: #325fec !important;
+}
+#devotel-footer-wrapper .devotel-subscribe-btn:hover,
+#devotel-footer-wrapper #devotel-subscribe-btn:hover {
+background-color: #2547d4 !important;
+}
+/* Override Elementor color - remove #cc3366 */
+#devotel-footer-wrapper .devotel-subscribe-btn,
+#devotel-footer-wrapper #devotel-subscribe-btn,
+#devotel-footer-wrapper .devotel-subscribe-btn *,
+#devotel-footer-wrapper #devotel-subscribe-btn *,
+#devotel-footer-wrapper .devotel-subscribe-btn div,
+#devotel-footer-wrapper #devotel-subscribe-btn div {
+color: #ffffff !important;
+}
+/* Remove any Elementor accent color */
+#devotel-footer-wrapper .devotel-subscribe-btn[style*="#cc3366"],
+#devotel-footer-wrapper #devotel-subscribe-btn[style*="#cc3366"] {
+background-color: #325fec !important;
+}
+#devotel-footer-wrapper .devotel-subscribe-btn[style*="color: #cc3366"],
+#devotel-footer-wrapper #devotel-subscribe-btn[style*="color: #cc3366"],
+#devotel-footer-wrapper .devotel-subscribe-btn *[style*="color: #cc3366"],
+#devotel-footer-wrapper #devotel-subscribe-btn *[style*="color: #cc3366"] {
+color: #ffffff !important;
+}
+/* Newsletter input border radius */
+#devotel-footer-wrapper .devotel-newsletter-input,
+#devotel-footer-wrapper #devotel-newsletter-email {
+border-radius: 10px !important;
+}
+/* Newsletter subtitle: "The latest experience tips and trends. No spam!" */
+#devotel-footer-wrapper > div:first-child > div > div > div:first-child > div:last-child > div:first-child > div:last-child {
+color: #90A1B9 !important;
+}
+/* Email input text and placeholder */
+#devotel-footer-wrapper .devotel-newsletter-input,
+#devotel-footer-wrapper #devotel-newsletter-email {
+color: #90A1B9 !important;
+}
+#devotel-footer-wrapper .devotel-newsletter-input::placeholder,
+#devotel-footer-wrapper #devotel-newsletter-email::placeholder {
+color: #90A1B9 !important;
+}
+/* Contact Form 7 Newsletter – use original classes so footer CSS applies; only fix CF7 wrapper */
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper .wpcf7 {
+margin: 0 !important;
+padding: 0 !important;
+width: 100% !important;
+display: flex !important;
+flex-direction: column !important;
+align-items: flex-start !important;
+}
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper .wpcf7-form-control-wrap {
+display: block !important;
+width: 100% !important;
+}
+/* Form row: input and button side by side; message wraps to own row below (CF7 puts message inside form) */
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper form.wpcf7-form {
+display: flex !important;
+flex-direction: row !important;
+flex-wrap: wrap !important;
+gap: 16px !important;
+align-items: flex-start !important;
+width: 100% !important;
+flex-shrink: 0 !important;
+}
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper form.wpcf7-form > div:first-child {
+flex: 1 1 0% !important;
+min-width: 280px !important;
+width: 100% !important;
+max-width: 100% !important;
+order: 0 !important;
+}
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper form.wpcf7-form > div:first-child > div,
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper form.wpcf7-form > div:first-child .wpcf7-form-control-wrap {
+width: 100% !important;
+min-width: 0 !important;
+}
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper form.wpcf7-form .devotel-subscribe-btn,
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper form.wpcf7-form input[type="submit"],
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper form.wpcf7-form .newsletter-submit-wrap {
+flex-shrink: 0 !important;
+order: 1 !important;
+}
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper .newsletter-submit-wrap {
+display: block !important;
+}
+/* Force newsletter input full width (override size="40" and CF7/theme) */
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper input[type="email"],
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper .wpcf7-form-control.wpcf7-email,
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper input.devotel-newsletter-input {
+width: 100% !important;
+min-width: 0 !important;
+max-width: 100% !important;
+height: 40px !important;
+box-sizing: border-box !important;
+border-radius: 10px !important;
+border: 1px solid #314158 !important;
+background: transparent !important;
+color: #62748E !important;
+padding: 10px 14px !important;
+font-family: 'Inter', sans-serif !important;
+font-size: 16px !important;
+line-height: 24px !important;
+margin: 0 !important;
+}
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper input[type="email"]::placeholder,
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper .wpcf7-form-control.wpcf7-email::placeholder {
+color: #62748E !important;
+}
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper input[type="email"]:focus,
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper .wpcf7-form-control.wpcf7-email:focus {
+outline: none !important;
+border-color: #325fec !important;
+box-shadow: 0 0 0 1px #325fec !important;
+}
+/* Force newsletter button blue style (override CF7/theme) */
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper input[type="submit"],
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper .wpcf7-submit {
+height: 40px !important;
+min-height: 40px !important;
+border-radius: 10px !important;
+background-color: #325fec !important;
+color: #ffffff !important;
+border: none !important;
+outline: none !important;
+box-shadow: none !important;
+padding: 0 15px !important;
+font-family: 'Inter', sans-serif !important;
+font-size: 16px !important;
+font-weight: 500 !important;
+line-height: 24px !important;
+cursor: pointer !important;
+}
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper input[type="submit"]:hover,
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper .wpcf7-submit:hover {
+background-color: #2547d4 !important;
+color: #ffffff !important;
+}
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper input[type="submit"]:focus,
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper input[type="submit"]:active,
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper .wpcf7-submit:focus,
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper .wpcf7-submit:active {
+background-color: #325fec !important;
+color: #ffffff !important;
+border: none !important;
+outline: none !important;
+}
+/* Success/error message on its own row below input+button (CF7 injects it inside form) */
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper .wpcf7-response-output {
+margin: -8px 0 0 0 !important;
+padding: 0 !important;
+border: none !important;
+color: #90a1b9 !important;
+font-size: 14px !important;
+width: 100% !important;
+flex-basis: 100% !important;
+display: block !important;
+order: 2 !important;
+}
+/* Ensure footer doesn't interfere with Elementor content */
+#devotel-footer-wrapper {
+    position: relative;
+z-index: 1;
+isolation: isolate;
+background-color: #020618 !important;
+contain: layout style paint;
+}
+
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+#devotel-footer-wrapper {
+padding: 0px 0px 0px 0px;
+}
+
+/* Top Section - Mobile */
+#devotel-footer-wrapper > div:first-child,
+#devotel-footer-wrapper .devotel-footer-top {
+padding: 48px 16px 0 !important;
+gap: 0 !important;
+}
+
+#devotel-footer-wrapper > div:first-child > div {
+gap: 0 !important;
+}
+
+#devotel-footer-wrapper > div:first-child > div > div,
+#devotel-footer-wrapper .devotel-footer-top-stack {
+gap: 32px !important;
+flex-direction: column !important;
+}
+
+/* Logo and Newsletter Section - Reorder for mobile */
+#devotel-footer-wrapper > div:first-child > div > div > div:first-child {
+border-bottom: 1px solid var(--border-border-primary, #314158) !important;
+padding-bottom: 40px !important;
+flex-direction: column !important;
+gap: 32px !important;
+align-items: flex-start !important;
+}
+
+/* Newsletter Section - Order 1 (first) */
+#devotel-footer-wrapper > div:first-child > div > div > div:first-child > div:last-child,
+#devotel-footer-wrapper .devotel-footer-newsletter {
+order: 1 !important;
+width: 100% !important;
+max-width: 100% !important;
+gap: 16px !important;
+flex: none !important;
+flex-basis: auto !important;
+height: auto !important;
+min-height: 0 !important;
+}
+
+/* Newsletter heading and text */
+#devotel-footer-wrapper > div:first-child > div > div > div:first-child > div:last-child > div:first-child {
+gap: 8px !important;
+}
+
+#devotel-footer-wrapper > div:first-child > div > div > div:first-child > div:last-child > div:first-child > div:first-child {
+color: var(--text-text-primary, #f8fafc) !important;
+font-family: var(--font-family-font-family-body, 'Inter-SemiBold', sans-serif) !important;
+font-size: 14px !important;
+line-height: 20px !important;
+font-weight: 600 !important;
+text-align: left !important;
+}
+
+#devotel-footer-wrapper > div:first-child > div > div > div:first-child > div:last-child > div:first-child > div:last-child {
+color: var(--text-text-tertiary, #90a1b9) !important;
+font-family: var(--font-family-font-family-body, 'Inter-Regular', sans-serif) !important;
+font-size: 14px !important;
+line-height: 20px !important;
+font-weight: 400 !important;
+text-align: left !important;
+}
+
+/* Newsletter wrapper + form full width on mobile so button can span */
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper,
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper .wpcf7,
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper form.wpcf7-form {
+width: 100% !important;
+max-width: 100% !important;
+}
+
+/* Email input and button (original form or CF7 with same structure) */
+#devotel-footer-wrapper > div:first-child > div > div > div:first-child > div:last-child > form,
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper form.wpcf7-form {
+flex-direction: column !important;
+flex-wrap: wrap !important;
+gap: 16px !important;
+}
+
+#devotel-footer-wrapper > div:first-child > div > div > div:first-child > div:last-child > form > div,
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper form.wpcf7-form > div,
+/* CF7 wraps submit in <p> – make it full width so button can span */
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper form.wpcf7-form > p {
+width: 100% !important;
+min-width: 0 !important;
+max-width: 100% !important;
+flex-basis: 100% !important;
+margin: 0 !important;
+padding: 0 !important;
+}
+
+#devotel-footer-wrapper > div:first-child > div > div > div:first-child > div:last-child > form > button,
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper .devotel-subscribe-btn,
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper form.wpcf7-form input[type="submit"],
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper .wpcf7-submit,
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper form.wpcf7-form input.wpcf7-submit {
+width: 100% !important;
+min-width: 100% !important;
+max-width: 100% !important;
+flex: 0 0 100% !important;
+align-self: stretch !important;
+display: block !important;
+box-sizing: border-box !important;
+}
+
+/* Subscribe button full span on mobile – high specificity + attribute selector */
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper input[type="submit"][value="Subscribe"],
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper input.wpcf7-form-control.wpcf7-submit.devotel-subscribe-btn,
+body #devotel-footer-wrapper .wpcf7-newsletter-wrapper form input.wpcf7-submit {
+width: 100% !important;
+min-width: 100% !important;
+max-width: none !important;
+flex: 0 0 100% !important;
+align-self: stretch !important;
+display: block !important;
+box-sizing: border-box !important;
+}
+
+/* Fallback: no wrapper – targets button by class so it works in Elementor/any container */
+input.wpcf7-submit.devotel-subscribe-btn,
+input.devotel-subscribe-btn[type="submit"] {
+width: 100% !important;
+min-width: 100% !important;
+max-width: none !important;
+display: block !important;
+box-sizing: border-box !important;
+}
+/* CF7 submit wrapper: ensure button inside <p> is full width */
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper form.wpcf7-form > p input[type="submit"],
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper form.wpcf7-form > p .devotel-subscribe-btn {
+width: 100% !important;
+min-width: 0 !important;
+max-width: none !important;
+flex: 0 0 100% !important;
+align-self: stretch !important;
+display: block !important;
+box-sizing: border-box !important;
+}
+
+/* Reset desktop newsletter overrides on mobile */
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper form.wpcf7-form > div:first-child {
+min-width: 0 !important;
+}
+#devotel-footer-wrapper .wpcf7-newsletter-wrapper .wpcf7-response-output {
+margin-top: 8px !important;
+}
+
+/* Logo and Supporting Text - Order 2 */
+#devotel-footer-wrapper > div:first-child > div > div > div:first-child > div:first-child,
+#devotel-footer-wrapper .devotel-footer-brand {
+order: 2 !important;
+width: 100% !important;
+max-width: 100% !important;
+gap: 24px !important;
+flex: none !important;
+flex-basis: auto !important;
+height: auto !important;
+min-height: 0 !important;
+}
+
+/* Logo section */
+#devotel-footer-wrapper > div:first-child > div > div > div:first-child > div:first-child > div:first-child {
+gap: 12px !important;
+}
+
+/* Supporting text */
+#devotel-footer-wrapper > div:first-child > div > div > div:first-child > div:first-child > div:first-child > div:last-child {
+color: var(--text-text-tertiary, #90a1b9) !important;
+font-family: 'Inter-Regular', sans-serif !important;
+font-size: 14px !important;
+line-height: 20px !important;
+font-weight: 400 !important;
+}
+
+/* Certification Badges - after logo text inside brand */
+#devotel-footer-wrapper > div:first-child > div > div > div:first-child > div:first-child > div:last-child,
+#devotel-footer-wrapper .devotel-footer-certs {
+order: 2 !important;
+flex-direction: row !important;
+gap: 23px !important;
+flex-wrap: nowrap !important;
+justify-content: center !important;
+align-items: center !important;
+width: 100% !important;
+flex: none !important;
+height: auto !important;
+min-height: 0 !important;
+}
+
+/* Navigation Links - Two Columns Masonry Layout */
+/* Only apply grid when masonry is NOT initialized */
+#devotel-footer-wrapper > div:first-child > div > div > div:last-child:not(.masonry-initialized),
+#devotel-footer-wrapper .devotel-footer-nav:not(.masonry-initialized) {
+display: grid !important;
+grid-template-columns: 1fr 1fr !important;
+column-gap: 23px !important;
+row-gap: 0 !important;
+align-items: start !important;
+width: 100% !important;
+min-width: 0 !important;
+max-width: 100% !important;
+order: 3 !important;
+}
+
+/* Masonry container created by JavaScript */
+#devotel-footer-wrapper > div:first-child > div > div > div:last-child.masonry-initialized,
+#devotel-footer-wrapper .devotel-footer-nav.masonry-initialized {
+display: flex !important;
+flex-direction: row !important;
+gap: 23px !important;
+width: 100% !important;
+order: 4 !important;
+align-items: flex-start !important;
+align-content: flex-start !important;
+min-width: 0 !important;
+margin: 0 !important;
+padding: 0 !important;
+}
+
+/* Masonry columns */
+#devotel-footer-wrapper .masonry-left-col,
+#devotel-footer-wrapper .masonry-right-col {
+display: flex !important;
+flex-direction: column !important;
+gap: 32px !important;
+flex: 1 1 0 !important;
+min-width: 0 !important;
+width: 100% !important;
+}
+
+/* Remove all margins from masonry items */
+#devotel-footer-wrapper .masonry-left-col > div,
+#devotel-footer-wrapper .masonry-right-col > div {
+margin: 0 !important;
+width: 100% !important;
+}
+
+/* 5-column grid fallback: left = Comm APIs (1), Telco (3), Resources (4); right = Platforms (2), Company (5) */
+#devotel-footer-wrapper > div:first-child > div > div > div:last-child:not(.masonry-initialized) > div:nth-child(1),
+#devotel-footer-wrapper > div:first-child > div > div > div:last-child:not(.masonry-initialized) > div:nth-child(2),
+#devotel-footer-wrapper > div:first-child > div > div > div:last-child:not(.masonry-initialized) > div:nth-child(3) {
+	margin-bottom: 24px !important;
+}
+
+#devotel-footer-wrapper > div:first-child > div > div > div:last-child:not(.masonry-initialized) > div:nth-child(4) {
+	margin-bottom: 0 !important;
+}
+
+#devotel-footer-wrapper > div:first-child > div > div > div:last-child:not(.masonry-initialized) > div:nth-child(1),
+#devotel-footer-wrapper > div:first-child > div > div > div:last-child:not(.masonry-initialized) > div:nth-child(3),
+#devotel-footer-wrapper > div:first-child > div > div > div:last-child:not(.masonry-initialized) > div:nth-child(4) {
+	grid-column: 1 !important;
+	width: 100% !important;
+	min-width: 0 !important;
+}
+
+#devotel-footer-wrapper > div:first-child > div > div > div:last-child:not(.masonry-initialized) > div:nth-child(2),
+#devotel-footer-wrapper > div:first-child > div > div > div:last-child:not(.masonry-initialized) > div:nth-child(5) {
+	grid-column: 2 !important;
+	width: 100% !important;
+	min-width: 0 !important;
+}
+
+#devotel-footer-wrapper > div:first-child > div > div > div:last-child:not(.masonry-initialized) > div:nth-child(5) {
+	margin-bottom: 0 !important;
+}
+
+
+
+/* Link columns */
+#devotel-footer-wrapper > div:first-child > div > div > div:last-child > div {
+width: 100% !important;
+min-width: 0 !important;
+}
+
+/* Bottom Section - Mobile */
+#devotel-footer-wrapper > div:last-child,
+#devotel-footer-wrapper .devotel-footer-bottom {
+padding: 16px 16px 48px 16px !important;
+border-top: 1px solid var(--border-border-primary, #314158) !important;
+margin-top: 0 !important;
+}
+
+#devotel-footer-wrapper > div:last-child > div {
+width: 100% !important;
+max-width: 100% !important;
+gap: 24px !important;
+flex-direction: column !important;
+align-items: flex-start !important;
+}
+
+/* Social icons and copyright row */
+#devotel-footer-wrapper > div:last-child > div > div {
+flex-direction: column !important;
+gap: 24px !important;
+width: 100% !important;
+}
+
+/* Social icons - Order 1 */
+#devotel-footer-wrapper > div:last-child > div > div > div:last-child {
+gap: 24px !important;
+order: 1 !important;
+}
+
+/* Copyright and links - Order 2 */
+#devotel-footer-wrapper > div:last-child > div > div > div:first-child {
+flex-direction: column !important;
+gap: 16px !important;
+width: 100% !important;
+order: 2 !important;
+}
+
+/* Language selector and copyright */
+#devotel-footer-wrapper > div:last-child > div > div > div:first-child > div:first-child {
+width: 100% !important;
+        }
+
+/* Copyright text */
+#devotel-footer-wrapper > div:last-child > div > div > div:first-child > div:last-child {
+flex-direction: column !important;
+gap: 8px !important;
+align-items: flex-start !important;
+}
+
+#devotel-footer-wrapper > div:last-child > div > div > div:first-child > div:last-child > div {
+color: var(--color-slate-slate-500, #90a1b9) !important;
+font-family: var(--text-xs-regular-font-family, 'Inter-Regular', sans-serif) !important;
+font-size: 12px !important;
+line-height: 18px !important;
+font-weight: 400 !important;
+}
+}
+/* Footer link hover effects - must override inline styles */
+#devotel-footer-wrapper a:hover {
+color: #90a1b9 !important;
+text-decoration: underline !important;
+}
+/* Navigation links hover - force override inline styles with lighter color for visibility */
+#devotel-footer-wrapper > div:first-child > div > div > div:last-child a:hover {
+color: #cad5e2 !important;
+text-decoration: underline !important;
+}
+
+/* Desktop: align bottom section (copyright row) with Communication APIs column */
+@media (min-width: 769px) {
+	#devotel-footer-wrapper .devotel-footer-brand {
+		flex: 0 0 378px;
+		max-width: 378px;
+	}
+
+	#devotel-footer-wrapper .devotel-footer-newsletter {
+		flex: 0 0 493px;
+		max-width: 493px;
+	}
+
+	#devotel-footer-wrapper .devotel-footer-nav {
+		min-width: 800px;
+	}
+
+	#devotel-footer-wrapper > div:last-child {
+		padding-left: 100px !important;
+		padding-right: 100px !important;
+	}
+
+	#devotel-footer-wrapper > div:last-child > div {
+		align-items: flex-start !important;
+		justify-content: flex-start !important;
+		width: 100% !important;
+		max-width: 1280px !important;
+	}
+}
+
+
+
+/* Ensure no style inheritance from parent to footer */
+#devotel-footer-wrapper * {
+/* Prevent inheritance of Elementor styles */
+font-family: inherit;
+}
+
+
+      
+/* Semantic class mobile overrides */
+@media (max-width: 768px) {
+	#devotel-footer-wrapper .devotel-footer-top {
+		padding: 48px 16px 0 !important;
+	}
+
+	#devotel-footer-wrapper .devotel-footer-nav {
+		margin-bottom: 0 !important;
+		padding-bottom: 0 !important;
+	}
+
+	#devotel-footer-wrapper .masonry-left-col,
+	#devotel-footer-wrapper .masonry-right-col {
+		gap: 24px !important;
+	}
+
+	#devotel-footer-wrapper .masonry-left-col > div:last-child,
+	#devotel-footer-wrapper .masonry-right-col > div:last-child,
+	#devotel-footer-wrapper .devotel-footer-nav-col:last-child {
+		margin-bottom: 0 !important;
+	}
+
+	#devotel-footer-wrapper .devotel-footer-top-stack {
+		display: flex;
+		flex-direction: column;
+		gap: 32px;
+	}
+
+	#devotel-footer-wrapper .devotel-footer-brand-row {
+		display: flex;
+		flex-direction: column;
+		gap: 32px;
+		padding-bottom: 32px;
+		width: 100%;
+	}
+
+	/* Critical: reset desktop flex-basis (493px/378px) — causes huge gaps in column layout */
+	#devotel-footer-wrapper .devotel-footer-newsletter,
+	#devotel-footer-wrapper .devotel-footer-brand {
+		flex: none !important;
+		flex-basis: auto !important;
+		flex-grow: 0 !important;
+		flex-shrink: 0 !important;
+		max-width: 100% !important;
+		width: 100% !important;
+		height: auto !important;
+		min-height: 0 !important;
+	}
+
+	#devotel-footer-wrapper .devotel-footer-newsletter {
+		order: 1;
+		gap: 16px;
+	}
+
+	#devotel-footer-wrapper .devotel-footer-brand {
+		order: 2;
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+	}
+
+	#devotel-footer-wrapper .devotel-footer-brand-text {
+		order: 1;
+		gap: 12px;
+	}
+
+	#devotel-footer-wrapper .devotel-footer-certs {
+		order: 2;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: center;
+		align-items: center;
+		align-self: center;
+		gap: 23px;
+		width: 100%;
+	}
+
+	#devotel-footer-wrapper .devotel-footer-nav {
+		order: 3;
+		min-width: 0 !important;
+		width: 100% !important;
+	}
+
+	#devotel-footer-wrapper .devotel-footer-bottom-row {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	#devotel-footer-wrapper .devotel-footer-social {
+		order: 1;
+		justify-content: flex-start;
+		align-items: flex-start;
+		align-self: flex-start;
+		width: 100%;
+	}
+	#devotel-footer-wrapper .devotel-footer-legal {
+		order: 2;
+		width: 100%;
+	}
+	#devotel-footer-wrapper .devotel-footer-legal-links {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 8px;
+	}
+	#devotel-footer-wrapper .devotel-footer-nav-col {
+		min-width: 0;
+	}
+
+	/* 3/2 grid fallback via semantic classes */
+	#devotel-footer-wrapper .devotel-footer-nav:not(.masonry-initialized) > .devotel-footer-nav-col:nth-child(1),
+	#devotel-footer-wrapper .devotel-footer-nav:not(.masonry-initialized) > .devotel-footer-nav-col:nth-child(3),
+	#devotel-footer-wrapper .devotel-footer-nav:not(.masonry-initialized) > .devotel-footer-nav-col:nth-child(4) {
+		grid-column: 1;
+	}
+
+	#devotel-footer-wrapper .devotel-footer-nav:not(.masonry-initialized) > .devotel-footer-nav-col:nth-child(2),
+	#devotel-footer-wrapper .devotel-footer-nav:not(.masonry-initialized) > .devotel-footer-nav-col:nth-child(5) {
+		grid-column: 2;
+	}
+
+	/* Tighten space between last nav link (Blog) and bottom divider */
+	#devotel-footer-wrapper .devotel-footer-top,
+	#devotel-footer-wrapper > div:first-child {
+		padding-bottom: 0 !important;
+	}
+
+	#devotel-footer-wrapper .devotel-footer-bottom,
+	#devotel-footer-wrapper > div:last-child {
+		padding-top: 16px !important;
+		margin-top: 0 !important;
+	}
+
+	#devotel-footer-wrapper .devotel-footer-nav,
+	#devotel-footer-wrapper > div:first-child > div > div > div:last-child {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	#devotel-footer-wrapper .devotel-footer-nav-col,
+	#devotel-footer-wrapper .masonry-left-col > div,
+	#devotel-footer-wrapper .masonry-right-col > div {
+		margin-bottom: 0 !important;
+		padding-bottom: 0 !important;
+	}
+
+	#devotel-footer-wrapper .devotel-footer-nav-links {
+		gap: 8px;
+		margin: 0;
+		padding: 0;
+	}
+
+	#devotel-footer-wrapper .devotel-footer-nav-links a:last-child {
+		margin-bottom: 0 !important;
+		padding-bottom: 0 !important;
+	}
+
+	#devotel-footer-wrapper .masonry-left-col,
+	#devotel-footer-wrapper .masonry-right-col {
+		gap: 24px !important;
+		padding-bottom: 0 !important;
+		margin-bottom: 0 !important;
+	}
+}

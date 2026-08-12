@@ -1,0 +1,751 @@
+/**
+ * Platforms product subpages — layout polish (Phase 2).
+ */
+
+body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .e-con,
+body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .e-con {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+/* Hero / CTA buttons — keep label stable when arrow appears on hover */
+body.devotel-platforms-page .devotel-cached-snapshot .btn-primary,
+body.devotel-platforms-page .devotel-cached-snapshot .btn-secondary,
+body.devotel-platforms-page .devotel-cached-snapshot .cta-button--primary,
+body.devotel-platforms-page .devotel-cached-snapshot .cta-button--secondary,
+body.devotel-platforms-page .devotel-cached-snapshot #summer-button-component .btn-primary {
+	cursor: pointer;
+}
+
+body.devotel-platforms-page .devotel-cached-snapshot .btn-primary,
+body.devotel-platforms-page .devotel-cached-snapshot .cta-button--primary,
+body.devotel-platforms-page .devotel-cached-snapshot #summer-button-component .btn-primary {
+	min-width: 180px;
+	width: auto !important;
+}
+
+body.devotel-platforms-page .devotel-cached-snapshot .btn-secondary {
+	min-width: 200px;
+	width: auto !important;
+}
+
+body.devotel-platforms-page .devotel-cached-snapshot .btn-primary > .flex,
+body.devotel-platforms-page .devotel-cached-snapshot .btn-secondary > .flex,
+body.devotel-platforms-page .devotel-cached-snapshot .cta-button--primary > .flex,
+body.devotel-platforms-page .devotel-cached-snapshot #summer-button-component .btn-primary > .flex {
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	gap: 4px;
+}
+
+body.devotel-platforms-page .devotel-cached-snapshot .btn-primary span,
+body.devotel-platforms-page .devotel-cached-snapshot .btn-secondary span,
+body.devotel-platforms-page .devotel-cached-snapshot .cta-button--primary span,
+body.devotel-platforms-page .devotel-cached-snapshot .cta-button--secondary span,
+body.devotel-platforms-page .devotel-cached-snapshot #summer-button-component .btn-primary span {
+	white-space: nowrap !important;
+	flex-shrink: 0 !important;
+}
+
+body.devotel-platforms-page .devotel-cached-snapshot .btn-icon-arrow,
+body.devotel-platforms-page .devotel-cached-snapshot .cta-button__icon,
+body.devotel-platforms-page .devotel-cached-snapshot #summer-button-component .btn-icon-arrow {
+	width: 20px !important;
+	max-width: 0 !important;
+	opacity: 0 !important;
+	transform: none !important;
+	overflow: hidden !important;
+	flex-shrink: 0 !important;
+	transition: max-width 0.3s ease, opacity 0.3s ease !important;
+}
+
+body.devotel-platforms-page .devotel-cached-snapshot .btn-primary:hover .btn-icon-arrow,
+body.devotel-platforms-page .devotel-cached-snapshot .btn-secondary:hover .btn-icon-arrow,
+body.devotel-platforms-page .devotel-cached-snapshot .cta-button--primary:hover .cta-button__icon,
+body.devotel-platforms-page .devotel-cached-snapshot .cta-button--secondary:hover .cta-button__icon,
+body.devotel-platforms-page .devotel-cached-snapshot #summer-button-component .btn-primary:hover .btn-icon-arrow {
+	max-width: 20px !important;
+	width: 20px !important;
+	opacity: 1 !important;
+	transform: none !important;
+}
+
+@media (min-width: 768px) {
+	body.devotel-platforms-page .devotel-cached-snapshot .e-con-boxed > .e-con-inner {
+		width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+		box-sizing: border-box;
+	}
+
+	/* Hero band */
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-010a240 {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: flex-start;
+		width: 100%;
+		max-width: 100%;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-0ac9229 {
+		max-width: 872px;
+		width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-e64e95d {
+		max-width: 72%;
+		width: 72%;
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-93b8501 > .e-con-inner {
+		max-width: 1240px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+	}
+
+	/* Partner logos band — full-width grid (match communication-apis / SMS). */
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-84a1952 {
+		width: 100% !important;
+		max-width: 100% !important;
+		align-self: stretch !important;
+		--align-self: stretch !important;
+		align-items: stretch !important;
+		--align-items: stretch !important;
+		--container-widget-width: 100% !important;
+		flex-wrap: nowrap !important;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-d99868a,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-89a7901 {
+		max-width: 100%;
+		width: 100%;
+		text-align: center;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-7ed4425 {
+		max-width: 770px;
+		width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+	}
+
+	/* Feature rows */
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-c3b203b > .e-con-inner,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-4cd10b1 > .e-con-inner,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-85dff7c > .e-con-inner,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-e9e43af > .e-con-inner,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-2ee6d36 > .e-con-inner,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-2c2bcc9 > .e-con-inner {
+		max-width: 1440px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-5eb7e9f,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-768a2bf,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-51535c9,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-5a76a57,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-87211a6,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-e3dc3e8 {
+		flex: 0 0 45%;
+		max-width: 45%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+		align-self: center;
+		box-sizing: border-box;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-a821d9b,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-c942651,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-02b9555,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-d31aa5c,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-62d941b,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-c479c7b {
+		flex: 0 0 50%;
+		max-width: 50%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		align-self: center;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-5eb7e9f,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-51535c9,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-87211a6 {
+		padding-left: 63px !important;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-4cd10b1,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-85dff7c,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-e9e43af,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-2ee6d36,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-2c2bcc9 {
+		padding-top: 96px;
+	}
+
+	/* Contacts row — neutralize 136px column-gap that forces wrap */
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-2ee6d36,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-2ee6d36 > .e-con-inner {
+		gap: 0 !important;
+		column-gap: 0 !important;
+		row-gap: 0 !important;
+		flex-wrap: nowrap !important;
+		justify-content: space-between !important;
+		align-items: center !important;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-31a5fe5,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-ff7a8c2,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-0ca315f,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-0767db2,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-d56a727,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-752ec2c {
+		max-width: 520px;
+		width: 100%;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-09c85e9,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-f624f79,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-aefd67b,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-cbc4f8a,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-e431295,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-ef84418 {
+		max-width: 583px;
+		width: 100%;
+	}
+
+	/* Use-case tab section */
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-640f253 {
+		width: 100%;
+		max-width: 100%;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .use-case-section {
+		max-width: 1440px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	/* Contact section */
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-9a9436b {
+		max-width: 100% !important;
+		width: 100%;
+		margin-left: 0;
+		margin-right: 0;
+		padding: 120px 0 96px;
+		background-image: var(--devotel-contact-section-bg);
+		background-position: center right;
+		background-repeat: no-repeat;
+		background-size: auto;
+		box-sizing: border-box;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-9a9436b > .e-con-inner {
+		max-width: 1440px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+		padding: 0 100px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: flex-start;
+		box-sizing: border-box;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-3bc914e {
+		flex: 0 0 44%;
+		max-width: 44%;
+		align-items: flex-start;
+		align-self: flex-start;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-3cff2ba {
+		flex: 0 0 50%;
+		max-width: 50%;
+		margin-right: -127px;
+		margin-top: -24px;
+		align-self: flex-start;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-192a3a2 {
+		max-width: 524px;
+		width: 100%;
+	}
+
+	/* Final CTA — outer band full bleed */
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-cfbd6c4 {
+		width: 100% !important;
+		max-width: 100% !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+		align-self: stretch !important;
+		overflow: hidden;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: space-between;
+		align-items: stretch;
+		min-height: 704px;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-cfbd6c4.CTAA {
+		background: linear-gradient(103deg, #1e318a 0%, #266df0 100%) !important;
+		background-size: cover !important;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-c88fae4 {
+		flex: 0 0 48%;
+		max-width: 48%;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-c88fae4 > .e-con-inner {
+		max-width: 1440px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-812fd13 {
+		flex: 0 0 52%;
+		max-width: 52%;
+		margin-right: -120px;
+		margin-bottom: -68px;
+		justify-content: flex-end;
+		align-items: flex-start;
+		overflow: hidden;
+	}
+}
+
+@media (max-width: 767px) {
+	/*
+	 * Figma mobile (2261:31018): 56px below header on hero copy, 16px gutters.
+	 * Centered platforms hero — gap on heading block, not outer gradient band.
+	 */
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-010a240,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-6824b79e {
+		margin-top: 0 !important;
+		padding-top: 0 !important;
+		--padding-top: 0px !important;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-0ac9229,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-6054840e {
+		margin-top: var(--devotel-mobile-content-gap, 56px) !important;
+		padding-left: var(--devotel-mobile-hero-gutter, 16px) !important;
+		padding-right: var(--devotel-mobile-hero-gutter, 16px) !important;
+		box-sizing: border-box;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-e64e95d,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-7e83fd2,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-51aceb16,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-566df303 {
+		padding-left: var(--devotel-mobile-hero-gutter, 16px) !important;
+		padding-right: var(--devotel-mobile-hero-gutter, 16px) !important;
+		box-sizing: border-box;
+	}
+
+	body.devotel-platforms-page section.devotel-cached-snapshot {
+		background: #fdfdfe !important;
+		background-image: none !important;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-9a9436b {
+		padding: 30px 0 0 !important;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-9a9436b > .e-con-inner {
+		padding: 0 16px !important;
+	}
+
+	/* Hero / final CTA buttons — full width but stable label */
+	body.devotel-platforms-page .devotel-cached-snapshot .btn-primary,
+	body.devotel-platforms-page .devotel-cached-snapshot .btn-secondary,
+	body.devotel-platforms-page .devotel-cached-snapshot #summer-button-component .btn-primary {
+		width: 100% !important;
+		min-width: 0;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .btn-primary span,
+	body.devotel-platforms-page .devotel-cached-snapshot .btn-secondary span,
+	body.devotel-platforms-page .devotel-cached-snapshot #summer-button-component .btn-primary span {
+		white-space: nowrap !important;
+	}
+
+	/* Final CTA — full bleed, stacked layout */
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-cfbd6c4 {
+		width: 100% !important;
+		max-width: 100% !important;
+		flex-wrap: wrap !important;
+		min-height: 0;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-c88fae4,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-812fd13 {
+		flex: 1 1 100% !important;
+		max-width: 100% !important;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-812fd13 {
+		margin-right: 0 !important;
+		margin-bottom: 0 !important;
+	}
+
+	/* Final CTA — collapse trailing white gap before footer */
+	body.devotel-platforms-page section.devotel-cached-snapshot {
+		padding-bottom: 0 !important;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot > .elementor > .e-con.e-parent:last-child,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-cfbd6c4,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-e9de2ce {
+		margin-bottom: 0 !important;
+		padding-bottom: 0 !important;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .cta-section-container {
+		min-height: 0 !important;
+		height: auto !important;
+		padding-bottom: 0 !important;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot section[class*="min-h-"],
+	body.devotel-platforms-page .devotel-cached-snapshot section.bg-gradient-to-r,
+	body.devotel-platforms-page .devotel-cached-snapshot section[class*="bg-gradient-to-r"] {
+		min-height: 0 !important;
+		padding-bottom: 24px !important;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .video-wrapper-mobile {
+		display: block !important;
+		position: relative !important;
+		width: 100% !important;
+		height: 390px !important;
+		min-height: 390px !important;
+		max-height: none !important;
+		margin-bottom: 0 !important;
+		overflow: visible !important;
+		pointer-events: none !important;
+	}
+}
+
+/* Orbit terms page — match privacy-style flush first section under header */
+body.devotel-platforms-page.page-id-3307 section.devotel-el-fallback {
+	padding-top: 0 !important;
+}
+
+body.devotel-platforms-page.page-id-3307 .header-section {
+	padding-top: 0 !important;
+	margin-top: 0 !important;
+}
+
+
+/* CMP (post 2051) — mirrors Orbit layout polish */
+@media (min-width: 768px) {
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-6824b79e {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: flex-start;
+		width: 100%;
+		max-width: 100%;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-6054840e {
+		max-width: 872px;
+		width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-51aceb16 {
+		max-width: 72%;
+		width: 72%;
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-41130261 > .e-con-inner {
+		max-width: 1240px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-65ce8f0 {
+		width: 100% !important;
+		max-width: 100% !important;
+		align-self: stretch !important;
+		--align-self: stretch !important;
+		align-items: stretch !important;
+		--align-items: stretch !important;
+		--container-widget-width: 100% !important;
+		flex-wrap: nowrap !important;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-2a83246c,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-7f4e3689 {
+		max-width: 100%;
+		width: 100%;
+		text-align: center;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-50905ed0 {
+		max-width: 770px;
+		width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-77fa81f3 > .e-con-inner,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-5c58421f > .e-con-inner,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-5fd954ff > .e-con-inner,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-32a3ee2 > .e-con-inner,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-ae43fc2 > .e-con-inner {
+		max-width: 1440px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-2765021,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-c9bb169,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-50b93ea2,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-4b66ad5,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-ac0509f {
+		flex: 0 0 45%;
+		max-width: 45%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+		align-self: center;
+		box-sizing: border-box;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-171024ea,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-3019ac42,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-3e7c3012,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-52ee1e4,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-4fa3e84 {
+		flex: 0 0 50%;
+		max-width: 50%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		align-self: center;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-2765021,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-50b93ea2,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-ac0509f {
+		padding-left: 63px !important;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-5c58421f,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-5fd954ff,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-32a3ee2,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-ae43fc2 {
+		padding-top: 96px;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-ae43fc2,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-ae43fc2 > .e-con-inner {
+		gap: 0 !important;
+		column-gap: 0 !important;
+		row-gap: 0 !important;
+		flex-wrap: nowrap !important;
+		justify-content: space-between !important;
+		align-items: center !important;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-4dfba4b6,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-610b4ad,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-35773b33,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-ab83571,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-18a10b8 {
+		max-width: 520px;
+		width: 100%;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-59feca6,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-3c7d87e,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-6901b3a,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-d465782,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-dd7ca51 {
+		max-width: 583px;
+		width: 100%;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-1d563f20,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-5bbe2c03 {
+		width: 100%;
+		max-width: 100%;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-e9de2ce {
+		max-width: 100% !important;
+		width: 100%;
+		margin-left: 0;
+		margin-right: 0;
+		padding: 120px 0 96px;
+		background-image: var(--devotel-contact-section-bg);
+		background-position: center right;
+		background-repeat: no-repeat;
+		background-size: auto;
+		box-sizing: border-box;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-e9de2ce > .e-con-inner {
+		max-width: 1440px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+		padding: 0 100px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: flex-start;
+		box-sizing: border-box;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-41c02c1 {
+		flex: 0 0 44%;
+		max-width: 44%;
+		align-items: flex-start;
+		align-self: flex-start;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-770459d {
+		flex: 0 0 50%;
+		max-width: 50%;
+		margin-right: -127px;
+		margin-top: -24px;
+		align-self: flex-start;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-928277d {
+		max-width: 524px;
+		width: 100%;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-2ffc1eee {
+		width: 100% !important;
+		max-width: 100% !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+		align-self: stretch !important;
+		overflow: hidden;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: space-between;
+		align-items: stretch;
+		min-height: 704px;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-2ffc1eee.CTAA {
+		background: linear-gradient(103deg, #1e318a 0%, #266df0 100%) !important;
+		background-size: cover !important;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-45c65018 {
+		flex: 0 0 48%;
+		max-width: 48%;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-45c65018 > .e-con-inner {
+		max-width: 1440px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-3e7904e7 {
+		flex: 0 0 52%;
+		max-width: 52%;
+		margin-right: -120px;
+		margin-bottom: -68px;
+		justify-content: flex-end;
+		align-items: flex-start;
+		overflow: hidden;
+	}
+}
+
+@media (max-width: 767px) {
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-e9de2ce {
+		padding: 30px 0 0 !important;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-e9de2ce > .e-con-inner {
+		padding: 0 16px !important;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-2ffc1eee {
+		width: 100% !important;
+		max-width: 100% !important;
+		flex-wrap: wrap !important;
+		min-height: 0;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-45c65018,
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-3e7904e7 {
+		flex: 1 1 100% !important;
+		max-width: 100% !important;
+	}
+
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-3e7904e7 {
+		margin-right: 0 !important;
+		margin-bottom: 64px !important;
+	}
+}
+
+/* Shared partner-logos grid — Orbit/CMP platform pages (parity with SMS / communication-apis). */
+body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2363 .elementor-element-84a1952.e-con,
+body.devotel-platforms-page .devotel-cached-snapshot .elementor.elementor-2051 .elementor-element-65ce8f0.e-con {
+	align-self: stretch !important;
+	--align-self: stretch !important;
+}
+
+body.devotel-platforms-page .devotel-cached-snapshot .sp-section {
+	width: 100%;
+	max-width: 100%;
+	align-self: stretch;
+	flex: 1 1 100%;
+}
+
+body.devotel-platforms-page .devotel-cached-snapshot .sp-section .sp-container {
+	max-width: 1280px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+}
+
+body.devotel-platforms-page .devotel-cached-snapshot .sp-logo-grid {
+	width: 100%;
+	align-self: stretch;
+}

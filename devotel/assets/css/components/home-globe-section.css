@@ -1,0 +1,31 @@
+/*
+ * Homepage stats globe (frame-2147227567) — mobile parity with desktop colors.
+ * Inline widget CSS forces 540px min-width inside a narrower viewport, which
+ * scales the WebGL canvas incorrectly and washes out the blue gradient on mobile.
+ */
+@media (max-width: 768px) {
+	body.is-home-page .frame-2147227567 {
+		contain: layout style !important;
+	}
+
+	body.is-home-page .frame-2147227567 .layer-1,
+	body.is-home-page .frame-2147227567 .layer-1#globe-container {
+		width: min(540px, calc(100vw - 32px)) !important;
+		height: min(540px, calc(100vw - 32px)) !important;
+		min-width: 0 !important;
+		min-height: 0 !important;
+		max-width: min(540px, calc(100vw - 32px)) !important;
+		max-height: min(540px, calc(100vw - 32px)) !important;
+	}
+
+	body.is-home-page .frame-2147227567 #globe-container {
+		min-width: 0 !important;
+		min-height: 0 !important;
+	}
+
+	body.is-home-page .frame-2147227567 #globe-container canvas {
+		width: 100% !important;
+		height: 100% !important;
+		display: block !important;
+	}
+}

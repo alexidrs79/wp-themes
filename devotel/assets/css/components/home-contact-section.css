@@ -1,0 +1,104 @@
+/**
+ * Homepage contact band — Figma rounded box container (desktop).
+ */
+
+@media (min-width: 769px) {
+	.elementor-1027 .elementor-element.elementor-element-641e913 {
+		padding-top: 80px !important;
+		padding-bottom: 120px !important;
+		padding-left: clamp(24px, 5vw, 100px) !important;
+		padding-right: clamp(24px, 5vw, 100px) !important;
+		--padding-top: 80px !important;
+		--padding-bottom: 120px !important;
+		--padding-left: clamp(24px, 5vw, 100px) !important;
+		--padding-right: clamp(24px, 5vw, 100px) !important;
+		background-color: #ffffff !important;
+	}
+
+	.elementor-1027 .elementor-element.elementor-element-641e913 > .e-con-inner {
+		max-width: 1440px !important;
+		margin-left: auto !important;
+		margin-right: auto !important;
+		width: 100% !important;
+		box-sizing: border-box !important;
+	}
+
+	.elementor-1027 .elementor-element.elementor-element-1b753ae {
+		position: relative !important;
+		isolation: isolate !important;
+		overflow: hidden !important;
+		max-width: 1240px !important;
+		width: 100% !important;
+		min-height: 770px !important;
+		margin-left: auto !important;
+		margin-right: auto !important;
+		box-sizing: border-box !important;
+		border-radius: 48px !important;
+		--border-radius: 48px !important;
+		padding: 0 !important;
+		--padding-top: 0px !important;
+		--padding-right: 0px !important;
+		--padding-bottom: 0px !important;
+		--padding-left: 0px !important;
+	}
+
+	/* Paint the slate box on Elementor's background layer — not transparent. */
+	.elementor-1027 .elementor-element.elementor-element-1b753ae:not(.elementor-motion-effects-element-type-background),
+	.elementor-1027 .elementor-element.elementor-element-1b753ae > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+		background-color: #f1f5f9 !important;
+		background-image: none !important;
+		border-radius: 48px !important;
+	}
+
+	.elementor-1027 .elementor-element.elementor-element-1b753ae::before {
+		content: "" !important;
+		position: absolute !important;
+		inset: 0 !important;
+		border-radius: 48px !important;
+		background-image: var(--devotel-contact-section-bg) !important;
+		background-position: right center !important;
+		background-repeat: no-repeat !important;
+		background-size: auto !important;
+		pointer-events: none !important;
+		z-index: 0 !important;
+	}
+
+	.elementor-1027 .elementor-element.elementor-element-1b753ae > .e-con-inner {
+		position: relative !important;
+		z-index: 1 !important;
+		display: grid !important;
+		grid-template-columns: minmax(0, 1fr) 575px !important;
+		--e-con-grid-template-columns: minmax(0, 1fr) 575px !important;
+		align-items: start !important;
+		justify-items: stretch !important;
+		width: 100% !important;
+		min-height: 770px !important;
+		box-sizing: border-box !important;
+		padding-top: 64px !important;
+		padding-right: 64px !important;
+		padding-bottom: 64px !important;
+		padding-left: 64px !important;
+		--padding-top: 64px !important;
+		--padding-right: 64px !important;
+		--padding-bottom: 64px !important;
+		--padding-left: 64px !important;
+		padding-block-start: 64px !important;
+		padding-block-end: 64px !important;
+		padding-inline-start: 64px !important;
+		padding-inline-end: 64px !important;
+	}
+
+	.elementor-1027 .elementor-element.elementor-element-c4be9c1 {
+		width: 100% !important;
+		max-width: 100% !important;
+		justify-self: start !important;
+		margin-top: 0 !important;
+		--margin-top: 0px !important;
+	}
+
+	.elementor-1027 .elementor-element.elementor-element-064b273 {
+		width: 100% !important;
+		max-width: 575px !important;
+		justify-self: end !important;
+	}
+}

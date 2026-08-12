@@ -1,0 +1,309 @@
+/**
+ * Product subpages — Elementor-origin markup without Elementor runtime.
+ */
+
+:root {
+	--devotel-mobile-content-gap: 56px;
+	--devotel-mobile-hero-gutter: 16px;
+	--devotel-desktop-hero-gutter: 100px;
+}
+
+body.devotel-product-subpage article.devotel-page,
+body.devotel-communication-apis-page article.devotel-page,
+body.devotel-platforms-page article.devotel-page,
+body.devotel-telco-page article.devotel-page,
+body.devotel-sim-based-page article.devotel-page {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+	max-width: 100% !important;
+}
+
+body.devotel-product-subpage .devotel-cached-snapshot,
+body.devotel-communication-apis-page .devotel-cached-snapshot,
+body.devotel-platforms-page .devotel-cached-snapshot,
+body.devotel-telco-page .devotel-cached-snapshot,
+body.devotel-sim-based-page .devotel-cached-snapshot,
+body.devotel-sim-based-page .devotel-el-fallback {
+	width: 100%;
+	max-width: 100%;
+	overflow: visible;
+}
+
+body.devotel-product-subpage .devotel-cached-snapshot .elementor,
+body.devotel-communication-apis-page .devotel-cached-snapshot .elementor,
+body.devotel-platforms-page .devotel-cached-snapshot .elementor,
+body.devotel-telco-page .devotel-cached-snapshot .elementor,
+body.devotel-sim-based-page .devotel-cached-snapshot .elementor {
+	width: 100%;
+	max-width: 100%;
+}
+
+body.devotel-product-subpage .devotel-cached-snapshot .elementor-invisible,
+body.devotel-communication-apis-page .devotel-cached-snapshot .elementor-invisible,
+body.devotel-platforms-page .devotel-cached-snapshot .elementor-invisible,
+body.devotel-telco-page .devotel-cached-snapshot .elementor-invisible,
+body.devotel-sim-based-page .devotel-cached-snapshot .elementor-invisible,
+body.devotel-sim-based-page .devotel-el-fallback .elementor-invisible,
+body.devotel-product-subpage .devotel-cached-snapshot [class*="animate-"],
+body.devotel-communication-apis-page .devotel-cached-snapshot [class*="animate-"],
+body.devotel-platforms-page .devotel-cached-snapshot [class*="animate-"],
+body.devotel-telco-page .devotel-cached-snapshot [class*="animate-"],
+body.devotel-sim-based-page .devotel-cached-snapshot [class*="animate-"],
+body.devotel-sim-based-page .devotel-el-fallback [class*="animate-"] {
+	opacity: 1 !important;
+	visibility: visible !important;
+	animation: none !important;
+	transform: none !important;
+}
+
+body.devotel-product-subpage .devotel-cached-snapshot .e-con,
+body.devotel-communication-apis-page .devotel-cached-snapshot .e-con,
+body.devotel-platforms-page .devotel-cached-snapshot .e-con,
+body.devotel-telco-page .devotel-cached-snapshot .e-con,
+body.devotel-sim-based-page .devotel-cached-snapshot .e-con,
+body.devotel-product-subpage .devotel-cached-snapshot .e-con:not(.e-con-boxed) > .e-con-inner,
+body.devotel-communication-apis-page .devotel-cached-snapshot .e-con:not(.e-con-boxed) > .e-con-inner,
+body.devotel-platforms-page .devotel-cached-snapshot .e-con:not(.e-con-boxed) > .e-con-inner,
+body.devotel-telco-page .devotel-cached-snapshot .e-con:not(.e-con-boxed) > .e-con-inner,
+body.devotel-sim-based-page .devotel-cached-snapshot .e-con:not(.e-con-boxed) > .e-con-inner {
+	max-width: 100%;
+}
+
+body.devotel-product-subpage .devotel-cached-snapshot img:not(.ts-company-logo),
+body.devotel-communication-apis-page .devotel-cached-snapshot img:not(.ts-company-logo),
+body.devotel-platforms-page .devotel-cached-snapshot img:not(.ts-company-logo),
+body.devotel-telco-page .devotel-cached-snapshot img:not(.ts-company-logo),
+body.devotel-sim-based-page .devotel-cached-snapshot img:not(.ts-company-logo),
+body.devotel-sim-based-page .devotel-el-fallback img:not(.ts-company-logo) {
+	max-width: 100%;
+	height: auto;
+}
+
+@media (max-width: 768px) {
+	/* HTML-widget snapshots ship with 32px .container gutters — normalize to 16px. */
+	body.devotel-product-subpage .devotel-cached-snapshot .container,
+	body.devotel-communication-apis-page .devotel-cached-snapshot .container,
+	body.devotel-platforms-page .devotel-cached-snapshot .container,
+	body.devotel-telco-page .devotel-cached-snapshot .container,
+	body.devotel-sim-based-page .devotel-cached-snapshot .container {
+		padding-left: var(--devotel-mobile-hero-gutter, 16px) !important;
+		padding-right: var(--devotel-mobile-hero-gutter, 16px) !important;
+	}
+
+	/*
+	 * Embedded CTA widgets ship `@media … { section { background: gradient } }`, which
+	 * also paints the outer snapshot wrapper blue on mobile. Keep the shell neutral.
+	 */
+	body.devotel-communication-apis-page section.devotel-cached-snapshot,
+	body.devotel-product-subpage section.devotel-cached-snapshot,
+	body.devotel-platforms-page section.devotel-cached-snapshot,
+	body.devotel-telco-page section.devotel-cached-snapshot,
+	body.devotel-sim-based-page section.devotel-cached-snapshot,
+	body.devotel-sim-based-page section.devotel-el-fallback {
+		padding-bottom: 0 !important;
+		background: #fdfdfe !important;
+		background-image: none !important;
+	}
+
+	body.devotel-communication-apis-page .devotel-cached-snapshot .ts-section,
+	body.devotel-product-subpage .devotel-cached-snapshot .ts-section,
+	body.devotel-platforms-page .devotel-cached-snapshot .ts-section,
+	body.devotel-telco-page .devotel-cached-snapshot .ts-section,
+	body.devotel-sim-based-page .devotel-cached-snapshot .ts-section,
+	body.devotel-sim-based-page .devotel-el-fallback .ts-section {
+		background: #fdfdfe !important;
+		background-image: none !important;
+	}
+
+	body.devotel-communication-apis-page .devotel-cached-snapshot .cta-section-container,
+	body.devotel-product-subpage .devotel-cached-snapshot .cta-section-container {
+		min-height: 0 !important;
+		height: auto !important;
+		padding-bottom: 0 !important;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .cta-section-container,
+	body.devotel-sim-based-page .devotel-el-fallback .cta-section-container {
+		min-height: 0 !important;
+		height: auto !important;
+	}
+
+	body.devotel-communication-apis-page .devotel-cached-snapshot section[class*="bg-gradient-to-r"]:has(.cta-section-container),
+	body.devotel-communication-apis-page .devotel-cached-snapshot section.relative:has(.cta-section-container),
+	body.devotel-product-subpage .devotel-cached-snapshot section[class*="bg-gradient-to-r"]:has(.cta-section-container),
+	body.devotel-product-subpage .devotel-cached-snapshot section.relative:has(.cta-section-container) {
+		min-height: 0 !important;
+		padding-bottom: 24px !important;
+		background: linear-gradient(164deg, #1e318a 22.26%, #266df0 79.12%) !important;
+	}
+
+	body.devotel-communication-apis-page .devotel-cached-snapshot .video-wrapper-mobile,
+	body.devotel-product-subpage .devotel-cached-snapshot .video-wrapper-mobile {
+		display: block !important;
+		position: relative !important;
+		width: 100% !important;
+		height: 390px !important;
+		min-height: 390px !important;
+		max-height: none !important;
+		margin-bottom: 0 !important;
+		overflow: visible !important;
+		pointer-events: none !important;
+	}
+
+	body.devotel-communication-apis-page .devotel-cached-snapshot .video-wrapper-mobile .video-gradient-container,
+	body.devotel-product-subpage .devotel-cached-snapshot .video-wrapper-mobile .video-gradient-container {
+		position: relative !important;
+		width: 100% !important;
+		height: 100% !important;
+		min-height: 0 !important;
+		max-height: none !important;
+		background: transparent !important;
+	}
+
+	body.devotel-communication-apis-page .devotel-cached-snapshot .video-wrapper-mobile .video-gradient-container video,
+	body.devotel-product-subpage .devotel-cached-snapshot .video-wrapper-mobile .video-gradient-container video {
+		position: relative !important;
+		width: 100% !important;
+		height: 100% !important;
+		min-height: 0 !important;
+		max-height: none !important;
+		object-fit: contain !important;
+		object-position: center center !important;
+		transform: none !important;
+		mix-blend-mode: screen !important;
+		background-color: transparent !important;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .video-wrapper-mobile,
+	body.devotel-sim-based-page .devotel-el-fallback .video-wrapper-mobile {
+		display: block !important;
+		height: 390px !important;
+		min-height: 390px !important;
+		max-height: none !important;
+		margin-bottom: 0 !important;
+		overflow: visible !important;
+	}
+}
+
+/* -------------------------------------------------------------------------
+ * Hero title + description typography
+ * Communication APIs + Telco: dark on light
+ * Orbit / CMP (platforms): light on brand
+ * ------------------------------------------------------------------------- */
+
+/* Shared fonts/colors (all breakpoints) — product & telco */
+body.devotel-communication-apis-page .devotel-cached-snapshot .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading .elementor-heading-title,
+body.devotel-telco-page .devotel-cached-snapshot .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading .elementor-heading-title,
+body.devotel-communication-apis-page .devotel-el-fallback .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading .elementor-heading-title,
+body.devotel-telco-page .devotel-el-fallback .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading .elementor-heading-title {
+	color: var(--Text-text-primary, #0f172b) !important;
+	font-family: var(--Font-Family-display, Duplet), Inter, sans-serif !important;
+	font-style: normal !important;
+	font-weight: var(--Font-weight-semibold, 600) !important;
+}
+
+body.devotel-communication-apis-page .devotel-cached-snapshot .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading + .elementor-widget-text-editor,
+body.devotel-communication-apis-page .devotel-cached-snapshot .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading + .elementor-widget-text-editor p,
+body.devotel-communication-apis-page .devotel-cached-snapshot .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading + .elementor-widget-text-editor span,
+body.devotel-telco-page .devotel-cached-snapshot .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading + .elementor-widget-text-editor,
+body.devotel-telco-page .devotel-cached-snapshot .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading + .elementor-widget-text-editor p,
+body.devotel-telco-page .devotel-cached-snapshot .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading + .elementor-widget-text-editor span,
+body.devotel-communication-apis-page .devotel-el-fallback .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading + .elementor-widget-text-editor,
+body.devotel-communication-apis-page .devotel-el-fallback .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading + .elementor-widget-text-editor p,
+body.devotel-communication-apis-page .devotel-el-fallback .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading + .elementor-widget-text-editor span,
+body.devotel-telco-page .devotel-el-fallback .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading + .elementor-widget-text-editor,
+body.devotel-telco-page .devotel-el-fallback .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading + .elementor-widget-text-editor p,
+body.devotel-telco-page .devotel-el-fallback .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading + .elementor-widget-text-editor span {
+	color: var(--Text-text-tertiary, #45556c) !important;
+	font-family: var(--Font-family-font-family-body, Inter), sans-serif !important;
+	font-size: 18px !important;
+	font-style: normal !important;
+	font-weight: 400 !important;
+	line-height: 150% !important;
+}
+
+/* Desktop title sizing — product & telco */
+@media (min-width: 768px) {
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading .elementor-heading-title,
+	body.devotel-telco-page .devotel-cached-snapshot .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading .elementor-heading-title,
+	body.devotel-communication-apis-page .devotel-el-fallback .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading .elementor-heading-title,
+	body.devotel-telco-page .devotel-el-fallback .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading .elementor-heading-title {
+		font-size: 54px !important;
+		line-height: 120% !important;
+		letter-spacing: -1.08px !important;
+	}
+}
+
+/* Mobile title sizing — product & telco */
+@media (max-width: 767px) {
+	body.devotel-communication-apis-page .devotel-cached-snapshot .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading .elementor-heading-title,
+	body.devotel-telco-page .devotel-cached-snapshot .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading .elementor-heading-title,
+	body.devotel-communication-apis-page .devotel-el-fallback .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading .elementor-heading-title,
+	body.devotel-telco-page .devotel-el-fallback .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading .elementor-heading-title {
+		font-size: 36px !important;
+		line-height: 44px !important;
+		letter-spacing: -0.72px !important;
+	}
+}
+
+/*
+ * Eyebrow (blue page name) → hero title gap.
+ * Elementor e-con defaults to --widgets-spacing 20px; Figma is ~12px.
+ * Orbit / CMP have no eyebrow — left untouched.
+ */
+body.devotel-communication-apis-page .devotel-cached-snapshot .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading,
+body.devotel-telco-page .devotel-cached-snapshot .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading,
+body.devotel-communication-apis-page .devotel-el-fallback .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading,
+body.devotel-telco-page .devotel-el-fallback .elementor > .e-con-parent:first-child .elementor-widget-heading + .elementor-widget-heading {
+	margin-top: calc(-1 * var(--widgets-spacing-row, var(--widgets-spacing, 20px)) + 12px) !important;
+	margin-bottom: 0 !important;
+}
+
+body.devotel-communication-apis-page .devotel-cached-snapshot .elementor > .e-con-parent:first-child .elementor-widget-heading:has(+ .elementor-widget-heading),
+body.devotel-telco-page .devotel-cached-snapshot .elementor > .e-con-parent:first-child .elementor-widget-heading:has(+ .elementor-widget-heading),
+body.devotel-communication-apis-page .devotel-el-fallback .elementor > .e-con-parent:first-child .elementor-widget-heading:has(+ .elementor-widget-heading),
+body.devotel-telco-page .devotel-el-fallback .elementor > .e-con-parent:first-child .elementor-widget-heading:has(+ .elementor-widget-heading) {
+	margin-bottom: 0 !important;
+}
+
+/* Shared fonts/colors — Orbit / CMP */
+body.devotel-platforms-page .devotel-cached-snapshot .elementor > .e-con-parent:first-child > .elementor-widget-heading .elementor-heading-title,
+body.devotel-platforms-page .devotel-el-fallback .elementor > .e-con-parent:first-child > .elementor-widget-heading .elementor-heading-title {
+	color: var(--Text-text-primary-on-brand, #fff) !important;
+	text-align: center !important;
+	font-family: var(--Font-Family-display, Duplet), Inter, sans-serif !important;
+	font-style: normal !important;
+	font-weight: var(--Font-weight-semibold, 600) !important;
+}
+
+body.devotel-platforms-page .devotel-cached-snapshot .elementor > .e-con-parent:first-child > .elementor-widget-text-editor,
+body.devotel-platforms-page .devotel-cached-snapshot .elementor > .e-con-parent:first-child > .elementor-widget-text-editor p,
+body.devotel-platforms-page .devotel-cached-snapshot .elementor > .e-con-parent:first-child > .elementor-widget-text-editor span,
+body.devotel-platforms-page .devotel-el-fallback .elementor > .e-con-parent:first-child > .elementor-widget-text-editor,
+body.devotel-platforms-page .devotel-el-fallback .elementor > .e-con-parent:first-child > .elementor-widget-text-editor p,
+body.devotel-platforms-page .devotel-el-fallback .elementor > .e-con-parent:first-child > .elementor-widget-text-editor span {
+	color: var(--Text-text-secondary-on-brand, #c0d7ff) !important;
+	text-align: center !important;
+	font-family: var(--Font-family-font-family-body, Inter), sans-serif !important;
+	font-size: 18px !important;
+	font-style: normal !important;
+	font-weight: 400 !important;
+	line-height: 150% !important;
+}
+
+@media (min-width: 768px) {
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor > .e-con-parent:first-child > .elementor-widget-heading .elementor-heading-title,
+	body.devotel-platforms-page .devotel-el-fallback .elementor > .e-con-parent:first-child > .elementor-widget-heading .elementor-heading-title {
+		font-size: 54px !important;
+		line-height: 120% !important;
+	}
+}
+
+@media (max-width: 767px) {
+	body.devotel-platforms-page .devotel-cached-snapshot .elementor > .e-con-parent:first-child > .elementor-widget-heading .elementor-heading-title,
+	body.devotel-platforms-page .devotel-el-fallback .elementor > .e-con-parent:first-child > .elementor-widget-heading .elementor-heading-title {
+		font-size: 36px !important;
+		line-height: 44px !important;
+		letter-spacing: -0.72px !important;
+	}
+}

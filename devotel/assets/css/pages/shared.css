@@ -1,0 +1,163 @@
+/* Shared inner page fixes */
+article.devotel-page {
+	width: 100%;
+	max-width: 100%;
+}
+article.devotel-page img {
+	max-width: 100%;
+	height: auto;
+}
+article.devotel-page .elementor-icon:not(.elementor-social-icon) svg,
+article.devotel-page .elementor-icon:not(.elementor-social-icon) .e-font-icon-svg {
+	max-width: 48px;
+	max-height: 48px;
+	width: 1em;
+	height: 1em;
+}
+.devotel-contact-page .w-full { width: 100%; }
+.devotel-contact-page .bg-\[\#f9fafb\] { background: #f9fafb; }
+.devotel-contact-page .py-24 { padding-top: 96px; padding-bottom: 96px; }
+.devotel-contact-page .px-8 { padding-left: 32px; padding-right: 32px; }
+.devotel-contact-page .flex { display: flex; }
+.devotel-contact-page .flex-wrap { flex-wrap: wrap; }
+.devotel-contact-page .items-center { align-items: center; }
+.devotel-contact-page .justify-center { justify-content: center; }
+.devotel-contact-page .gap-12 { gap: 48px; }
+
+/* Elementor flex containers without plugin runtime */
+.devotel-about-page .elementor.elementor-12,
+.devotel-contact-page .elementor.elementor-21 {
+	width: 100%;
+	max-width: 100%;
+	display: block !important;
+}
+
+/* Elementor compat applies 10px horizontal padding to all containers — flush on About. */
+/* Only zero horizontal padding — vertical (top/bottom) must be preserved for section spacing. */
+body.devotel-about-page .e-con,
+body.elementor-page-12 .e-con,
+body.devotel-about-page .e-con.e-parent,
+body.elementor-page-12 .e-con.e-parent {
+	--container-default-padding-right: 0px !important;
+	--container-default-padding-left: 0px !important;
+	--padding-right: 0px !important;
+	--padding-left: 0px !important;
+	--padding-inline-start: 0px !important;
+	--padding-inline-end: 0px !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+	padding-inline: 0 !important;
+}
+
+body.devotel-about-page .e-con > .e-con-inner,
+body.elementor-page-12 .e-con > .e-con-inner {
+	--container-default-padding-right: 0px !important;
+	--container-default-padding-left: 0px !important;
+	--padding-right: 0px !important;
+	--padding-left: 0px !important;
+	--padding-inline-start: 0px !important;
+	--padding-inline-end: 0px !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+	padding-inline: 0 !important;
+}
+
+body.devotel-about-page article.devotel-page,
+body.elementor-page-12 article.devotel-page {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+	max-width: 100% !important;
+}
+
+.devotel-about-page .e-con,
+.devotel-contact-page .e-con {
+	--width: 100%;
+	--content-width: min(1440px, 100%);
+}
+
+/* Elementor containers without frontend runtime (display: var(--display) defaults to inline). */
+.devotel-about-page .e-con.e-flex {
+	--display: flex;
+	display: flex;
+}
+
+@media (min-width: 1025px) {
+	.devotel-about-page .e-con.elementor-hidden-desktop,
+	.devotel-about-page .elementor-hidden-desktop {
+		display: none !important;
+	}
+}
+
+.devotel-about-page .e-con.e-grid {
+	--display: grid;
+	display: grid;
+}
+
+@media (max-width: 767px) {
+	/* Highlights mobile stats: kit uses 1fr grid rows → huge vertical gaps (live devotel.com has same bug) */
+	body.devotel-about-page .elementor-element-be2c7de .elementor-element-23d14a0.e-grid,
+	body.devotel-about-page .elementor-element-be2c7de .elementor-element-4457d67.e-grid,
+	body.elementor-page-12 .elementor-element-be2c7de .elementor-element-23d14a0.e-grid,
+	body.elementor-page-12 .elementor-element-be2c7de .elementor-element-4457d67.e-grid,
+	body.devotel-about-page.elementor-page-12 .elementor-12 .elementor-element.elementor-element-23d14a0 {
+		--display: flex !important;
+		display: flex !important;
+		flex-direction: column !important;
+		grid-template-columns: none !important;
+		grid-template-rows: none !important;
+		padding-top: 0 !important;
+		--padding-top: 0px !important;
+		gap: 32px !important;
+	}
+}
+
+.devotel-about-page .e-con > .e-con-inner,
+.devotel-contact-page .e-con > .e-con-inner {
+	width: 100%;
+	max-width: var(--content-width, 100%);
+	margin-inline: auto;
+}
+
+.devotel-about-page .elementor-widget-image img,
+.devotel-contact-page .elementor-widget-image img {
+	height: auto;
+	object-fit: contain;
+}
+
+/* About/Contact hero gradients are defined in post-12/post-21 legacy CSS + page CSS. */
+
+.devotel-contact-page .elementor-element-9e6c16f {
+	min-height: min(778px, 92vh);
+	align-items: stretch;
+}
+
+.devotel-contact-page #blueback a {
+	color: #fff;
+}
+
+/* Site footer chrome (Tailwind arbitrary classes may not scan extracted markup). */
+#devotel-footer-wrapper {
+	background-color: #020618;
+	color: #cad5e2;
+	width: 100%;
+}
+
+#devotel-footer-wrapper a {
+	color: #90a1b9;
+}
+
+#devotel-footer-wrapper .border-t {
+	border-color: #314158;
+}
+
+/*
+ * Inner pages with in-flow header (not homepage/SIM overlay).
+ * Legacy hero CSS baked in clearance for a fixed overlay header — cancel the duplicate offset.
+ */
+@media (min-width: 769px) {
+	body:not(.is-home-page):not(.devotel-sim-based-page).devotel-about-page .elementor-element-c1cc0f1,
+	body:not(.is-home-page):not(.devotel-sim-based-page).devotel-about-page .elementor-12 .elementor-element-c1cc0f1 {
+		margin-top: 32px !important;
+		--margin-top: 32px !important;
+	}
+}

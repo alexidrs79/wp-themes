@@ -1,0 +1,304 @@
+/* Contact Us bands — decorative background + form checkbox states */
+
+/* Figma form card — 35px vertical padding on every page except /contact-us/ */
+body:not(.devotel-contact-page) .final-cta-form-wrapper .final-cta-form,
+body:not(.devotel-contact-page) .final-cta-form-wrapper .wpcf7-form {
+	padding-top: 35px !important;
+	padding-bottom: 35px !important;
+	padding-left: 32px !important;
+	padding-right: 32px !important;
+}
+
+.devotel-cached-snapshot #cm7,
+.devotel-cached-snapshot .cm7.e-con.e-parent:not(.elementor-hidden-desktop),
+.devotel-cached-snapshot .elementor-element.cm7.e-con.e-parent:not(.elementor-hidden-desktop),
+.devotel-cached-snapshot .elementor-element-6db40139.cm7,
+.devotel-cached-snapshot .devotel-el-fallback__container:has(> .devotel-el-fallback__container .final-cta-form-wrapper) {
+	background-color: #fdfdfe !important;
+}
+
+@media (max-width: 768px) {
+	.devotel-cached-snapshot #cm7,
+	.devotel-cached-snapshot .cm7.e-con.e-parent:not(.elementor-hidden-desktop),
+	.devotel-cached-snapshot .elementor-element.cm7.e-con.e-parent:not(.elementor-hidden-desktop),
+	.devotel-cached-snapshot .elementor-element-6db40139.cm7,
+	.devotel-cached-snapshot .devotel-el-fallback__container:has(> .devotel-el-fallback__container .final-cta-form-wrapper) {
+		background-image: var(--devotel-contact-section-bg) !important;
+		background-position: center right !important;
+		background-repeat: no-repeat !important;
+		background-size: auto !important;
+	}
+}
+
+@media (min-width: 769px) {
+	/* Keep the glow beside the form — not pinned to the viewport edge on ultra-wide screens. */
+	.devotel-cached-snapshot #cm7,
+	.devotel-cached-snapshot .cm7.e-con.e-parent:not(.elementor-hidden-desktop),
+	.devotel-cached-snapshot .elementor-element.cm7.e-con.e-parent:not(.elementor-hidden-desktop),
+	.devotel-cached-snapshot .elementor-element-6db40139.cm7,
+	.devotel-cached-snapshot .devotel-el-fallback__container:has(> .devotel-el-fallback__container .final-cta-form-wrapper) {
+		position: relative;
+		isolation: isolate;
+		overflow: hidden;
+		background-image: none !important;
+	}
+
+	.devotel-cached-snapshot #cm7::before,
+	.devotel-cached-snapshot .cm7.e-con.e-parent:not(.elementor-hidden-desktop)::before,
+	.devotel-cached-snapshot .elementor-element.cm7.e-con.e-parent:not(.elementor-hidden-desktop)::before,
+	.devotel-cached-snapshot .elementor-element-6db40139.cm7::before,
+	.devotel-cached-snapshot .devotel-el-fallback__container:has(> .devotel-el-fallback__container .final-cta-form-wrapper)::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		width: min(1440px, 100%);
+		background-image: var(--devotel-contact-section-bg) !important;
+		background-position: right center !important;
+		background-repeat: no-repeat !important;
+		background-size: auto !important;
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	.devotel-cached-snapshot #cm7 > .e-con-inner,
+	.devotel-cached-snapshot .cm7.e-con.e-parent:not(.elementor-hidden-desktop) > .e-con-inner,
+	.devotel-cached-snapshot .elementor-element.cm7.e-con.e-parent:not(.elementor-hidden-desktop) > .e-con-inner,
+	.devotel-cached-snapshot .elementor-element-6db40139.cm7 > .e-con-inner,
+	.devotel-cached-snapshot .devotel-el-fallback__container:has(> .devotel-el-fallback__container .final-cta-form-wrapper) > .devotel-el-fallback__container {
+		position: relative;
+		z-index: 1;
+		max-width: 1440px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+}
+
+/* Privacy / acceptance checkbox — custom box + checked tick */
+.form-checkbox,
+.wpcf7-form input[type="checkbox"],
+.wpcf7-form-control-wrap input[type="checkbox"],
+.final-cta-form-wrapper input[type="checkbox"],
+.final-cta-form-wrapper .wpcf7-form input[type="checkbox"] {
+	display: inline-block !important;
+	width: 20px !important;
+	height: 20px !important;
+	min-width: 20px !important;
+	min-height: 20px !important;
+	border-radius: 6px !important;
+	border: 1px solid #cad5e2 !important;
+	cursor: pointer !important;
+	flex-shrink: 0 !important;
+	margin: 0 8px 0 0 !important;
+	padding: 0 !important;
+	vertical-align: middle !important;
+	position: relative !important;
+	z-index: auto !important;
+	pointer-events: auto !important;
+	-webkit-appearance: none !important;
+	-moz-appearance: none !important;
+	appearance: none !important;
+	background-color: #fff !important;
+	background-repeat: no-repeat !important;
+	background-position: center !important;
+	background-size: 12px 10px !important;
+}
+
+.form-checkbox:checked,
+.wpcf7-form input[type="checkbox"]:checked,
+.wpcf7-form-control-wrap input[type="checkbox"]:checked,
+.final-cta-form-wrapper input[type="checkbox"]:checked,
+.final-cta-form-wrapper .wpcf7-form input[type="checkbox"]:checked,
+.final-cta-form-wrapper input[type="checkbox"].devotel-checkbox-checked {
+	background-color: #325fec !important;
+	border-color: #325fec !important;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 10'%3E%3Cpath fill='white' d='M4 8L0 4l1.5-1.5L4 5 10.5-1.5L12 0L4 8z'/%3E%3C/svg%3E") !important;
+}
+
+.final-cta-form-wrapper .wpcf7-form p:has(input[type="checkbox"]),
+.final-cta-form-wrapper .wpcf7-form p:has([acceptance]),
+.final-cta-form-wrapper .wpcf7-form-control-wrap:has(input[type="checkbox"]) {
+	white-space: normal !important;
+}
+
+.final-cta-form-wrapper .wpcf7-form p:has(input[type="checkbox"]) label,
+.final-cta-form-wrapper .wpcf7-form p:has([acceptance]) label {
+	white-space: normal !important;
+	cursor: pointer !important;
+	pointer-events: auto !important;
+}
+
+/* Phone country dropdown — compact list, above fields below (privacy row) */
+.final-cta-form-wrapper .phone-input-wrapper,
+.final-cta-form-wrapper .phone-country-code-wrapper,
+.final-cta-form-wrapper .wpcf7-form-control-wrap:has(.wpcf7-phonetext),
+.final-cta-form-wrapper .wpcf7-form-control-wrap:has(input[type="tel"]),
+.final-cta-form-wrapper .intl-tel-input {
+	position: relative !important;
+	z-index: 20 !important;
+}
+
+.final-cta-form-wrapper .intl-tel-input .country-list,
+.final-cta-form-wrapper .country-list,
+.final-cta-form-wrapper .flag-dropdown .country-list,
+.final-cta-form-wrapper .intl-tel-input.iti-container .country-list,
+.final-cta-form-wrapper .custom-country-dropdown {
+	max-height: 200px !important;
+	overflow-y: auto !important;
+	overflow-x: hidden !important;
+	z-index: 1000 !important;
+}
+
+.final-cta-form-wrapper .intl-tel-input .country-list,
+.final-cta-form-wrapper .country-list,
+.final-cta-form-wrapper .flag-dropdown .country-list {
+	width: 275px !important;
+	min-width: 275px !important;
+	max-width: 275px !important;
+	border-radius: 8px !important;
+}
+
+.final-cta-form-wrapper .wpcf7-form > p:has(input[type="checkbox"]),
+.final-cta-form-wrapper .wpcf7-form > p:has([acceptance]),
+.final-cta-form-wrapper .wpcf7-form > p:has(.wpcf7-form-control-wrap[data-name="privacy-policy"]),
+.final-cta-form-wrapper .wpcf7-form-control-wrap[data-name="privacy-policy"] {
+	position: relative !important;
+	z-index: 1 !important;
+}
+
+/* Custom country dropdown (shared across contact forms) */
+.final-cta-form-wrapper .phone-country-code-wrapper select.phone-country-code.hidden-select {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+	width: 1px;
+	height: 1px;
+}
+
+.final-cta-form-wrapper .custom-country-select {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.final-cta-form-wrapper .custom-country-select-button {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	color: #45556c;
+	font-family: "Inter", sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 24px;
+	padding: 0;
+	margin: 0;
+	border: none;
+	background: transparent;
+	cursor: pointer;
+	outline: none;
+	min-height: 44px;
+	min-width: 44px;
+	pointer-events: auto;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.final-cta-form-wrapper .country-flag {
+	width: 20px;
+	height: 15px;
+	border-radius: 2px;
+	object-fit: cover;
+	flex-shrink: 0;
+}
+
+.final-cta-form-wrapper .custom-country-select-button .phone-country-arrow {
+	flex-shrink: 0;
+}
+
+.final-cta-form-wrapper .custom-country-dropdown {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	margin-top: 4px;
+	background: #fff;
+	border: 1px solid #cad5e2;
+	border-radius: 8px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	max-height: 200px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	z-index: 1000;
+	min-width: 60px;
+	display: none;
+	-webkit-overflow-scrolling: touch;
+}
+
+.final-cta-form-wrapper .custom-country-dropdown.open {
+	display: block;
+}
+
+.final-cta-form-wrapper .custom-country-option {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 12px;
+	min-height: 44px;
+	color: #45556c;
+	font-family: "Inter", sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 24px;
+	cursor: pointer;
+	transition: background-color 0.2s;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.final-cta-form-wrapper .custom-country-option:hover {
+	background-color: #f3f4f6;
+}
+
+.final-cta-form-wrapper .custom-country-option.selected {
+	background-color: #eff6ff;
+	color: #1e40af;
+}
+
+/* intl-tel-input flag control */
+.final-cta-form-wrapper .intl-tel-input .selected-flag,
+.final-cta-form-wrapper .intl-tel-input .flag-container {
+	pointer-events: auto !important;
+	cursor: pointer;
+}
+
+.final-cta-form-wrapper .intl-tel-input .country-list {
+	-webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 768px) {
+	.final-cta-form-wrapper .wpcf7-form > p:has(.wpcf7-phonetext),
+	.final-cta-form-wrapper .wpcf7-form-control-wrap:has(.wpcf7-phonetext),
+	.final-cta-form-wrapper .phone-input-wrapper,
+	.final-cta-form-wrapper .phone-country-code-wrapper,
+	.final-cta-form-wrapper .intl-tel-input {
+		overflow: visible !important;
+	}
+
+	.final-cta-form-wrapper .intl-tel-input .selected-flag,
+	.final-cta-form-wrapper .intl-tel-input .flag-container {
+		min-height: 44px !important;
+		min-width: 44px !important;
+		-webkit-tap-highlight-color: transparent;
+	}
+}
+
+/* Country & Phone Field CF7 — native mobile overlay (do not override position/size). */
+body.iti-mobile .intl-tel-input.iti-container {
+	z-index: 100000 !important;
+}
+
+body.iti-mobile .intl-tel-input .country-list {
+	-webkit-overflow-scrolling: touch;
+}

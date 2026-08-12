@@ -1,0 +1,99 @@
+/**
+ * Overlay header nav — SIM-based hero (white links before scroll, dark on frosted scroll).
+ */
+
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-products,
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-telco,
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-company,
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-menu-item-text,
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-menu-item,
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-frame-parent a {
+	color: #fff !important;
+}
+
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-arrow-down svg path {
+	stroke: #fff !important;
+}
+
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-products-parent:hover,
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-telco-parent:hover,
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-company-parent:hover,
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-menu-item:hover {
+	border-radius: 10px !important;
+	background: rgba(255, 255, 255, 0.2) !important;
+	background-color: rgba(255, 255, 255, 0.2) !important;
+	backdrop-filter: blur(14.8px) !important;
+	-webkit-backdrop-filter: blur(14.8px) !important;
+}
+
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-talk-to-an-expert-wrapper {
+	background-color: #fff !important;
+}
+
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-talk-to-an {
+	color: #0f172b !important;
+}
+
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-talk-to-an-expert-wrapper:hover {
+	background-color: #f1f5f9 !important;
+}
+
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-login-wrapper {
+	background-color: transparent !important;
+	border-color: #fff !important;
+}
+
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-login-text {
+	color: #fff !important;
+}
+
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-login-wrapper:hover {
+	border-color: #fff !important;
+}
+
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-login-wrapper:active,
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-login-wrapper:focus {
+	border-color: #fff !important;
+	background-color: transparent !important;
+}
+
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-login-wrapper:active *,
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-login-wrapper:focus * {
+	color: #fff !important;
+}
+
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-mobile-menu-button svg path {
+	stroke: #fff !important;
+}
+
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-mobile-menu-button:hover {
+	background-color: rgba(50, 95, 236, 0.2) !important;
+}
+
+/* Scrolled: dark nav on frosted glass (match default inner-page header). */
+body.devotel-sim-based-page .header-navbar-wrapper.header-scrolled .header-products,
+body.devotel-sim-based-page .header-navbar-wrapper.header-scrolled .header-telco,
+body.devotel-sim-based-page .header-navbar-wrapper.header-scrolled .header-company,
+body.devotel-sim-based-page .header-navbar-wrapper.header-scrolled .header-menu-item-text,
+body.devotel-sim-based-page .header-navbar-wrapper.header-scrolled .header-menu-item,
+body.devotel-sim-based-page .header-navbar-wrapper.header-scrolled .header-frame-parent a {
+	color: #0f172b !important;
+}
+
+body.devotel-sim-based-page .header-navbar-wrapper.header-scrolled .header-arrow-down svg path {
+	stroke: #0f172b !important;
+}
+
+body.devotel-sim-based-page .header-navbar-wrapper.header-scrolled .header-login-wrapper {
+	border-radius: 10px !important;
+	border: 1px solid var(--Border-border-primary, #cad5e2) !important;
+	background-color: #fff !important;
+}
+
+body.devotel-sim-based-page .header-navbar-wrapper.header-scrolled .header-login-text {
+	color: #0f172b !important;
+}
+
+body.devotel-sim-based-page .header-navbar-wrapper.header-scrolled .header-mobile-menu-button svg path {
+	stroke: #414651 !important;
+}

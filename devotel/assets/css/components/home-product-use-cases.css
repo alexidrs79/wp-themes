@@ -1,0 +1,220 @@
+.duc-use-cases,
+.duc-use-cases * {
+  box-sizing: border-box;
+}
+
+.duc-use-cases {
+  --duc-color-surface: #ffffff;
+  --duc-color-text-primary: #0f172b;
+  --duc-color-text-secondary: #314158;
+  --duc-gradient-stage: linear-gradient(
+    171.58deg,
+    rgba(50, 95, 236, 1) 0%,
+    rgba(139, 191, 255, 1) 100%
+  );
+  --duc-radius-card: 24px;
+  --duc-radius-stage: 24px;
+  --duc-gap-grid: 24px;
+  --duc-gap-card: 32px;
+  --duc-font-heading: "Inter-SemiBold", "Inter", system-ui, -apple-system,
+    sans-serif;
+  --duc-font-body: "Inter-Regular", "Inter", system-ui, -apple-system,
+    sans-serif;
+  background: var(--duc-color-surface);
+  color: var(--duc-color-text-primary);
+  font-family: var(--duc-font-body);
+  padding: 104px 100px 144px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+.duc-use-cases__inner {
+  width: 100%;
+  max-width: 1280px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  align-items: stretch;
+}
+
+.duc-use-cases__grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: stretch;
+  justify-content: center;
+  width: 100%;
+}
+
+.duc-case-card {
+  flex: 1 1 292px;
+  min-width: 260px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--duc-gap-card);
+  align-items: flex-start;
+  padding: 0 0 24px;
+  position: relative;
+}
+
+.duc-case-card__stage {
+  display: flex;
+  padding: 37px 31px 0 32px;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  align-self: stretch;
+  border-radius: 24px;
+  background: linear-gradient(172deg, #325fec 6.44%, #8bbfff 93.56%);
+  width: 100%;
+  min-height: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.duc-case-card__stage::after {
+  content: none;
+}
+
+.duc-case-card__figure {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  min-height: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  isolation: isolate;
+  max-width: min(292px, 100%);
+  width: 100%;
+  margin-inline: auto;
+  flex: 0 1 auto;
+}
+
+.duc-case-card__figure picture {
+  display: block;
+  width: 100%;
+  line-height: 0;
+}
+
+.duc-case-card__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: none;
+  object-fit: contain;
+  object-position: center;
+  image-rendering: auto;
+  -ms-interpolation-mode: bicubic;
+  aspect-ratio: 229 / 311;
+}
+
+.duc-case-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  width: 100%;
+  padding: 0 4px;
+}
+
+.duc-case-card__title {
+  color: var(--Text-text-primary, #0f172b);
+  font-family: var(--Font-family-font-family-body, Inter);
+  font-size: clamp(16px, 1.35vw, var(--Font-size-text-lg, 18px));
+  font-style: normal;
+  font-weight: 600;
+  line-height: clamp(24px, 2.1vw, var(--Line-height-text-lg, 28px));
+  margin: 0;
+}
+
+.duc-case-card__text {
+  color: var(--Text-text-secondary, #314158);
+  font-family: var(--Font-family-font-family-body, Inter);
+  font-size: var(--Font-size-text-md, 16px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--Line-height-text-md, 24px);
+  margin: 0;
+}
+
+@media (min-width: 769px) {
+  .duc-case-card__title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .duc-case-card__img {
+    width: 292px;
+    height: auto;
+  }
+}
+
+@media (min-width: 1280px) {
+  .duc-use-cases__grid {
+    flex-wrap: nowrap;
+  }
+
+  .duc-case-card {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 1100px) {
+  .duc-use-cases__grid {
+    flex-wrap: wrap;
+  }
+
+  .duc-case-card {
+    flex: 1 1 calc(50% - 12px);
+    min-width: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  .duc-use-cases {
+    padding: 48px 16px 64px;
+  }
+
+  .duc-use-cases__grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .duc-case-card {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 100%;
+    align-items: stretch;
+    flex-shrink: 0;
+    min-height: 0;
+  }
+
+  .duc-case-card__figure {
+    width: 100%;
+    max-width: min(292px, calc(100vw - 32px), 100%);
+    min-height: calc(min(100vw - 32px, 292px, 100%) * 311 / 229);
+  }
+
+  .duc-case-card__img {
+    width: 100%;
+    max-width: min(292px, calc(100vw - 32px), 100%);
+    height: auto;
+    margin-inline: auto;
+  }
+
+  .duc-case-card__body {
+    align-items: flex-start;
+  }
+}

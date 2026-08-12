@@ -1,0 +1,776 @@
+.sp-section,
+  .sp-section * {
+    box-sizing: border-box;
+  }
+  .sp-section {
+    /* Membership row (MEF / GSMA / Meta) — independent of client logo strip scale. */
+    --sp-partner-logo-scale: 1;
+    /* Client logo strip: raster intrinsic size from each file; slightly reduced on small screens. */
+    --sp-partner-client-logo-scale: 1;
+    border-radius: 48px 48px 0px 0px;
+    padding: 40px 0px 64px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 72px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .sp-container {
+    padding: 0px 32px 0px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    flex-shrink: 0;
+    max-width: 1280px;
+    position: relative;
+  }
+  .sp-eyebrow {
+    color: var(--text-text-brand-primary, #325fec);
+    text-align: center;
+    font-family: var(
+      --text-sm-semibold-eyebrow-font-family,
+      "Inter-SemiBold",
+      sans-serif
+    );
+    font-size: var(--text-sm-semibold-eyebrow-font-size, 14px);
+    line-height: var(--text-sm-semibold-eyebrow-line-height, 20px);
+    font-weight: var(--text-sm-semibold-eyebrow-font-weight, 600);
+    text-transform: uppercase;
+    position: relative;
+    align-self: stretch;
+  }
+  .sp-logo-grid {
+    /* Rows at least --sp-logo-row-h; grow if a mark’s intrinsic height is taller. */
+    --sp-logo-row-h: 56px;
+    /* Cap display size in CSS px (downscale full-res PNGs; never use transform: scale). */
+    --sp-logo-mark-max-h: 40px;
+    align-self: stretch;
+    flex-shrink: 0;
+    /* Fixed layout: 7 columns x 2 rows (14 logos). */
+    display: grid;
+    /* Allow columns to shrink to fit viewport (no scrollbar). */
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    grid-auto-rows: minmax(var(--sp-logo-row-h), auto);
+    /* Divider overlay uses these for gutter-centered lines (percent-only lines drift when gap ≠ 0). */
+    --sp-col-gap: clamp(10px, 2.2vw, 40px);
+    --sp-row-gap: clamp(16px, 2vw, 32px);
+    column-gap: var(--sp-col-gap);
+    row-gap: var(--sp-row-gap);
+    align-items: center;
+    justify-items: center;
+    height: auto;
+    position: relative;
+  }
+  
+  /* Hide the original exported divider elements (they were absolute+fixed-width).
+     We replace them with a responsive overlay that matches the grid. */
+  .sp-logo-grid .sp-grid-separator-h-row,
+  .sp-logo-grid [class^="sp-grid-separator-v-"] {
+    display: none !important;
+  }
+  
+  /* Divider overlay: verticals centered on column gaps (not % of full width). */
+  .sp-logo-grid::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    --sp-vline: linear-gradient(
+      180deg,
+      rgba(226, 232, 240, 0) 0%,
+      rgba(226, 232, 240, 1) 50%,
+      rgba(226, 232, 240, 0) 100%
+    );
+    --sp-hline: linear-gradient(
+      90deg,
+      rgba(226, 232, 240, 0) 0%,
+      rgba(226, 232, 240, 1) 50%,
+      rgba(226, 232, 240, 0) 100%
+    );
+    /* 7 columns -> 6 vertical lines at gap centers + horizontal between rows */
+    background:
+      var(--sp-hline) 0 calc(var(--sp-logo-row-h) + var(--sp-row-gap) / 2) / 100% 1px no-repeat,
+      var(--sp-vline)
+        calc((100% - 6 * var(--sp-col-gap)) / 7 + var(--sp-col-gap) * 0.5) 0 / 1px 100% no-repeat,
+      var(--sp-vline)
+        calc(2 * (100% - 6 * var(--sp-col-gap)) / 7 + var(--sp-col-gap) * 1.5) 0 / 1px 100% no-repeat,
+      var(--sp-vline)
+        calc(3 * (100% - 6 * var(--sp-col-gap)) / 7 + var(--sp-col-gap) * 2.5) 0 / 1px 100% no-repeat,
+      var(--sp-vline)
+        calc(4 * (100% - 6 * var(--sp-col-gap)) / 7 + var(--sp-col-gap) * 3.5) 0 / 1px 100% no-repeat,
+      var(--sp-vline)
+        calc(5 * (100% - 6 * var(--sp-col-gap)) / 7 + var(--sp-col-gap) * 4.5) 0 / 1px 100% no-repeat,
+      var(--sp-vline)
+        calc(6 * (100% - 6 * var(--sp-col-gap)) / 7 + var(--sp-col-gap) * 5.5) 0 / 1px 100% no-repeat;
+    opacity: 0.9;
+  }
+  
+  /* Neutralize per-logo absolute positioning rules from the export. */
+  .sp-logo-grid > svg[class*="sp-grid-logo-"],
+  .sp-logo-grid > img[class*="sp-grid-logo-"] {
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    box-sizing: border-box;
+    padding: 8px clamp(10px, 1.8vw, 18px);
+    justify-self: center;
+  }
+  
+  .sp-logo-grid > .sp-flip-slot[class*="sp-grid-logo-"] {
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    box-sizing: border-box;
+    /* Breathing room so marks do not sit on the hairlines */
+    padding: 8px clamp(10px, 1.8vw, 18px);
+    width: 100%;
+    height: 100%;
+    align-self: stretch;
+    justify-self: center;
+  }
+  
+  /* Raster: intrinsic width/height from file; cap with max-* for sharp downscale (no transform scale). */
+  .sp-logo-grid > svg,
+  .sp-logo-grid > img[class*="sp-grid-logo-"],
+  .sp-logo-grid .sp-flip-panel svg,
+  .sp-logo-grid .sp-flip-panel img {
+    max-width: 100%;
+    max-height: var(--sp-logo-mark-max-h);
+    width: auto;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    image-rendering: auto;
+  }
+  @supports (image-rendering: high-quality) {
+    .sp-logo-grid > img[class*="sp-grid-logo-"],
+    .sp-logo-grid .sp-flip-panel img {
+      image-rendering: high-quality;
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .sp-logo-grid {
+      --sp-col-gap: 28px;
+      --sp-row-gap: 24px;
+    }
+  }
+  
+  @media (max-width: 520px) {
+    .sp-logo-grid {
+      --sp-logo-mark-max-h: 36px;
+      /* Mobile: 3 columns x 2 rows */
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      --sp-col-gap: 20px;
+      --sp-row-gap: 24px;
+      --sp-logo-row-h: 52px;
+    }
+    .sp-logo-grid > svg[class*="sp-grid-logo-"],
+    .sp-logo-grid > img[class*="sp-grid-logo-"],
+    .sp-logo-grid > .sp-flip-slot[class*="sp-grid-logo-"] {
+      padding: 12px 16px;
+    }
+    .sp-logo-grid::before {
+      /* 3 columns -> 2 vertical lines at gap centers */
+      background:
+        var(--sp-hline) 0 calc(var(--sp-logo-row-h) + var(--sp-row-gap) / 2) / 100% 1px no-repeat,
+        var(--sp-vline)
+          calc((100% - 2 * var(--sp-col-gap)) / 3 + var(--sp-col-gap) * 0.5) 0 / 1px 100% no-repeat,
+        var(--sp-vline)
+          calc(2 * (100% - 2 * var(--sp-col-gap)) / 3 + var(--sp-col-gap) * 1.5) 0 / 1px 100% no-repeat;
+    }
+  
+    /* Only show 6 slots (2 rows x 3 cols) on mobile */
+    .sp-logo-grid > svg.sp-grid-logo-07,
+    .sp-logo-grid > svg.sp-grid-logo-08,
+    .sp-logo-grid > svg.sp-grid-logo-09,
+    .sp-logo-grid > svg.sp-grid-logo-10,
+    .sp-logo-grid > svg.sp-grid-logo-11,
+    .sp-logo-grid > svg.sp-grid-logo-12,
+    .sp-logo-grid > svg.sp-grid-logo-13,
+    .sp-logo-grid > svg.sp-grid-logo-14,
+    .sp-logo-grid > img.sp-grid-logo-07,
+    .sp-logo-grid > img.sp-grid-logo-08,
+    .sp-logo-grid > img.sp-grid-logo-09,
+    .sp-logo-grid > img.sp-grid-logo-10,
+    .sp-logo-grid > img.sp-grid-logo-11,
+    .sp-logo-grid > img.sp-grid-logo-12,
+    .sp-logo-grid > img.sp-grid-logo-13,
+    .sp-logo-grid > img.sp-grid-logo-14,
+    .sp-logo-grid > .sp-flip-slot.sp-grid-logo-07,
+    .sp-logo-grid > .sp-flip-slot.sp-grid-logo-08,
+    .sp-logo-grid > .sp-flip-slot.sp-grid-logo-09,
+    .sp-logo-grid > .sp-flip-slot.sp-grid-logo-10,
+    .sp-logo-grid > .sp-flip-slot.sp-grid-logo-11,
+    .sp-logo-grid > .sp-flip-slot.sp-grid-logo-12,
+    .sp-logo-grid > .sp-flip-slot.sp-grid-logo-13,
+    .sp-logo-grid > .sp-flip-slot.sp-grid-logo-14 {
+      display: none !important;
+    }
+  
+    /* Mobile member-of layout: label below logos, then 3 logos with exact gap */
+    .sp-mof-row {
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 12px;
+    }
+    .sp-mof-logos {
+      align-items: center;
+      justify-content: center;
+      gap: 20.5px;
+    }
+    .sp-mof-separator-01,
+    .sp-mof-separator-02 {
+      display: none !important;
+    }
+  }
+  /* Logo slots: horizontal center on midpoint between adjacent vertical dividers */
+  .sp-grid-logo-01 {
+    height: auto;
+    position: absolute;
+    left: calc(50% - 356.5px);
+    transform: translateX(-50%);
+    top: 8.95px;
+    overflow: visible;
+  }
+  .sp-grid-logo-02 {
+    height: auto;
+    position: absolute;
+    left: calc(50% - 177.5px);
+    transform: translateX(-50%);
+    top: 11.87px;
+    overflow: visible;
+  }
+  .sp-grid-logo-03 {
+    height: auto;
+    position: absolute;
+    left: calc(50% + 1.5px);
+    transform: translateX(-50%);
+    top: 4.95px;
+    overflow: visible;
+  }
+  .sp-grid-logo-04 {
+    height: auto;
+    position: absolute;
+    left: calc(50% + 180.5px);
+    transform: translateX(-50%);
+    top: 11.17px;
+    overflow: visible;
+  }
+  .sp-grid-logo-05 {
+    height: auto;
+    position: absolute;
+    left: calc(50% + 359.5px);
+    transform: translateX(-50%);
+    top: 7px;
+    overflow: visible;
+  }
+  .sp-grid-logo-06 {
+    height: auto;
+    position: absolute;
+    left: calc(50% - 356.5px);
+    transform: translateX(-50%);
+    top: 90.75px;
+    overflow: visible;
+  }
+  .sp-grid-logo-07 {
+    height: auto;
+    position: absolute;
+    left: calc(50% - 177.5px);
+    transform: translateX(-50%);
+    top: 91px;
+    overflow: visible;
+  }
+  .sp-grid-logo-08 {
+    height: auto;
+    position: absolute;
+    left: calc(50% + 1.5px);
+    transform: translateX(-50%);
+    top: 91px;
+    overflow: visible;
+  }
+  .sp-grid-logo-09 {
+    height: auto;
+    position: absolute;
+    left: calc(50% + 180.5px);
+    transform: translateX(-50%);
+    top: 87px;
+    overflow: visible;
+  }
+  .sp-grid-logo-10 {
+    height: auto;
+    position: absolute;
+    left: calc(50% + 359.5px);
+    transform: translateX(-50%);
+    top: 93px;
+    overflow: visible;
+  }
+  .sp-grid-separator-h-row {
+    margin-top: -1px;
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    border-image: linear-gradient(
+      90deg,
+      rgba(226, 232, 240, 0) 0%,
+      rgba(226, 232, 240, 1) 50%,
+      rgba(226, 232, 240, 0) 100%
+    );
+    border-image-slice: 1;
+    width: 1240px;
+    height: 0px;
+    position: absolute;
+    left: calc(50% - 604px);
+    top: 64px;
+  }
+  .sp-grid-separator-v-01 {
+    margin-top: -1px;
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    border-image: linear-gradient(
+      90deg,
+      rgba(226, 232, 240, 0) 0%,
+      rgba(226, 232, 240, 1) 50%,
+      rgba(226, 232, 240, 0) 100%
+    );
+    border-image-slice: 1;
+    width: 144px;
+    height: 0px;
+    position: absolute;
+    left: calc(50% - -91px);
+    top: calc(50% - -72.5px);
+    transform-origin: 0 0;
+    transform: rotate(-90deg) scale(1, 1);
+  }
+  .sp-grid-separator-v-02 {
+    margin-top: -1px;
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    border-image: linear-gradient(
+      90deg,
+      rgba(226, 232, 240, 0) 0%,
+      rgba(226, 232, 240, 1) 50%,
+      rgba(226, 232, 240, 0) 100%
+    );
+    border-image-slice: 1;
+    width: 144px;
+    height: 0px;
+    position: absolute;
+    left: calc(50% - 88px);
+    top: calc(50% - -72.5px);
+    transform-origin: 0 0;
+    transform: rotate(-90deg) scale(1, 1);
+  }
+  .sp-grid-separator-v-03 {
+    margin-top: -1px;
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    border-image: linear-gradient(
+      90deg,
+      rgba(226, 232, 240, 0) 0%,
+      rgba(226, 232, 240, 1) 50%,
+      rgba(226, 232, 240, 0) 100%
+    );
+    border-image-slice: 1;
+    width: 144px;
+    height: 0px;
+    position: absolute;
+    left: calc(50% - 267px);
+    top: calc(50% - -72.5px);
+    transform-origin: 0 0;
+    transform: rotate(-90deg) scale(1, 1);
+  }
+  .sp-grid-separator-v-04 {
+    margin-top: -1px;
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    border-image: linear-gradient(
+      90deg,
+      rgba(226, 232, 240, 0) 0%,
+      rgba(226, 232, 240, 1) 50%,
+      rgba(226, 232, 240, 0) 100%
+    );
+    border-image-slice: 1;
+    width: 144px;
+    height: 0px;
+    position: absolute;
+    left: calc(50% - 446px);
+    top: calc(50% - -72.5px);
+    transform-origin: 0 0;
+    transform: rotate(-90deg) scale(1, 1);
+  }
+  .sp-grid-separator-v-05 {
+    margin-top: -1px;
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    border-image: linear-gradient(
+      90deg,
+      rgba(226, 232, 240, 0) 0%,
+      rgba(226, 232, 240, 1) 50%,
+      rgba(226, 232, 240, 0) 100%
+    );
+    border-image-slice: 1;
+    width: 144px;
+    height: 0px;
+    position: absolute;
+    left: calc(50% - -270px);
+    top: calc(50% - -72.5px);
+    transform-origin: 0 0;
+    transform: rotate(-90deg) scale(1, 1);
+  }
+  .sp-grid-separator-v-06 {
+    margin-top: -1px;
+    border-width: 1px 0 0 0;
+    border-style: solid;
+    border-image: linear-gradient(
+      90deg,
+      rgba(226, 232, 240, 0) 0%,
+      rgba(226, 232, 240, 1) 50%,
+      rgba(226, 232, 240, 0) 100%
+    );
+    border-image-slice: 1;
+    width: 144px;
+    height: 0px;
+    position: absolute;
+    left: calc(50% - -449px);
+    top: calc(50% - -72.5px);
+    transform-origin: 0 0;
+    transform: rotate(-90deg) scale(1, 1);
+  }
+  .sp-grid-logo-11 {
+    height: auto;
+    position: absolute;
+    left: calc(25% - 223px);
+    transform: translateX(-50%);
+    top: 8px;
+    overflow: visible;
+  }
+  .sp-grid-logo-12 {
+    height: auto;
+    position: absolute;
+    left: calc(25% - 223px);
+    transform: translateX(-50%);
+    top: 86px;
+    overflow: visible;
+  }
+  .sp-grid-logo-13 {
+    height: auto;
+    position: absolute;
+    left: calc(75% + 224.5px);
+    transform: translateX(-50%);
+    top: 5px;
+    overflow: visible;
+  }
+  .sp-grid-logo-14 {
+    height: auto;
+    position: absolute;
+    left: calc(75% + 224.5px);
+    transform: translateX(-50%);
+    top: 87px;
+    overflow: visible;
+  }
+  /* Member-of row: 40px after "Member of" label, then 32px between each logo/divider. */
+  .sp-mof-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    position: relative;
+    flex-shrink: 0;
+    column-gap: 40px;
+    row-gap: 12px;
+  }
+  .sp-mof-label {
+    color: var(--text-text-tertiary, #45556c);
+    text-align: center;
+    font-family: var(--text-md-medium-font-family, "Inter-Medium", sans-serif);
+    font-size: var(--text-md-medium-font-size, 16px);
+    line-height: var(--text-md-medium-line-height, 24px);
+    font-weight: var(--text-md-medium-font-weight, 500);
+    position: relative;
+    flex-shrink: 0;
+  }
+  .sp-mof-logos {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 32px;
+    flex-shrink: 0;
+    position: relative;
+    min-width: 0;
+  }
+  .sp-mof-logos svg {
+    transform: none;
+    transform-origin: center center;
+  }
+  /* Membership marks stay clearly smaller than client logos above. */
+  .sp-mof-logo-01 {
+    flex-shrink: 0;
+    width: 54px;
+    height: 18.5px;
+    position: relative;
+    overflow: visible;
+  }
+  /* Hairline only in layout (1px) so flex gap:32 reads as true 32px between logos and rules. */
+  .sp-mof-separator-01,
+  .sp-mof-separator-02 {
+    box-sizing: border-box;
+    flex: 0 0 1px;
+    width: 1px;
+    height: 30px;
+    align-self: center;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: linear-gradient(
+      180deg,
+      rgba(226, 232, 240, 0) 0%,
+      rgba(226, 232, 240, 1) 50%,
+      rgba(226, 232, 240, 0) 100%
+    );
+    transform: none;
+    position: relative;
+    top: 0;
+  }
+  .sp-mof-logo-02 {
+    flex-shrink: 0;
+    width: 77px;
+    height: 12px;
+    position: relative;
+    overflow: visible;
+  }
+  .sp-mof-logo-03 {
+    flex-shrink: 0;
+    width: 68px;
+    height: 13.5px;
+    position: relative;
+    overflow: visible;
+  }
+  @media (max-width: 720px) {
+    .sp-mof-row {
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+  
+  .sp-logo-grid .sp-flip-slot {
+    min-height: var(--sp-logo-row-h);
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+  }
+  
+  .sp-flip-slot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--sp-logo-row-h);
+    perspective: 960px;
+    transform-style: preserve-3d;
+    position: relative;
+  }
+  .sp-flip-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    inset: 0;
+    transform-origin: center center;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    /* layout only: "paint" clips wide marks and can show empty cells in row 2 */
+    contain: layout;
+    overflow: visible;
+    isolation: isolate;
+  }
+  /* Resting visible panel: no 3D layer or blur left from the flip animation. */
+  .sp-logo-grid
+    .sp-flip-panel:not(.is-sp-flip-hidden):not(.is-sp-flip-in):not(.is-sp-flip-out):not(
+      .is-sp-flip-pre
+    ) {
+    transform: none !important;
+    filter: none !important;
+    will-change: auto;
+  }
+  .sp-flip-panel.is-sp-flip-in,
+  .sp-flip-panel.is-sp-flip-out {
+    will-change: transform, opacity, filter;
+  }
+  .sp-flip-panel.is-sp-flip-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  /* One animation + one timing. Fade-in and fade-out are the same keyframes,
+     just played forward (in) or reverse (out). */
+  :root {
+    --sp-flip-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --sp-flip-dur: 520ms;
+  }
+  
+  .sp-flip-panel.is-sp-flip-in,
+  .sp-flip-panel.is-sp-flip-out {
+    animation-duration: var(--sp-flip-dur);
+    animation-timing-function: var(--sp-flip-ease);
+    animation-fill-mode: forwards;
+  }
+  .sp-flip-panel.is-sp-flip-in {
+    animation-name: sp-flip-reveal;
+    animation-direction: normal;
+  }
+  .sp-flip-panel.is-sp-flip-out {
+    animation-name: sp-flip-reveal;
+    animation-direction: reverse;
+  }
+  
+  .sp-flip-panel.is-sp-flip-pre {
+    transform: rotateX(84deg) translateY(12px) scale(0.93) translateZ(0.01px);
+    opacity: 0;
+  }
+  
+  @keyframes sp-flip-reveal {
+    0% {
+      transform: rotateX(84deg) translateY(12px) scale(0.93) translateZ(0.01px);
+      opacity: 0;
+      filter: blur(7px);
+    }
+    38% {
+      transform: rotateX(48deg) translateY(7px) scale(0.96) translateZ(0.01px);
+      opacity: 0.4;
+      filter: blur(4px);
+    }
+    68% {
+      transform: rotateX(12deg) translateY(2px) scale(0.99) translateZ(0.01px);
+      opacity: 0.9;
+      filter: blur(1px);
+    }
+    100% {
+      transform: rotateX(0deg) translateY(0) scale(1) translateZ(0.01px);
+      opacity: 1;
+      filter: blur(0px);
+    }
+  }
+  
+  /* Slot fills the grid cell; SVGs keep their intrinsic pixel size inside the panel. */
+  .sp-logo-grid .sp-flip-slot.sp-grid-logo-01,
+  .sp-logo-grid .sp-flip-slot.sp-grid-logo-02,
+  .sp-logo-grid .sp-flip-slot.sp-grid-logo-03,
+  .sp-logo-grid .sp-flip-slot.sp-grid-logo-04,
+  .sp-logo-grid .sp-flip-slot.sp-grid-logo-05,
+  .sp-logo-grid .sp-flip-slot.sp-grid-logo-06,
+  .sp-logo-grid .sp-flip-slot.sp-grid-logo-07,
+  .sp-logo-grid .sp-flip-slot.sp-grid-logo-08,
+  .sp-logo-grid .sp-flip-slot.sp-grid-logo-09,
+  .sp-logo-grid .sp-flip-slot.sp-grid-logo-10,
+  .sp-logo-grid .sp-flip-slot.sp-grid-logo-11,
+  .sp-logo-grid .sp-flip-slot.sp-grid-logo-12,
+  .sp-logo-grid .sp-flip-slot.sp-grid-logo-13,
+  .sp-logo-grid .sp-flip-slot.sp-grid-logo-14 {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .sp-flip-panel,
+    .sp-flip-panel.is-sp-flip-out,
+    .sp-flip-panel.is-sp-flip-in {
+      animation: none !important;
+      transition: opacity 0.25s ease !important;
+      transform: none !important;
+      filter: none !important;
+    }
+  }
+
+  /* Last-wins: strip Figma absolute coords from grid children (slots keep sp-grid-logo-*). */
+  .sp-logo-grid > .sp-flip-slot[class*="sp-grid-logo-"],
+  .sp-logo-grid > img[class*="sp-grid-logo-"],
+  .sp-logo-grid > svg[class*="sp-grid-logo-"] {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+  }
+
+/* Theme: match legacy social-proof-section shell + spacing */
+.sp-section {
+  background: #fdfdfe;
+  gap: 43px;
+}
+
+body.is-home-page.elementor-page-1027 .sp-section {
+  background: #ffffff;
+}
+
+/*
+ * Homepage partner-logos + products share Elementor container f8637e1 (#F9FAFB).
+ * Products widget e06718b margin-top exposes that gray between white sp-section
+ * and the blue products block — remove the seam.
+ */
+body.is-home-page.elementor-page-1027 .elementor-element.elementor-element-f8637e1:not(.elementor-motion-effects-element-type-background),
+body.is-home-page.elementor-page-1027 .elementor-element.elementor-element-f8637e1 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+  background-color: #ffffff !important;
+}
+
+body.is-home-page.elementor-page-1027 .elementor-element.elementor-element-f8637e1 {
+  --min-height: auto !important;
+  min-height: 0 !important;
+}
+
+body.is-home-page.elementor-page-1027 .elementor-element.elementor-element-e06718b {
+  margin-top: 0 !important;
+}
+
+/*
+ * Homepage HTML widget (cc977f7) is pulled up -40px in post-1027.css to overlap
+ * the hero. That offset was paired with the old marquee block padding; with the
+ * new grid section it cancels top padding and pins the eyebrow to the hero seam.
+ */
+@media (min-width: 768px) {
+  body.is-home-page.elementor-page-1027 .elementor-element.elementor-element-cc977f7 {
+    margin-top: 0 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .sp-section {
+    padding-top: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sp-section {
+    padding-top: 20px;
+  }
+}
+
+/* Theme: enlarged Member of logos */
+.sp-mof-logo-01 { width: 72px; height: 25px; }
+.sp-mof-logo-02 { width: 100px; height: 16px; }
+.sp-mof-logo-03 { width: 90px; height: 18px; }
+.sp-mof-separator-01, .sp-mof-separator-02 { height: 38px; }
+@media (max-width: 520px) {
+  .sp-mof-logo-01 { width: 64px; height: 22px; }
+  .sp-mof-logo-02 { width: 88px; height: 14px; }
+  .sp-mof-logo-03 { width: 78px; height: 16px; }
+  .sp-mof-separator-01, .sp-mof-separator-02 { height: 34px; }
+}

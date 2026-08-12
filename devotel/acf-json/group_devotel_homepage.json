@@ -1,0 +1,169 @@
+{
+    "key": "group_devotel_homepage",
+    "title": "Devotel Homepage Content",
+    "fields": [
+        {
+            "key": "field_devotel_home_notice",
+            "label": "Editor Notes",
+            "name": "",
+            "type": "message",
+            "message": "Use these fields for text-level content updates. Layout and design remain sourced from extracted theme sections.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
+            "key": "field_devotel_home_hero_kicker",
+            "label": "Hero Kicker",
+            "name": "devotel_hero_kicker",
+            "type": "text",
+            "default_value": "Devotel in Numbers"
+        },
+        {
+            "key": "field_devotel_home_hero_title",
+            "label": "Hero Title",
+            "name": "devotel_hero_title",
+            "type": "text",
+            "default_value": "Trusted Infrastructure, Proven Results"
+        },
+        {
+            "key": "field_devotel_home_hero_text",
+            "label": "Hero Description",
+            "name": "devotel_hero_description",
+            "type": "textarea",
+            "rows": 4
+        },
+        {
+            "key": "field_devotel_home_stats",
+            "label": "Hero Stats",
+            "name": "devotel_hero_stats",
+            "type": "repeater",
+            "layout": "table",
+            "button_label": "Add Stat",
+            "sub_fields": [
+                {
+                    "key": "field_devotel_home_stats_value",
+                    "label": "Value",
+                    "name": "value",
+                    "type": "text"
+                },
+                {
+                    "key": "field_devotel_home_stats_label",
+                    "label": "Label",
+                    "name": "label",
+                    "type": "text"
+                }
+            ]
+        },
+        {
+            "key": "field_devotel_home_connect_title",
+            "label": "Connect Section Title",
+            "name": "devotel_home_connect_title",
+            "type": "text",
+            "default_value": "Connect with Every Customer and Optimise Every Network"
+        },
+        {
+            "key": "field_devotel_home_connect_text",
+            "label": "Connect Section Text",
+            "name": "devotel_home_connect_text",
+            "type": "textarea",
+            "rows": 4
+        },
+        {
+            "key": "field_devotel_home_blog_kicker",
+            "label": "Blog Section Kicker",
+            "name": "devotel_home_blog_kicker",
+            "type": "text",
+            "default_value": "Our blog"
+        },
+        {
+            "key": "field_devotel_home_blog_title",
+            "label": "Blog Section Title",
+            "name": "devotel_home_blog_title",
+            "type": "text",
+            "default_value": "Insights from the Telecom Industry"
+        },
+        {
+            "key": "field_devotel_home_blog_text",
+            "label": "Blog Section Text",
+            "name": "devotel_home_blog_text",
+            "type": "textarea",
+            "rows": 3
+        },
+        {
+            "key": "field_devotel_home_contact_kicker",
+            "label": "Contact Section Kicker",
+            "name": "devotel_home_contact_kicker",
+            "type": "text",
+            "default_value": "Contact us"
+        },
+        {
+            "key": "field_devotel_home_contact_title",
+            "label": "Contact Section Title",
+            "name": "devotel_home_contact_title",
+            "type": "text",
+            "default_value": "Let\u2019s discuss your project"
+        },
+        {
+            "key": "field_devotel_home_contact_text",
+            "label": "Contact Section Text",
+            "name": "devotel_home_contact_text",
+            "type": "textarea",
+            "rows": 4
+        },
+        {
+            "key": "field_devotel_home_resources_title",
+            "label": "Resources Section Title",
+            "name": "devotel_home_resources_title",
+            "type": "text",
+            "default_value": "Resources"
+        },
+        {
+            "key": "field_devotel_home_resources_text",
+            "label": "Resources Section Description",
+            "name": "devotel_home_resources_text",
+            "type": "textarea",
+            "rows": 3
+        },
+        {
+            "key": "field_devotel_home_final_cta_title",
+            "label": "Final CTA Title",
+            "name": "devotel_home_final_cta_title",
+            "type": "text",
+            "default_value": "Enhance and Scale Your Communication Today with Devotel's solutions"
+        },
+        {
+            "key": "field_devotel_home_final_cta_text",
+            "label": "Final CTA Description",
+            "name": "devotel_home_final_cta_text",
+            "type": "textarea",
+            "rows": 3
+        },
+        {
+            "key": "field_devotel_home_final_cta_button",
+            "label": "Final CTA Button Label",
+            "name": "devotel_home_final_cta_button",
+            "type": "text",
+            "default_value": "Start now"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_type",
+                "operator": "==",
+                "value": "front_page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1779836400
+}
+

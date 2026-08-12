@@ -1,0 +1,1046 @@
+/**
+ * SIM-based product subpages — desktop layout polish (Phase 3+).
+ */
+
+/* Transparent header over gradient hero — match homepage + production SIM pages */
+body.devotel-sim-based-page .site-main {
+	padding-top: 0 !important;
+	margin-top: 0 !important;
+}
+
+body.devotel-sim-based-page article.devotel-page,
+body.devotel-sim-based-page .devotel-cached-snapshot {
+	margin-top: 0 !important;
+	padding-top: 0 !important;
+}
+
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) {
+	background-color: transparent !important;
+	background: transparent !important;
+	border-bottom: 0 !important;
+	box-shadow: none !important;
+	backdrop-filter: none !important;
+	-webkit-backdrop-filter: none !important;
+	top: var(--devotel-admin-bar-height, 0px) !important;
+}
+
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled)::before {
+	opacity: 0 !important;
+	background: transparent !important;
+	backdrop-filter: none !important;
+	-webkit-backdrop-filter: none !important;
+}
+
+body.devotel-sim-based-page #site-header,
+body.devotel-sim-based-page #site-header .site-header {
+	background: transparent !important;
+	background-color: transparent !important;
+}
+
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-navbar-main {
+	background-color: transparent !important;
+}
+
+body.devotel-sim-based-page .header-navbar-wrapper:not(.header-scrolled) .header-logo-svg {
+	filter: brightness(0) invert(1);
+}
+
+@media (min-width: 769px) {
+	body.devotel-sim-based-page #site-header .header-navbar-wrapper:not(.header-scrolled) {
+		background: transparent !important;
+		border-bottom: 0 !important;
+		backdrop-filter: none !important;
+		-webkit-backdrop-filter: none !important;
+	}
+
+	/* Hero bands sit under the fixed header shell */
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796 .elementor-element-d8ae8b8,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8835 .elementor-element-dda41cf,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8717 .elementor-element-b95215f,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8645 .elementor-element-e3020eb {
+		margin-top: -70px !important;
+		--margin-top: -70px !important;
+		padding-top: 0 !important;
+		--padding-top: 0px !important;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796 .elementor-element-d8ae8b8 > .e-con-inner,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8835 .elementor-element-dda41cf > .e-con-inner,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8717 .elementor-element-b95215f > .e-con-inner,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8645 .elementor-element-e3020eb > .e-con-inner {
+		padding-top: 0 !important;
+		--padding-top: 0px !important;
+	}
+
+	/* Copy column offset — clears fixed header while hero bg extends behind it */
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796 .elementor-element-2dbba2f,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8835 .elementor-element-b91bec6,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8717 .elementor-element-77034f6,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8645 .elementor-element-174944c {
+		margin-top: 167px !important;
+		--margin-top: 167px !important;
+	}
+}
+
+/* Scroll room for desktop hi-section wheel lock (was inline in Elementor widget). */
+@media (min-width: 769px) {
+	body.devotel-sim-based-page:has(.devotel-cached-snapshot .hi-section),
+	body.devotel-sim-based-page:has(.devotel-el-fallback .hi-section) {
+		min-height: 200vh;
+	}
+}
+
+body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796 .e-con,
+body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8835 .e-con,
+body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8717 .e-con,
+body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8645 .e-con {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+}
+
+body.devotel-sim-based-page .devotel-el-fallback,
+body.devotel-sim-based-page .devotel-cached-snapshot {
+	width: 100%;
+	max-width: 100%;
+	overflow: visible;
+}
+
+body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796,
+body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8835,
+body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8717,
+body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8645 {
+	width: 100%;
+	max-width: 100%;
+}
+
+/* Buttons — keep label stable when arrow appears on hover */
+body.devotel-sim-based-page .devotel-cached-snapshot .btn-primary,
+body.devotel-sim-based-page .devotel-cached-snapshot .btn-secondary,
+body.devotel-sim-based-page .devotel-cached-snapshot .cta-button--primary,
+body.devotel-sim-based-page .devotel-cached-snapshot .cta-button--secondary,
+body.devotel-sim-based-page .devotel-cached-snapshot .button2 {
+	cursor: pointer;
+}
+
+body.devotel-sim-based-page .devotel-cached-snapshot .btn-primary,
+body.devotel-sim-based-page .devotel-cached-snapshot .cta-button--primary {
+	min-width: 180px;
+	width: auto !important;
+}
+
+body.devotel-sim-based-page .devotel-cached-snapshot .btn-secondary,
+body.devotel-sim-based-page .devotel-cached-snapshot .cta-button--secondary {
+	min-width: 200px;
+	width: auto !important;
+}
+
+body.devotel-sim-based-page .devotel-cached-snapshot .btn-primary > .flex,
+body.devotel-sim-based-page .devotel-cached-snapshot .btn-secondary > .flex,
+body.devotel-sim-based-page .devotel-cached-snapshot .cta-button--primary > .flex,
+body.devotel-sim-based-page .devotel-cached-snapshot .cta-button--secondary > .flex,
+body.devotel-sim-based-page .devotel-cached-snapshot .button2 .content {
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	gap: 4px;
+}
+
+body.devotel-sim-based-page .devotel-cached-snapshot .btn-primary span,
+body.devotel-sim-based-page .devotel-cached-snapshot .btn-secondary span,
+body.devotel-sim-based-page .devotel-cached-snapshot .cta-button--primary span,
+body.devotel-sim-based-page .devotel-cached-snapshot .cta-button--secondary span,
+body.devotel-sim-based-page .devotel-cached-snapshot .talk-to-an {
+	white-space: nowrap !important;
+	flex-shrink: 0 !important;
+}
+
+body.devotel-sim-based-page .devotel-cached-snapshot .btn-icon-arrow,
+body.devotel-sim-based-page .devotel-cached-snapshot .cta-button__icon,
+body.devotel-sim-based-page .devotel-cached-snapshot .button2 .icon {
+	width: 20px !important;
+	max-width: 0 !important;
+	opacity: 0 !important;
+	transform: none !important;
+	overflow: hidden !important;
+	flex-shrink: 0 !important;
+	transition: max-width 0.3s ease, opacity 0.3s ease !important;
+}
+
+body.devotel-sim-based-page .devotel-cached-snapshot .btn-primary:hover .btn-icon-arrow,
+body.devotel-sim-based-page .devotel-cached-snapshot .btn-secondary:hover .btn-icon-arrow,
+body.devotel-sim-based-page .devotel-cached-snapshot .cta-button--primary:hover .cta-button__icon,
+body.devotel-sim-based-page .devotel-cached-snapshot .cta-button--secondary:hover .cta-button__icon,
+body.devotel-sim-based-page .devotel-cached-snapshot .button2:hover .icon {
+	max-width: 20px !important;
+	width: 20px !important;
+	opacity: 1 !important;
+	transform: none !important;
+}
+
+body.devotel-sim-based-page .devotel-cached-snapshot .cta-button--primary .cta-button__icon path,
+body.devotel-sim-based-page .devotel-cached-snapshot .cta-button--primary:hover .cta-button__icon path {
+	stroke: #ffffff !important;
+}
+
+/* HTML widget sections — shared desktop shells */
+body.devotel-sim-based-page .devotel-cached-snapshot .sp-section .sp-container,
+body.devotel-sim-based-page .devotel-section--social_proof .sp-section .sp-container {
+	max-width: 1280px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+body.devotel-sim-based-page .devotel-cached-snapshot .ts-section {
+	max-width: 1440px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+}
+
+body.devotel-sim-based-page .devotel-cached-snapshot .ts-container {
+	max-width: 1280px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+}
+
+body.devotel-sim-based-page .devotel-cached-snapshot .faq-section .faq-container-wrapper {
+	max-width: 1280px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+}
+
+body.devotel-sim-based-page .devotel-cached-snapshot .faq-section .faq-content-wrapper {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Final CTA band */
+body.devotel-sim-based-page .devotel-cached-snapshot section.bg-gradient-to-r,
+body.devotel-sim-based-page .devotel-cached-snapshot section[class*="bg-gradient-to-r"],
+body.devotel-sim-based-page .devotel-cached-snapshot .cta-section {
+	width: 100% !important;
+	max-width: 100% !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+}
+
+body.devotel-sim-based-page .devotel-cached-snapshot .cta-section-container {
+	max-width: 1440px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+}
+
+@media (min-width: 768px) {
+	body.devotel-sim-based-page .devotel-cached-snapshot .e-con-boxed > .e-con-inner {
+		width: 100%;
+		max-width: 1440px;
+		margin-left: auto;
+		margin-right: auto;
+		box-sizing: border-box;
+	}
+
+	/* Hero copy column — 580px on all SIM subpages */
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796 .elementor-element-2dbba2f,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8835 .elementor-element-b91bec6,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8717 .elementor-element-77034f6,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8645 .elementor-element-174944c {
+		--width: 580px !important;
+		width: 580px !important;
+		max-width: 580px !important;
+		flex: 0 0 580px !important;
+	}
+
+	/* OTA hero — el-fallback extract */
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796 > .devotel-el-fallback__container:first-child {
+		margin-top: -70px;
+		background-color: #fdfdfe;
+		background-image: url("/wp-content/uploads/2026/02/OTA.svg");
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		box-sizing: border-box;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796 > .devotel-el-fallback__container:first-child > .devotel-el-fallback__container,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8835 > .devotel-el-fallback__container:first-child > .devotel-el-fallback__container,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8717 > .devotel-el-fallback__container:first-child > .devotel-el-fallback__container,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8645 > .devotel-el-fallback__container:first-child > .devotel-el-fallback__container {
+		width: 580px !important;
+		max-width: 580px !important;
+		padding: 167px 0 144px 100px;
+		box-sizing: border-box;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796 > .devotel-el-fallback__container:first-child .devotel-el-fallback__heading:nth-of-type(1) {
+		margin: 0;
+		font-family: Inter, sans-serif;
+		font-size: 14px;
+		font-weight: 600;
+		line-height: 20px;
+		text-transform: uppercase;
+		color: #c0d7ff;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796 > .devotel-el-fallback__container:first-child .devotel-el-fallback__heading:nth-of-type(2) {
+		margin: -25px 0 0;
+		font-family: duplet, Inter, sans-serif;
+		font-size: 54px;
+		font-weight: 600;
+		line-height: 64.8px;
+		letter-spacing: -1.08px;
+		color: #ffffff;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796 > .devotel-el-fallback__container:first-child .devotel-el-fallback__text {
+		max-width: 500px;
+		font-family: Inter, sans-serif;
+		font-size: 18px;
+		line-height: 28px;
+		color: #c0d7ff;
+	}
+
+	/* How it works */
+	body.devotel-sim-based-page .devotel-cached-snapshot .hi-section.values-section {
+		padding: 96px 100px 0 !important;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .hi-section .values-header,
+	body.devotel-sim-based-page .devotel-cached-snapshot .hi-section .heading-block {
+		max-width: 900px;
+		width: 100%;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .hi-section .steps-row > .content {
+		width: 556px;
+		min-width: 556px;
+		height: 608px;
+		min-height: 608px;
+	}
+
+	/* Capabilities shell — card/grid styles in ctab-capabilities.css */
+	body.devotel-sim-based-page .devotel-cached-snapshot .ctab-capabilities,
+	body.devotel-sim-based-page .devotel-el-fallback .ctab-capabilities {
+		max-width: 1240px;
+		margin-left: auto;
+		margin-right: auto;
+		box-sizing: border-box;
+	}
+
+	/* Industries tabs */
+	body.devotel-sim-based-page .devotel-cached-snapshot .industries-section {
+		max-width: 1440px;
+		margin-left: auto;
+		margin-right: auto;
+		padding: 120px 100px 104px !important;
+		box-sizing: border-box;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .industries-tabs-wrapper,
+	body.devotel-sim-based-page .devotel-cached-snapshot .industries-panels {
+		max-width: 1240px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+	}
+
+	/* Testimonials */
+	body.devotel-sim-based-page .devotel-cached-snapshot .ts-section {
+		padding: 96px 0 !important;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .ts-quote-and-subheading {
+		max-width: 734px;
+		width: 100%;
+	}
+
+	/* FAQ */
+	body.devotel-sim-based-page .devotel-cached-snapshot .faq-section {
+		padding: 96px 0 !important;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .faq-section .faq-content-wrapper {
+		max-width: 816px;
+	}
+
+	/* Contact — copy left, form right */
+	body.devotel-sim-based-page .devotel-cached-snapshot .devotel-el-fallback__container:has(> .devotel-el-fallback__container .final-cta-form-wrapper) {
+		width: 100%;
+		max-width: 100%;
+		margin: 0;
+		padding: 120px 0 96px;
+		background-color: #fdfdfe;
+		background-image: var(--devotel-contact-section-bg);
+		background-position: center right;
+		background-repeat: no-repeat;
+		background-size: auto;
+		box-sizing: border-box;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .devotel-el-fallback__container:has(> .devotel-el-fallback__container .final-cta-form-wrapper) > .devotel-el-fallback__container {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 32px;
+		max-width: 1440px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+		padding: 0 100px;
+		box-sizing: border-box;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .devotel-el-fallback__container:has(> .devotel-el-fallback__container .final-cta-form-wrapper) > .devotel-el-fallback__container > .devotel-el-fallback__container:first-child {
+		flex: 0 0 44%;
+		max-width: 44%;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .devotel-el-fallback__container:has(> .devotel-el-fallback__container .final-cta-form-wrapper) > .devotel-el-fallback__container > .devotel-el-fallback__container:has(.final-cta-form-wrapper) {
+		flex: 0 0 50%;
+		max-width: 50%;
+		margin-right: -127px;
+		margin-top: -24px;
+		align-self: flex-start;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .devotel-el-fallback__container:has(.final-cta-form-wrapper) .devotel-el-fallback__heading:nth-of-type(1) {
+		font-family: Inter, sans-serif;
+		font-size: 14px;
+		font-weight: 600;
+		line-height: 20px;
+		text-transform: uppercase;
+		color: #325fec;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .devotel-el-fallback__container:has(.final-cta-form-wrapper) .devotel-el-fallback__heading:nth-of-type(2) {
+		font-family: Inter, sans-serif;
+		font-size: 36px;
+		font-weight: 600;
+		line-height: 44px;
+		letter-spacing: -0.72px;
+		color: #0f172b;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .devotel-el-fallback__container:has(.final-cta-form-wrapper) .devotel-el-fallback__text {
+		font-family: Inter, sans-serif;
+		font-size: 18px;
+		line-height: 28px;
+		color: #45556c;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .final-cta-form-wrapper {
+		width: 100%;
+		max-width: 524px;
+	}
+
+	/* Bottom CTA — full bleed */
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796 > .devotel-el-fallback__container:last-child {
+		width: 100% !important;
+		max-width: 100% !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+		overflow: hidden;
+	}
+}
+
+/* Comparison table — desktop cell text padding (footer CSS reinforces with !important) */
+@media (min-width: 769px) {
+	body.devotel-sim-based-page .sim-cmp-section [class*="sim-cmp-cell-l"],
+	body.devotel-sim-based-page .sim-cmp-section [class*="sim-cmp-cell-r"] {
+		box-sizing: border-box !important;
+		display: flex !important;
+		flex-direction: row !important;
+		align-items: center !important;
+		justify-content: flex-start !important;
+		padding: 0 56px 0 0 !important;
+		height: 48px !important;
+		min-height: 48px !important;
+	}
+
+	body.devotel-sim-based-page .sim-cmp-section [class*="sim-cmp-cell-l"] {
+		max-width: 465px !important;
+	}
+
+	body.devotel-sim-based-page .sim-cmp-section [class*="sim-cmp-cell-r"] {
+		max-width: 520px !important;
+	}
+
+	body.devotel-sim-based-page .sim-cmp-section .sim-cmp-cell-l1,
+	body.devotel-sim-based-page .sim-cmp-section .sim-cmp-cell-l2,
+	body.devotel-sim-based-page .sim-cmp-section .sim-cmp-cell-l5,
+	body.devotel-sim-based-page .sim-cmp-section .sim-cmp-cell-l8,
+	body.devotel-sim-based-page .sim-cmp-section .sim-cmp-cell-r1,
+	body.devotel-sim-based-page .sim-cmp-section .sim-cmp-cell-r2,
+	body.devotel-sim-based-page .sim-cmp-section .sim-cmp-cell-r8 {
+		height: auto !important;
+		min-height: 48px !important;
+		max-height: 58px !important;
+		align-items: center !important;
+	}
+
+	body.devotel-sim-based-page .sim-cmp-section [class*="sim-cmp-cell-"] > div:not(:first-child) {
+		flex: 1 1 auto !important;
+		min-width: 0 !important;
+		max-width: 100% !important;
+		overflow-wrap: break-word !important;
+		word-break: break-word !important;
+	}
+}
+
+/* Phase 5/7 — mobile parity (production widget + Elementor rules, max-width 768px) */
+@media (max-width: 768px) {
+	body.devotel-sim-based-page section.devotel-cached-snapshot,
+	body.devotel-sim-based-page section.devotel-el-fallback {
+		padding-bottom: 0 !important;
+	}
+
+	/*
+	 * Mobile hero: stacked layout per Figma 2430-1013 — copy, then illustration.
+	 */
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796 .elementor-element-d8ae8b8,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8835 .elementor-element-dda41cf,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8717 .elementor-element-b95215f,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8645 .elementor-element-e3020eb {
+		display: flex !important;
+		flex-direction: column !important;
+		align-items: stretch !important;
+		justify-content: flex-start !important;
+		gap: 64px !important;
+		margin-top: 0 !important;
+		--margin-top: 0px !important;
+		padding-top: calc(var(--devotel-mobile-header-height, 64px) + var(--devotel-mobile-content-gap, 56px)) !important;
+		--padding-top: calc(var(--devotel-mobile-header-height, 64px) + var(--devotel-mobile-content-gap, 56px)) !important;
+		padding-bottom: 56px !important;
+		--padding-bottom: 56px !important;
+		background-color: #000 !important;
+		background-image: none !important;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796 .elementor-element-d8ae8b8 > .elementor-motion-effects-container > .elementor-motion-effects-layer,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8835 .elementor-element-dda41cf > .elementor-motion-effects-container > .elementor-motion-effects-layer,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8717 .elementor-element-b95215f > .elementor-motion-effects-container > .elementor-motion-effects-layer,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8645 .elementor-element-e3020eb > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+		background-color: #000 !important;
+		background-image: none !important;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796 .elementor-element-d8ae8b8 > .e-con-inner,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8835 .elementor-element-dda41cf > .e-con-inner,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8717 .elementor-element-b95215f > .e-con-inner,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8645 .elementor-element-e3020eb > .e-con-inner {
+		width: 100% !important;
+		max-width: 100% !important;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796 .elementor-element-d8ae8b8::after,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8835 .elementor-element-dda41cf::after,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8717 .elementor-element-b95215f::after,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8645 .elementor-element-e3020eb::after {
+		content: "";
+		display: block;
+		width: 100%;
+		min-height: 280px;
+		flex-shrink: 0;
+		background-position: center bottom;
+		background-repeat: no-repeat;
+		background-size: contain;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796 .elementor-element-d8ae8b8::after {
+		background-image: url("/wp-content/uploads/2026/02/OTA.svg");
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8835 .elementor-element-dda41cf::after {
+		background-image: url("/wp-content/uploads/2026/02/covhero.svg");
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8717 .elementor-element-b95215f::after {
+		background-image: url("/wp-content/uploads/2026/02/sim-based-hero.svg");
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8645 .elementor-element-e3020eb::after {
+		background-image: url("/wp-content/uploads/2026/02/otp-copy-1.svg");
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796 .elementor-element-2dbba2f,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8835 .elementor-element-b91bec6,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8717 .elementor-element-77034f6,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8645 .elementor-element-174944c {
+		margin-top: 0 !important;
+		--margin-top: 0px !important;
+		padding-left: var(--devotel-mobile-hero-gutter, 16px) !important;
+		padding-right: var(--devotel-mobile-hero-gutter, 16px) !important;
+		width: 100% !important;
+		max-width: 100% !important;
+		flex: 0 0 auto !important;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796 .elementor-element-2dbba2f .elementor-widget-heading:first-of-type .elementor-heading-title,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8835 .elementor-element-b91bec6 .elementor-widget-heading:first-of-type .elementor-heading-title,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8717 .elementor-element-77034f6 .elementor-widget-heading:first-of-type .elementor-heading-title,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8645 .elementor-element-174944c .elementor-widget-heading:first-of-type .elementor-heading-title {
+		color: #325fec !important;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796 .elementor-element-2dbba2f .elementor-widget-heading:nth-of-type(2) .elementor-heading-title,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8835 .elementor-element-b91bec6 .elementor-widget-heading:nth-of-type(2) .elementor-heading-title,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8717 .elementor-element-77034f6 .elementor-widget-heading:nth-of-type(2) .elementor-heading-title,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8645 .elementor-element-174944c .elementor-widget-heading:nth-of-type(2) .elementor-heading-title {
+		color: #ffffff !important;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796 .elementor-element-2dbba2f .elementor-widget-text-editor,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8835 .elementor-element-b91bec6 .elementor-widget-text-editor,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8717 .elementor-element-77034f6 .elementor-widget-text-editor,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8645 .elementor-element-174944c .elementor-widget-text-editor,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796 .elementor-element-2dbba2f .elementor-widget-text-editor p,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8835 .elementor-element-b91bec6 .elementor-widget-text-editor p,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8717 .elementor-element-77034f6 .elementor-widget-text-editor p,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8645 .elementor-element-174944c .elementor-widget-text-editor p {
+		color: #ffffff !important;
+	}
+
+	/* Hero CTAs — full width */
+	body.devotel-sim-based-page .devotel-cached-snapshot .cta-buttons-group,
+	body.devotel-sim-based-page .devotel-el-fallback .cta-buttons-group {
+		width: 100% !important;
+		flex-direction: column !important;
+		align-items: stretch !important;
+		gap: 12px !important;
+		box-sizing: border-box;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .btn-primary,
+	body.devotel-sim-based-page .devotel-cached-snapshot .btn-secondary,
+	body.devotel-sim-based-page .devotel-cached-snapshot .cta-button--primary,
+	body.devotel-sim-based-page .devotel-cached-snapshot .cta-button--secondary,
+	body.devotel-sim-based-page .devotel-cached-snapshot .button2,
+	body.devotel-sim-based-page .devotel-el-fallback .btn-primary,
+	body.devotel-sim-based-page .devotel-el-fallback .btn-secondary,
+	body.devotel-sim-based-page .devotel-el-fallback .cta-button--primary,
+	body.devotel-sim-based-page .devotel-el-fallback .cta-button--secondary,
+	body.devotel-sim-based-page .devotel-el-fallback .button2 {
+		width: 100% !important;
+		min-width: 0 !important;
+		max-width: 100% !important;
+	}
+
+	/* How it works */
+	body.devotel-sim-based-page .devotel-cached-snapshot .hi-section.values-section,
+	body.devotel-sim-based-page .devotel-el-fallback .hi-section.values-section {
+		padding: 56px 16px 64px !important;
+		background: #ffffff !important;
+		background-color: #ffffff !important;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .hi-section .steps-viewport,
+	body.devotel-sim-based-page .devotel-el-fallback .hi-section .steps-viewport {
+		padding-top: 56px;
+		padding-bottom: 0;
+		min-height: 0;
+		height: auto;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .hi-section .values-inner,
+	body.devotel-sim-based-page .devotel-el-fallback .hi-section .values-inner {
+		gap: 0;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .hi-section .values-header,
+	body.devotel-sim-based-page .devotel-cached-snapshot .hi-section .heading-block,
+	body.devotel-sim-based-page .devotel-el-fallback .hi-section .values-header,
+	body.devotel-sim-based-page .devotel-el-fallback .hi-section .heading-block {
+		width: 100%;
+		max-width: none;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .hi-section .steps-title,
+	body.devotel-sim-based-page .devotel-el-fallback .hi-section .steps-title {
+		font-size: 30px;
+		line-height: 38px;
+		white-space: normal !important;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .hi-section .steps-row,
+	body.devotel-sim-based-page .devotel-el-fallback .hi-section .steps-row {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .hi-section .steps-column,
+	body.devotel-sim-based-page .devotel-el-fallback .hi-section .steps-column {
+		width: 100%;
+		gap: 48px;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .hi-section .line-track,
+	body.devotel-sim-based-page .devotel-cached-snapshot .hi-section .line-progress,
+	body.devotel-sim-based-page .devotel-el-fallback .hi-section .line-track,
+	body.devotel-sim-based-page .devotel-el-fallback .hi-section .line-progress {
+		display: none;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .hi-section .step-row,
+	body.devotel-sim-based-page .devotel-el-fallback .hi-section .step-row {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		align-items: stretch;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .hi-section .step-content-mob,
+	body.devotel-sim-based-page .devotel-el-fallback .hi-section .step-content-mob {
+		display: block;
+		width: 100%;
+		max-width: 400px;
+		height: 372px;
+		margin: 16px auto 0;
+		flex-shrink: 0;
+		position: relative;
+		order: 2;
+		overflow: hidden;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .hi-section .step-content-mob img,
+	body.devotel-sim-based-page .devotel-el-fallback .hi-section .step-content-mob img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		object-position: center top;
+		display: block;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .hi-section .step-header,
+	body.devotel-sim-based-page .devotel-el-fallback .hi-section .step-header {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		grid-template-rows: auto auto;
+		gap: 12px 16px;
+		align-items: start;
+		order: 1;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .hi-section .step-badge,
+	body.devotel-sim-based-page .devotel-el-fallback .hi-section .step-badge {
+		grid-column: 1;
+		grid-row: 1;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .hi-section .step-text,
+	body.devotel-sim-based-page .devotel-el-fallback .hi-section .step-text {
+		display: contents;
+		width: 100%;
+		max-width: 100%;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .hi-section .step-heading,
+	body.devotel-sim-based-page .devotel-el-fallback .hi-section .step-heading {
+		grid-column: 2;
+		grid-row: 1;
+		text-align: left;
+		align-self: center;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .hi-section .step-copy,
+	body.devotel-sim-based-page .devotel-el-fallback .hi-section .step-copy {
+		grid-column: 1 / -1;
+		grid-row: 2;
+		text-align: left;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .hi-section .steps-row > .content,
+	body.devotel-sim-based-page .devotel-el-fallback .hi-section .steps-row > .content {
+		display: none;
+	}
+
+	/* Capabilities section spacing — card layout in ctab-capabilities.css */
+	body.devotel-sim-based-page .devotel-cached-snapshot .ctab-capabilities,
+	body.devotel-sim-based-page .devotel-el-fallback .ctab-capabilities {
+		padding: 0 0 64px !important;
+		max-width: 100% !important;
+	}
+
+	/* Industries */
+	body.devotel-sim-based-page .devotel-cached-snapshot .industries-section,
+	body.devotel-sim-based-page .devotel-el-fallback .industries-section {
+		padding: 64px 16px 56px !important;
+		gap: 48px;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .industries-title,
+	body.devotel-sim-based-page .devotel-el-fallback .industries-title {
+		font-size: 30px;
+		line-height: 38px;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .industries-tabs-wrapper,
+	body.devotel-sim-based-page .devotel-el-fallback .industries-tabs-wrapper {
+		width: 100%;
+		overflow: hidden;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .industries-tabs,
+	body.devotel-sim-based-page .devotel-el-fallback .industries-tabs {
+		overflow-x: auto;
+		overflow-y: hidden;
+		flex-wrap: nowrap;
+		width: 100%;
+		max-width: 100%;
+		padding-bottom: 4px;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .industries-tabs::-webkit-scrollbar,
+	body.devotel-sim-based-page .devotel-el-fallback .industries-tabs::-webkit-scrollbar {
+		display: none;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .industries-tab,
+	body.devotel-sim-based-page .devotel-el-fallback .industries-tab {
+		flex: 0 0 auto;
+		min-width: max-content;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .industries-panels,
+	body.devotel-sim-based-page .devotel-el-fallback .industries-panels {
+		width: 100%;
+		max-width: min(343px, calc(100vw - 32px));
+		margin-left: auto;
+		margin-right: auto;
+		min-height: 540px;
+		aspect-ratio: unset;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .industries-panel-image-box,
+	body.devotel-sim-based-page .devotel-el-fallback .industries-panel-image-box {
+		width: 100% !important;
+		max-width: 343px !important;
+		aspect-ratio: 343 / 334 !important;
+		height: auto !important;
+		border-radius: 24px;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .industries-panel-text,
+	body.devotel-sim-based-page .devotel-el-fallback .industries-panel-text {
+		color: #0f172b;
+		margin-top: 24px;
+		position: relative;
+		width: 100%;
+		max-width: min(343px, 100%);
+	}
+
+	/* Testimonials */
+	body.devotel-sim-based-page .devotel-cached-snapshot .ts-section,
+	body.devotel-sim-based-page .devotel-el-fallback .ts-section {
+		padding: 64px 16px !important;
+		gap: 40px;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .ts-content,
+	body.devotel-sim-based-page .devotel-el-fallback .ts-content {
+		padding: 0;
+		gap: 32px;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .loved-by-builders,
+	body.devotel-sim-based-page .devotel-el-fallback .loved-by-builders {
+		font-size: 30px;
+		line-height: 38px;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .hear-first-hand-from-our-incredible-community-of-customers,
+	body.devotel-sim-based-page .devotel-el-fallback .hear-first-hand-from-our-incredible-community-of-customers {
+		font-size: 16px;
+		line-height: 24px;
+		width: 100%;
+		max-width: 100%;
+		text-transform: none !important;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .ts-content2,
+	body.devotel-sim-based-page .devotel-el-fallback .ts-content2 {
+		background: #eff5ff;
+		border-radius: 16px;
+		padding: 40px 16px 64px;
+		gap: 16px;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .ts-slide,
+	body.devotel-sim-based-page .devotel-el-fallback .ts-slide {
+		padding: 0 16px;
+		min-width: 100%;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .ts-quote,
+	body.devotel-sim-based-page .devotel-el-fallback .ts-quote {
+		font-size: 20px;
+		line-height: 30px;
+	}
+
+	/* Mobile contact band (cm6) */
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor-element.cm6.elementor-hidden-desktop,
+	body.devotel-sim-based-page .devotel-cached-snapshot #cm6.elementor-hidden-desktop {
+		--padding-top: 30px !important;
+		--padding-bottom: 0px !important;
+		background-position: top center !important;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor-element.cm6.elementor-hidden-desktop > .e-con-inner,
+	body.devotel-sim-based-page .devotel-cached-snapshot #cm6.elementor-hidden-desktop > .e-con-inner {
+		padding: 0 16px 56px !important;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor-element.cm6 .e-con:has(.final-cta-form-wrapper),
+	body.devotel-sim-based-page .devotel-cached-snapshot #cm6 .e-con:has(.final-cta-form-wrapper) {
+		border-radius: 24px !important;
+		margin-bottom: 56px !important;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .final-cta-form-wrapper,
+	body.devotel-sim-based-page .devotel-el-fallback .final-cta-form-wrapper {
+		max-width: 100% !important;
+		width: 100% !important;
+		border-radius: 24px !important;
+		overflow: hidden;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .final-cta-form-wrapper .wpcf7-form,
+	body.devotel-sim-based-page .devotel-el-fallback .final-cta-form-wrapper .wpcf7-form {
+		padding: 20px 16px 24px !important;
+		border-radius: 24px !important;
+		gap: 20px !important;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .final-cta-form-wrapper .wpcf7-submit,
+	body.devotel-sim-based-page .devotel-el-fallback .final-cta-form-wrapper .wpcf7-submit {
+		min-height: 48px !important;
+		width: 100% !important;
+	}
+
+	/* Bottom CTA */
+	body.devotel-sim-based-page .devotel-cached-snapshot .cta-section,
+	body.devotel-sim-based-page .devotel-el-fallback .cta-section {
+		min-height: auto !important;
+		padding-bottom: 48px !important;
+		background: radial-gradient(90.99% 90.99% at 51.64% 113.96%, #325fec 0%, #01020a 100%) !important;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .cta-section-container,
+	body.devotel-sim-based-page .devotel-el-fallback .cta-section-container {
+		padding: 48px 16px 0 !important;
+		min-height: auto !important;
+		height: auto !important;
+		display: flex !important;
+		flex-direction: column !important;
+		gap: 32px !important;
+		align-items: center !important;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .cta-section .video-wrapper,
+	body.devotel-sim-based-page .devotel-el-fallback .cta-section .video-wrapper {
+		display: none !important;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .cta-section .content-wrapper,
+	body.devotel-sim-based-page .devotel-el-fallback .cta-section .content-wrapper {
+		position: relative !important;
+		top: auto !important;
+		left: auto !important;
+		transform: none !important;
+		width: 100% !important;
+		max-width: 100% !important;
+		order: 1;
+		padding: 0 !important;
+		box-sizing: border-box;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .cta-section .content-wrapper h2,
+	body.devotel-sim-based-page .devotel-cached-snapshot .cta-section .content-wrapper .text-4xl,
+	body.devotel-sim-based-page .devotel-el-fallback .cta-section .content-wrapper h2 {
+		font-size: 36px !important;
+		line-height: 44px !important;
+		letter-spacing: -0.72px !important;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .cta-section .content-wrapper .button,
+	body.devotel-sim-based-page .devotel-el-fallback .cta-section .content-wrapper .button {
+		flex-direction: column !important;
+		gap: 12px !important;
+		width: 100% !important;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .cta-section .content-wrapper .button .button2,
+	body.devotel-sim-based-page .devotel-el-fallback .cta-section .content-wrapper .button .button2 {
+		width: 100% !important;
+	}
+
+	/* el-fallback hero path (legacy extracts) */
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796 > .devotel-el-fallback__container:first-child,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8835 > .devotel-el-fallback__container:first-child,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8717 > .devotel-el-fallback__container:first-child,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8645 > .devotel-el-fallback__container:first-child {
+		display: flex !important;
+		flex-direction: column !important;
+		align-items: stretch !important;
+		justify-content: flex-start !important;
+		gap: 64px !important;
+		margin-top: 0 !important;
+		padding: calc(var(--devotel-mobile-header-height, 64px) + var(--devotel-mobile-content-gap, 56px)) 0 56px !important;
+		background-color: #000 !important;
+		background-image: none !important;
+		box-sizing: border-box;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796 > .devotel-el-fallback__container:first-child::after {
+		content: "";
+		display: block;
+		width: 100%;
+		min-height: 280px;
+		flex-shrink: 0;
+		background: url("/wp-content/uploads/2026/02/OTA.svg") center bottom / contain no-repeat;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8835 > .devotel-el-fallback__container:first-child::after {
+		content: "";
+		display: block;
+		width: 100%;
+		min-height: 280px;
+		flex-shrink: 0;
+		background: url("/wp-content/uploads/2026/02/covhero.svg") center bottom / contain no-repeat;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8717 > .devotel-el-fallback__container:first-child::after {
+		content: "";
+		display: block;
+		width: 100%;
+		min-height: 280px;
+		flex-shrink: 0;
+		background: url("/wp-content/uploads/2026/02/sim-based-hero.svg") center bottom / contain no-repeat;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8645 > .devotel-el-fallback__container:first-child::after {
+		content: "";
+		display: block;
+		width: 100%;
+		min-height: 280px;
+		flex-shrink: 0;
+		background: url("/wp-content/uploads/2026/02/otp-copy-1.svg") center bottom / contain no-repeat;
+	}
+
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-7796 > .devotel-el-fallback__container:first-child > .devotel-el-fallback__container,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8835 > .devotel-el-fallback__container:first-child > .devotel-el-fallback__container,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8717 > .devotel-el-fallback__container:first-child > .devotel-el-fallback__container,
+	body.devotel-sim-based-page .devotel-cached-snapshot .elementor.elementor-8645 > .devotel-el-fallback__container:first-child > .devotel-el-fallback__container {
+		margin-top: 0 !important;
+		padding: 0 var(--devotel-mobile-hero-gutter, 16px) !important;
+		max-width: 100% !important;
+		width: 100% !important;
+		box-sizing: border-box;
+	}
+}

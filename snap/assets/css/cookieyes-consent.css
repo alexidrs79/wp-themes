@@ -1,0 +1,77 @@
+/**
+ * Brand theming for the CookieYes consent banner.
+ *
+ * CookieYes's free plan has no Custom CSS / custom branding field (both
+ * are paid-plan-gated — confirmed in the plugin's own settings
+ * controller). This overrides its default blue (#1863dc) via the
+ * theme's own stylesheet instead, targeting CookieYes's own stable
+ * class names — same DOM/JS/consent logic, just restyled, not fought.
+ *
+ * !important is required throughout: CookieYes sets its default colors
+ * as inline style="" attributes on each element (injected by its own
+ * script at runtime, after this stylesheet has already loaded), and
+ * inline styles otherwise win over an external stylesheet regardless of
+ * selector specificity.
+ */
+
+.cky-consent-container.cky-banner-bottom {
+	left: 0 !important;
+	right: 0 !important;
+	bottom: 0 !important;
+	width: 100% !important;
+	max-width: 100% !important;
+	transform: none;
+}
+
+.cky-consent-bar {
+	border-radius: 0 !important;
+	font-family: var( --font-primary ), sans-serif;
+}
+
+.cky-btn {
+	border-radius: 16px !important;
+	font-family: var( --font-primary ), sans-serif;
+	font-weight: 700 !important;
+}
+
+.cky-btn-accept,
+.cky-btn-preferences.cky-btn-accept {
+	background-color: #fb4b16 !important;
+	border-color: #000 !important;
+	color: #fff !important;
+}
+
+.cky-btn-reject,
+.cky-btn-customize,
+.cky-btn-preferences {
+	background-color: #fff !important;
+	border-color: #000 !important;
+	color: #0b0c0d !important;
+}
+
+.cky-notice-des a.cky-policy,
+.cky-notice-des button.cky-policy,
+.cky-preference-content-wrapper a.cky-policy,
+.cky-preference-content-wrapper button.cky-policy {
+	color: #fb4b16 !important;
+	border-color: #fb4b16 !important;
+}
+
+.cky-switch input[type="checkbox"]:checked {
+	background: #fb4b16 !important;
+}
+
+/*
+ * The floating "revisit consent" icon + its hover tooltip is hidden per
+ * request. Note: this removes the only on-site way for a visitor to
+ * reopen/change their cookie choice after the first decision — worth
+ * having an alternative (e.g. a footer "Cookie Settings" link calling
+ * CookieYes's own reopen API) if that matters later.
+ */
+.cky-btn-revisit-wrapper {
+	display: none !important;
+}
+
+.cky-modal .cky-preference-center {
+	border-radius: 24px !important;
+}
