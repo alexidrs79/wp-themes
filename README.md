@@ -1,4 +1,4 @@
-# wp-themes
+# Wordpress themes
 
 Custom WordPress themes, kept in one repo so they share history, tooling conventions, and a single place to look for anything client-theme-related.
 
