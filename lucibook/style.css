@@ -35,7 +35,15 @@ Text Domain: lucibook
 	--leading-h2: 54px;
 
 	/* Layout */
-	--container-width: 1376px;
+	/*
+	 * Figma's page canvas is 1440px wide with every full-width panel
+	 * (Hero, Founding Offer) inset by exactly 32px each side — i.e. the
+	 * real content width is 1376px. This container's own 32px
+	 * padding-inline supplies that inset, so max-width must be the full
+	 * 1440px canvas width, not 1376 (that was double-subtracting the
+	 * margin, rendering every section 64px narrower than the design).
+	 */
+	--container-width: 1440px;
 }
 
 *,
@@ -144,7 +152,21 @@ html.js-animate [data-animate].is-visible {
 	top: auto;
 }
 
+/*
+ * Figma node 15532:80 ("Header", 1440x96) positions the logo at a fixed
+ * x=96 and the CTA button's right edge at x=1344 (1440-96) — a 96px
+ * margin on both true page edges, NOT the generic .container's 32px.
+ * This is its own full-width, 96px-padded wrapper rather than sharing
+ * .container, so those margins land exactly where Figma has them
+ * regardless of viewport width.
+ */
 .site-header__bar {
+	position: relative;
+	width: 100%;
+	max-width: 1440px;
+	margin-inline: auto;
+	padding-inline: 96px;
+	box-sizing: border-box;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -162,14 +184,20 @@ html.js-animate [data-animate].is-visible {
 	height: 22px;
 }
 
+/*
+ * Nav cluster's real center (Product/Lucy AI/Pricing, centers at
+ * x=528.5/632/736.5 of 1440) is x=632 — 43.89% of the bar's own 1440
+ * width, not the bar's true midpoint (50% = 720). It's off-center in
+ * the source design, not an approximation.
+ */
 .site-header__nav {
 	position: absolute;
-	left: 50%;
+	left: 43.89%;
 	top: 50%;
 	transform: translate(-50%, -50%);
 	display: flex;
 	align-items: center;
-	gap: 34px;
+	gap: 52px;
 	font-weight: 500;
 	font-size: 15px;
 	color: var(--color-ink);
@@ -179,7 +207,7 @@ html.js-animate [data-animate].is-visible {
 .site-header__actions {
 	display: flex;
 	align-items: center;
-	gap: 26px;
+	gap: 34px;
 	white-space: nowrap;
 }
 
@@ -391,6 +419,13 @@ body.mobile-menu-lock {
 
 	.site-header__bar {
 		padding-block: 0;
+		padding-inline: 24px;
+	}
+}
+
+@media (max-width: 1200px) {
+	.site-header__bar {
+		padding-inline: 32px;
 	}
 }
 
@@ -429,14 +464,25 @@ body.mobile-menu-lock {
 	padding-block: 32px 0;
 }
 
+/*
+ * Figma node 15532:89 ("Hero Blue Panel", 1376x749) positions everything
+ * by absolute px, not a symmetric padded grid — the illustration cluster
+ * (orb/workspace/photo/labels) extends almost to the panel's own right
+ * edge (Categorised label right edge at x=1360, 16px from the 1376 edge),
+ * while the text column only needs its own natural content width from
+ * the 64px left inset. Reverse-engineered as padding-right:16px (not the
+ * naive symmetric 64px, which was crowding the illustration inward) and
+ * a 624px text column + 38px gap, matching the real numbers:
+ * 64 (pad-left) + 624 (text) + 38 (gap) + 634 (illustration) + 16 (pad-right) = 1376.
+ */
 .hero__panel {
 	position: relative;
 	background: var(--color-brand-blue);
 	border-radius: 42px;
-	padding: 64px 64px;
+	padding: 64px 16px 64px 64px;
 	display: grid;
-	grid-template-columns: minmax(0, 660px) 1fr;
-	gap: 32px;
+	grid-template-columns: minmax(0, 624px) 1fr;
+	gap: 38px;
 	align-items: center;
 	overflow: hidden;
 }

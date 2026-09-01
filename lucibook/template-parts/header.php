@@ -33,7 +33,7 @@ $sticky_enabled = get_field( 'theme_sticky_header_enabled', $settings_id );
 $header_class   = 'site-header' . ( $sticky_enabled ? '' : ' site-header--static' );
 ?>
 <header class="<?php echo esc_attr( $header_class ); ?>">
-	<div class="site-header__bar container">
+	<div class="site-header__bar">
 		<a class="site-header__logo" href="<?php echo esc_url( home_url( '/' ) ); ?>">
 			<?php
 			$fallback_logo_id = $site_logo_id ? $site_logo_id : get_theme_mod( 'custom_logo' );
