@@ -48,6 +48,7 @@ $tagline_lines = array_filter( array_map( 'trim', explode( "\n", (string) get_fi
 			<div class="workspace__diagram">
 				<div class="workspace__panel" aria-hidden="true"></div>
 				<?php lucibook_print_icon( 'LUCIBOOK_WS_ORBIT_ID', 'workspace__orbit' ); ?>
+				<?php lucibook_print_icon( 'LUCIBOOK_WS_ACCENT_VECTOR_ID', 'workspace__accent-vector' ); ?>
 
 				<div class="workspace__card workspace__card--snap">
 					<div class="workspace__callout workspace__callout--snap">
@@ -56,6 +57,7 @@ $tagline_lines = array_filter( array_map( 'trim', explode( "\n", (string) get_fi
 						<span class="workspace__callout-desc">captures it</span>
 					</div>
 					<div class="workspace__phone">
+						<?php lucibook_print_icon( 'LUCIBOOK_WS_PHONE_SCREEN_ID', 'workspace__phone-screen' ); ?>
 						<div class="workspace__receipt">
 							<p class="workspace__receipt-merchant">ACME COFFEE</p>
 							<p class="workspace__receipt-address">12 High Street<br>London, UK</p>
@@ -76,7 +78,7 @@ $tagline_lines = array_filter( array_map( 'trim', explode( "\n", (string) get_fi
 				</div>
 
 				<div class="workspace__card workspace__card--dashboard">
-					<div class="workspace__dashboard-header"></div>
+					<?php lucibook_print_icon( 'LUCIBOOK_WS_DASHBOARD_HEADER_ID', 'workspace__dashboard-header' ); ?>
 					<div class="workspace__dashboard-sidebar">
 						<span class="workspace__dashboard-icon workspace__dashboard-icon--active">
 							<?php lucibook_print_icon( 'LUCIBOOK_WS_CAMERA_ICON_ID', '' ); ?>
@@ -132,6 +134,7 @@ $tagline_lines = array_filter( array_map( 'trim', explode( "\n", (string) get_fi
 					<?php lucibook_print_icon( 'LUCIBOOK_WS_LUCI_OUTER_GLOW_ID', 'workspace__luci-glow' ); ?>
 					<span class="workspace__luci-avatar">
 						<?php lucibook_print_icon( 'LUCIBOOK_WS_LUCI_ORB_ID', 'workspace__luci-orb' ); ?>
+						<?php lucibook_print_icon( 'LUCIBOOK_WS_LUCI_FACE_ID', 'workspace__luci-face-backing' ); ?>
 						<?php lucibook_print_icon( 'LUCIBOOK_WS_LUCI_FACE_PHOTO_ID', 'workspace__luci-face-photo' ); ?>
 					</span>
 					<p class="workspace__luci-name">Lucy</p>
@@ -145,8 +148,11 @@ $tagline_lines = array_filter( array_map( 'trim', explode( "\n", (string) get_fi
 				</div>
 
 				<div class="workspace__card workspace__card--together">
-					<?php lucibook_print_icon( 'LUCIBOOK_WS_LAYERS_BUBBLE_ID', 'workspace__together-icon' ); ?>
-					<p class="workspace__together-brand">LUCIBOOK</p>
+					<span class="workspace__together-bubble">
+						<?php lucibook_print_icon( 'LUCIBOOK_WS_LAYERS_BUBBLE_ID', 'workspace__together-icon' ); ?>
+						<?php lucibook_print_icon( 'LUCIBOOK_WS_TOGETHER_ACCENT_1_ID', 'workspace__together-logo' ); ?>
+					</span>
+					<?php lucibook_print_icon( 'LUCIBOOK_WS_TOGETHER_ACCENT_2_ID', 'workspace__together-wordmark' ); ?>
 					<p class="workspace__together-desc">brings it all together</p>
 				</div>
 			</div>

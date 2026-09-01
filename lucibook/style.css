@@ -1231,11 +1231,19 @@ body.mobile-menu-lock {
 }
 
 .reconciliation__row-checkbox {
+	position: relative;
 	width: 12.642px;
 	height: 12.642px;
 	flex-shrink: 0;
 	background: #0a64ef;
 	border-radius: 2.447px;
+}
+
+.reconciliation__row-checkbox-check {
+	position: absolute;
+	width: 60%;
+	top: 30%;
+	left: 20%;
 }
 
 .reconciliation__row-date {
@@ -1698,6 +1706,13 @@ body.mobile-menu-lock {
 	opacity: 0.85;
 }
 
+.workspace__accent-vector {
+	left: 9.5%;
+	top: 5.5%;
+	width: 2.78%;
+	z-index: 2;
+}
+
 .workspace__card {
 	box-sizing: border-box;
 }
@@ -1750,6 +1765,14 @@ body.mobile-menu-lock {
 	background: #111;
 	border-radius: 8.3%;
 	box-shadow: 0 8px 10px rgba(13, 26, 46, 0.18);
+}
+
+.workspace__phone-screen {
+	position: absolute;
+	left: 4.4%;
+	top: 2.47%;
+	width: 91.21%;
+	height: 95.07%;
 }
 
 .workspace__receipt {
@@ -1830,8 +1853,10 @@ body.mobile-menu-lock {
 }
 
 .workspace__dashboard-header {
-	height: 12%;
-	background: var(--color-brand-blue);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
 }
 
 .workspace__dashboard-sidebar {
@@ -1971,15 +1996,19 @@ body.mobile-menu-lock {
 }
 
 .workspace__luci-avatar {
+	display: block;
 	position: relative;
 	width: 42%;
-	aspect-ratio: 1;
+	height: 0;
+	padding-bottom: 42%;
 	border-radius: 50%;
 	overflow: hidden;
 	background: var(--color-white);
+	flex-shrink: 0;
 }
 
 .workspace__luci-orb,
+.workspace__luci-face-backing,
 .workspace__luci-face-photo {
 	position: absolute !important;
 	inset: 0;
@@ -2038,17 +2067,45 @@ body.mobile-menu-lock {
 	box-sizing: border-box;
 }
 
-.workspace__together-icon {
-	position: absolute !important;
+.workspace__together-bubble {
+	display: block;
+	position: absolute;
+	left: 50%;
 	top: -22%;
 	width: 38%;
+	height: 0;
+	padding-bottom: 38%;
+	transform: translateX(-50%);
 }
 
-.workspace__together-brand {
+.workspace__together-icon {
+	position: absolute !important;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.workspace__together-logo {
+	position: absolute !important;
+	left: 50%;
+	top: 50%;
+	width: 64%;
+	height: auto;
+	transform: translate(-50%, -50%);
+}
+
+.workspace__together-swoosh {
+	position: absolute;
+	left: 50%;
+	top: 57%;
+	width: 41.5%;
+	transform: translateX(-50%);
+}
+
+.workspace__together-wordmark {
 	margin: 4px 0 0;
-	font-weight: 700;
-	font-size: 13px;
-	color: var(--color-white);
+	width: 41.5%;
+	height: auto;
 }
 
 .workspace__together-desc {

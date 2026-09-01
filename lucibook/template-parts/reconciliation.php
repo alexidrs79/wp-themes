@@ -89,7 +89,9 @@ $rows = array(
 					<div class="reconciliation__table">
 						<?php foreach ( $rows as $row ) : ?>
 							<div class="reconciliation__row">
-								<span class="reconciliation__row-checkbox"></span>
+								<span class="reconciliation__row-checkbox">
+									<?php lucibook_print_icon( 'LUCIBOOK_RC_CHECKBOX_CHECK_ID', 'reconciliation__row-checkbox-check' ); ?>
+								</span>
 								<span class="reconciliation__row-date"><?php echo esc_html( $row['date'] ); ?></span>
 								<span class="reconciliation__row-icon">
 									<?php lucibook_print_icon( 'LUCIBOOK_RC_ROW_ICON_BG_' . $row['n'] . '_ID', 'reconciliation__row-icon-bg' ); ?>
