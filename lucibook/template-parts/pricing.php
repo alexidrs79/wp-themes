@@ -14,14 +14,14 @@ $tiers    = get_field( 'pricing_tiers' );
 ?>
 <section class="pricing" id="pricing">
 	<div class="container">
-		<h2 class="pricing__headline" data-animate><?php echo esc_html( $headline ); ?></h2>
-		<p class="pricing__sub" data-animate><?php echo esc_html( $sub ); ?></p>
+		<h2 class="pricing__headline" data-animate="fade"><?php echo esc_html( $headline ); ?></h2>
+		<p class="pricing__sub" data-animate="fade"><?php echo esc_html( $sub ); ?></p>
 
 		<?php if ( $tiers ) : ?>
-			<div class="pricing__grid">
+			<div class="pricing__grid" data-animate-group data-stagger="0">
 				<?php foreach ( $tiers as $tier ) : ?>
 					<?php $featured = ! empty( $tier['featured'] ); ?>
-					<div class="pricing__card<?php echo $featured ? ' pricing__card--featured' : ''; ?>" data-animate>
+					<div class="pricing__card<?php echo $featured ? ' pricing__card--featured' : ''; ?>" data-animate="scale">
 						<?php if ( ! empty( $tier['badge'] ) ) : ?>
 							<span class="pricing__badge"><?php echo esc_html( $tier['badge'] ); ?></span>
 						<?php endif; ?>

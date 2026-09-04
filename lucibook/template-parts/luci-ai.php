@@ -2,6 +2,9 @@
 /**
  * Template part: Luci AI section.
  * Figma: node 15532:302 ("Section 04 — Luci AI").
+ *
+ * The character stage is a single flattened mockup image (620x678), not
+ * a layered composite of individual SVG elements.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,53 +17,14 @@ $challenge    = get_field( 'luci_challenge' );
 $positioning  = get_field( 'luci_positioning' );
 $placeholder  = get_field( 'luci_input_placeholder' );
 $input_note   = get_field( 'luci_input_note' );
-$photo_id     = get_field( 'luci_character_photo' );
-$name_badge   = get_field( 'luci_name_badge' );
 ?>
 <section class="luci-ai" id="luci-ai">
 	<div class="container luci-ai__inner">
-		<div class="luci-ai__visual" data-animate>
-			<div class="luci-ai__stage">
-				<?php lucibook_print_icon( 'LUCIBOOK_LUCI_GLOW_ID', 'luci-ai__glow' ); ?>
-
-				<?php if ( $photo_id ) : ?>
-					<?php
-					echo wp_get_attachment_image(
-						$photo_id,
-						'full',
-						false,
-						array( 'class' => 'luci-ai__photo' )
-					);
-					?>
-				<?php endif; ?>
-
-				<div class="luci-ai__pill luci-ai__pill--tax">
-					<?php lucibook_print_icon( 'LUCIBOOK_LUCI_FLAG_ICON_ID', 'luci-ai__pill-icon' ); ?>
-					<span>UK tax rules</span>
-				</div>
-
-				<div class="luci-ai__pill luci-ai__pill--standards">
-					<?php lucibook_print_icon( 'LUCIBOOK_LUCI_ICON_STANDARDS_ID', 'luci-ai__pill-icon' ); ?>
-					<span>Accounting standards</span>
-				</div>
-
-				<div class="luci-ai__pill luci-ai__pill--legislation">
-					<?php lucibook_print_icon( 'LUCIBOOK_LUCI_ICON_LEGISLATION_ID', 'luci-ai__pill-icon' ); ?>
-					<span>Legislation</span>
-				</div>
-
-				<div class="luci-ai__pill luci-ai__pill--compliance">
-					<?php lucibook_print_icon( 'LUCIBOOK_LUCI_ICON_COMPLIANCE_ID', 'luci-ai__pill-icon' ); ?>
-					<span>Compliance</span>
-				</div>
-
-				<div class="luci-ai__badge">
-					<?php echo esc_html( $name_badge ); ?>
-				</div>
-			</div>
+		<div class="luci-ai__visual" data-animate="reveal">
+			<?php lucibook_print_icon( 'LUCIBOOK_LUCI_STAGE_IMAGE_ID', 'luci-ai__stage-image' ); ?>
 		</div>
 
-		<div class="luci-ai__content" data-animate>
+		<div class="luci-ai__content" data-animate="fade">
 			<p class="luci-ai__eyebrow"><?php echo esc_html( $eyebrow ); ?></p>
 			<h2 class="luci-ai__headline">
 				<?php foreach ( $headline_lines as $line ) : ?>

@@ -191,3 +191,19 @@ function lucibook_resolve_theme_url( $value ) {
 
 	return home_url( $value );
 }
+
+/**
+ * Wraps a trailing arrow ("→", "->", ">") in a button label with its own
+ * span so CSS can nudge just the arrow on hover, independent of the rest
+ * of the label — the arrow lives inline in the ACF field text (e.g. "Get
+ * your hours back →"), not as a separate field, so this is the only way
+ * to isolate it without a content/schema change. Already-escaped text in,
+ * HTML out — call this around esc_html(), not instead of it.
+ */
+function lucibook_wrap_trailing_arrow( $escaped_label ) {
+	return preg_replace(
+		'/\s*(→|-&gt;|&gt;)\s*$/u',
+		' <span class="btn__arrow">$1</span>',
+		$escaped_label
+	);
+}

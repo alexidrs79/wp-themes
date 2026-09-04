@@ -36,8 +36,12 @@
 			return;
 		}
 
+		var stagger = group.hasAttribute( 'data-stagger' )
+			? parseInt( group.getAttribute( 'data-stagger' ), 10 )
+			: STAGGER_MS;
+
 		items.forEach( function ( item, index ) {
-			item.style.transitionDelay = index * STAGGER_MS + 'ms';
+			item.style.transitionDelay = index * stagger + 'ms';
 			item.classList.add( 'is-visible' );
 		} );
 	}

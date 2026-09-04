@@ -42,7 +42,15 @@ $header_class   = 'site-header' . ( $sticky_enabled ? '' : ' site-header--static
 					$fallback_logo_id,
 					'full',
 					false,
-					array( 'class' => 'site-header__logo-img' )
+					// Fetched first and decoded on the main thread rather than
+					// WordPress's default decoding="async", so the logo is
+					// painted in the same frame as the rest of the header
+					// instead of arriving a beat later and appearing to fade in.
+					array(
+						'class'         => 'site-header__logo-img',
+						'fetchpriority' => 'high',
+						'decoding'      => 'sync',
+					)
 				);
 			} else {
 				bloginfo( 'name' );
@@ -62,7 +70,7 @@ $header_class   = 'site-header' . ( $sticky_enabled ? '' : ' site-header--static
 			<?php endif; ?>
 			<?php if ( $cta_label ) : ?>
 				<a class="btn btn--primary" href="<?php echo esc_url( lucibook_resolve_theme_url( $cta_url ) ); ?>">
-					<?php echo esc_html( $cta_label ); ?>
+					<?php echo lucibook_wrap_trailing_arrow( esc_html( $cta_label ) ); ?>
 				</a>
 			<?php endif; ?>
 		</div>
@@ -93,14 +101,14 @@ $header_class   = 'site-header' . ( $sticky_enabled ? '' : ' site-header--static
 				<a href="<?php echo esc_url( lucibook_resolve_theme_url( $item['url'] ?? '' ) ); ?>"><?php echo esc_html( $item['label'] ); ?></a>
 			<?php endforeach; ?>
 			<?php if ( $login_label ) : ?>
-				<a class="mobile-menu-panel__talk-link" href="<?php echo esc_url( lucibook_resolve_theme_url( $login_url ) ); ?>"><?php echo esc_html( $login_label ); ?></a>
+				<a class="mobile-menu-panel__login" href="<?php echo esc_url( lucibook_resolve_theme_url( $login_url ) ); ?>"><?php echo esc_html( $login_label ); ?></a>
 			<?php endif; ?>
 		</nav>
 
 		<?php if ( $cta_label ) : ?>
 			<div class="mobile-menu-panel__cta">
 				<a class="btn btn--primary mobile-menu-panel__cta-btn" href="<?php echo esc_url( lucibook_resolve_theme_url( $cta_url ) ); ?>">
-					<?php echo esc_html( $cta_label ); ?>
+					<?php echo lucibook_wrap_trailing_arrow( esc_html( $cta_label ) ); ?>
 				</a>
 			</div>
 		<?php endif; ?>

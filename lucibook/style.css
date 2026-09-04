@@ -18,10 +18,12 @@ Text Domain: lucibook
 	--color-ink: #0e0e16;
 	--color-muted: #636678;
 	--color-brand-blue: #0963e8;
+	--color-brand-blue-hover: #0754c4;
 	--color-brand-blue-dark: #0d122a;
 	--color-panel-navy: #091229;
 	--color-border: #e0e5f0;
 	--color-success: #0d9e5e;
+	--color-error: #d92d20;
 	--color-bg-tint: #fbfcfe;
 	--color-white: #ffffff;
 
@@ -56,6 +58,25 @@ html {
 	scroll-behavior: smooth;
 }
 
+html,
+body {
+	/*
+	 * Defensive: the off-canvas mobile menu panel sits just past the
+	 * right edge (translateX, not display:none) so it can slide in —
+	 * that alone makes scrollWidth>clientWidth at narrow widths even
+	 * though nothing is visually escaping. Real content overflows are
+	 * still fixed at the source per-section; this is a safety net, not
+	 * a substitute for that.
+	 *
+	 * `clip`, not `hidden` — `hidden` establishes a scroll container on
+	 * body, which breaks `.site-header`'s position:sticky (it started
+	 * sticking to body's own box instead of the viewport, so it just
+	 * scrolled away). `clip` suppresses the overflow without creating
+	 * a scroll container, so sticky keeps working.
+	 */
+	overflow-x: clip;
+}
+
 body {
 	margin: 0;
 	font-family: var(--font-primary);
@@ -78,23 +99,60 @@ a {
 	width: 100%;
 	max-width: var(--container-width);
 	margin-inline: auto;
-	padding-inline: 32px;
+	/*
+	 * Fluid, not a fixed 32px down to the smallest phone — a 32px inset
+	 * on a 375px screen eats 17% of the width and makes every panel look
+	 * disproportionately margined. Scales continuously with viewport
+	 * width instead of snapping between two fixed values.
+	 */
+	padding-inline: clamp(16px, 4.3vw, 32px);
 }
 
 /* -------------------------------------------------------------------------
-   Scroll-in animation hook (assets/js/scroll-animations.js). Elements with
+   Entrance animations (assets/js/scroll-animations.js). Elements with
    [data-animate] start hidden only once html.js-animate is present — if JS
-   fails to load, nothing is stuck invisible.
+   fails to load, nothing is stuck invisible. Deliberately NOT one universal
+   fade-up-on-everything effect — the variant is chosen per section to suit
+   what's actually on screen:
+     - "fade"   plain opacity, no movement — the restrained default, used
+                for most text content and the Founding Offer (a commitment
+                moment that shouldn't compete with motion).
+     - "scale"  opacity + scale 0.98→1 — Pricing's 3 cards, revealed
+                simultaneously (see data-stagger="0" on their group), not
+                staggered left-to-right.
+     - "reveal" opacity + scale 0.97→1, slightly slower — the flattened
+                Reconciliation/Luci AI illustration images, reading as the
+                panel settling into place rather than a decorative slide.
    ---------------------------------------------------------------------- */
-html.js-animate [data-animate] {
+html.js-animate [data-animate="fade"] {
 	opacity: 0;
-	transform: translateY(24px);
-	transition: opacity 0.6s ease, transform 0.6s ease;
+	transition: opacity 0.5s ease-out;
 }
 
-html.js-animate [data-animate].is-visible {
+html.js-animate [data-animate="fade"].is-visible {
 	opacity: 1;
-	transform: none;
+}
+
+html.js-animate [data-animate="scale"] {
+	opacity: 0;
+	transform: scale(0.98);
+	transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+html.js-animate [data-animate="scale"].is-visible {
+	opacity: 1;
+	transform: scale(1);
+}
+
+html.js-animate [data-animate="reveal"] {
+	opacity: 0;
+	transform: scale(0.97);
+	transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+html.js-animate [data-animate="reveal"].is-visible {
+	opacity: 1;
+	transform: scale(1);
 }
 
 /* -------------------------------------------------------------------------
@@ -109,9 +167,23 @@ html.js-animate [data-animate].is-visible {
 	font-size: 16px;
 	white-space: nowrap;
 	border-radius: 999px;
-	border: none;
+	border: 1px solid transparent;
 	cursor: pointer;
-	transition: transform 0.15s ease, box-shadow 0.15s ease;
+	transition: background-color 0.15s ease-out, border-color 0.15s ease-out,
+		color 0.15s ease-out, transform 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+
+/* The arrow lives inline in the label text; lucibook_wrap_trailing_arrow()
+   isolates it in its own span so it can nudge independently of the label. */
+.btn__arrow {
+	display: inline-block;
+	margin-left: 6px;
+	vertical-align: middle;
+	transition: transform 0.15s ease-out;
+}
+
+.btn:hover .btn__arrow {
+	transform: translateX(3px);
 }
 
 .btn--primary {
@@ -121,18 +193,27 @@ html.js-animate [data-animate].is-visible {
 }
 
 .btn--primary:hover {
-	transform: translateY(-1px);
-	box-shadow: 0 8px 20px rgba(9, 99, 232, 0.25);
+	background: var(--color-brand-blue-hover);
+	box-shadow: 0 8px 20px rgba(9, 99, 232, 0.28);
 }
 
 .btn--white {
 	background: var(--color-white);
+	border-color: var(--color-white);
 	color: var(--color-brand-blue);
 	padding: 19px 32px;
 }
 
 .btn--white:hover {
-	transform: translateY(-1px);
+	/*
+	 * A 1px border-color shift alone reads as almost nothing when the
+	 * button already sits on a similarly-blue panel/card background —
+	 * pairing it with a faint blue-tinted fill (still restrained, not a
+	 * color swap) keeps the affordance visible regardless of context.
+	 */
+	background: #f2f7ff;
+	border-color: var(--color-brand-blue-hover);
+	color: var(--color-brand-blue-hover);
 	box-shadow: 0 10px 24px rgba(3, 15, 46, 0.18);
 }
 
@@ -145,6 +226,18 @@ html.js-animate [data-animate].is-visible {
 	top: 0;
 	z-index: 100;
 	background: var(--color-bg-tint);
+	box-shadow: 0 1px 0 rgba(14, 14, 22, 0);
+	transition: box-shadow 0.25s ease-out;
+}
+
+/*
+ * sticky-header.js toggles this once scrolled past rest — a restrained
+ * lift (soft shadow fading in), not a color swap or bounce, so pinning
+ * against the page content reads as a smooth state change rather than
+ * a jump cut.
+ */
+.site-header.is-stuck {
+	box-shadow: 0 4px 16px rgba(14, 14, 22, 0.08);
 }
 
 .site-header--static {
@@ -180,8 +273,8 @@ html.js-animate [data-animate].is-visible {
 }
 
 .site-header__logo-img {
-	width: 190px;
-	height: 22px;
+	width: clamp(140px, 32vw, 190px);
+	height: auto;
 }
 
 /*
@@ -215,11 +308,43 @@ html.js-animate [data-animate].is-visible {
 	font-weight: 500;
 	font-size: 15px;
 	color: var(--color-ink);
+	/*
+	 * Even 22px, not `normal` (21px): an odd box height centres to a
+	 * half-pixel offset inside the 96px bar, which landed this link's
+	 * 1px hover underline on a half-pixel row and smeared it across two
+	 * rows at half opacity — visibly fainter than the nav's. The nav
+	 * escapes that on its own (its transform layer gets pixel-snapped),
+	 * so only this link needs correcting.
+	 */
+	line-height: 22px;
 }
 
+/*
+ * Underline draws in left-to-right on hover instead of a bare color swap —
+ * a considered, deliberate affordance rather than default link styling.
+ * Shared by nav links, the mobile menu, and the Luci AI challenge line
+ * (see .luci-ai__challenge). ::after is sized to the text via
+ * display:inline-block, not the full block width.
+ */
 .site-header__nav a,
 .site-header__login-link {
+	position: relative;
+	display: inline-block;
 	transition: color 0.2s ease-out;
+}
+
+.site-header__nav a::after,
+.site-header__login-link::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	bottom: -4px;
+	width: 100%;
+	height: 1px;
+	background: currentColor;
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform 0.2s ease-out;
 }
 
 .site-header__nav a:hover,
@@ -227,8 +352,15 @@ html.js-animate [data-animate].is-visible {
 	color: var(--color-brand-blue);
 }
 
+.site-header__nav a:hover::after,
+.site-header__login-link:hover::after {
+	transform: scaleX(1);
+}
+
 .site-header__actions .btn--primary {
-	padding: 13px 20px;
+	width: 134px;
+	height: 46px;
+	padding: 0;
 }
 
 .site-header__menu-toggle {
@@ -381,10 +513,28 @@ html.js-animate [data-animate].is-visible {
 	background: var(--color-bg-tint);
 }
 
-.mobile-menu-panel__talk-link {
-	margin-top: 4px;
-	border-top: 1px solid var(--color-border);
-	padding-top: 12px !important;
+/*
+ * "Log in" is an account action, not a primary nav item, so it sits
+ * apart from the three tabs — behind a full-bleed hairline matching the
+ * panel's header/CTA dividers. Drawn as a pseudo-element rather than a
+ * border-top on the link itself: the link's own 10px radius bent that
+ * border into a curve, and it stopped short at the nav's 12px padding
+ * instead of reaching the panel edges. Keeping it off the link also
+ * leaves the hover tint identical to the tabs above it.
+ */
+.mobile-menu-panel__login {
+	position: relative;
+	margin-top: 12px;
+}
+
+.mobile-menu-panel__login::before {
+	content: '';
+	position: absolute;
+	top: -6px;
+	left: -12px;
+	right: -12px;
+	height: 1px;
+	background: var(--color-border);
 }
 
 .mobile-menu-panel__cta {
@@ -402,7 +552,15 @@ body.mobile-menu-lock {
 	overflow: hidden;
 }
 
-@media (max-width: 768px) {
+/*
+ * The desktop nav is absolutely centered at a fixed 43.89% with a fixed
+ * 52px gap and 15px font — nothing about it shrinks, so somewhere below
+ * ~830px it collides with the logo (confirmed: LUCIBOOK/Product overlap
+ * at 769px). Rather than fight that fixed-position nav into shrinking
+ * smoothly through a narrow collision zone, switch to the hamburger
+ * before the collision starts.
+ */
+@media (max-width: 900px) {
 	.site-header__nav,
 	.site-header__login-link,
 	.site-header__actions .btn--primary {
@@ -419,7 +577,7 @@ body.mobile-menu-lock {
 
 	.site-header__bar {
 		padding-block: 0;
-		padding-inline: 24px;
+		padding-inline: clamp(20px, 5vw, 24px);
 	}
 }
 
@@ -461,7 +619,7 @@ body.mobile-menu-lock {
    Hero — Figma node 15532:88 ("Section 01 — Hero"), blue panel 1376x749.
    ---------------------------------------------------------------------- */
 .hero {
-	padding-block: 32px 0;
+	padding-block: 24px;
 }
 
 /*
@@ -479,7 +637,13 @@ body.mobile-menu-lock {
 	position: relative;
 	background: var(--color-brand-blue);
 	border-radius: 42px;
-	padding: 64px 16px 64px 64px;
+	/*
+	 * Figma: the illustration sits only 12px from the panel's own top
+	 * (749 panel - 713 image = 36px slack total, not split evenly —
+	 * 12 top / 24 bottom), so the image reads noticeably higher than a
+	 * symmetric 18/18 would put it.
+	 */
+	padding: 12px 16px 24px 64px;
 	display: grid;
 	grid-template-columns: minmax(0, 624px) 1fr;
 	gap: 38px;
@@ -500,7 +664,7 @@ body.mobile-menu-lock {
 }
 
 .hero__body {
-	margin: 24px 0 0;
+	margin: 42px 0 0;
 	font-weight: 400;
 	font-size: 20px;
 	line-height: 30px;
@@ -508,324 +672,60 @@ body.mobile-menu-lock {
 }
 
 .hero__cta {
-	margin-top: 32px;
+	width: 224px;
+	height: 58px;
+	margin-top: 44px;
+	padding: 0;
 }
 
 .hero__small-note {
-	margin: 24px 0 0;
+	margin: 32px 0 0;
 	font-weight: 500;
 	font-size: 15px;
 	color: #d4ebff;
 }
 
-/*
- * Illustration cluster — one relative box, children positioned by
- * percentage of its own bounding box (union of orb/workspace/photo/
- * labels/stars: page-relative 726,36,634,713 within the 1376x749 panel).
- */
 .hero__visual {
 	position: relative;
-	width: 100%;
-	aspect-ratio: 634 / 713;
 }
 
-.hero__orb {
-	position: absolute;
-	left: 1.893%;
-	top: 11.641%;
-	width: 94.637%;
-	height: 84.151%;
-}
-
-.hero__photo-frame {
-	position: absolute;
-	left: 11.041%;
-	top: 0;
-	width: 77.603%;
-	height: 100%;
-	overflow: hidden;
-}
-
-.hero__photo {
-	width: 100%;
-	height: 100%;
+.hero__image {
+	display: block;
+	width: 634px;
+	height: 713px;
 	object-fit: cover;
 }
 
-.hero__workspace {
-	position: absolute;
-	left: 0;
-	top: 25.947%;
-	width: 49.211%;
-	height: 43.759%;
-	container-type: inline-size;
-}
-
-.hero__workspace-inner {
-	position: relative;
-	width: 312px;
-	height: 312px;
-	transform-origin: top left;
-	transform: scale(calc(100cqw / 312px));
-	box-sizing: border-box;
-	background: var(--color-white);
-	border-radius: 14.976px;
-	box-shadow: 0 11.232px 27.456px rgba(3, 15, 46, 0.18);
-	overflow: hidden;
-}
-
-.hero__ws-brand {
-	position: absolute;
-	left: 14.98px;
-	top: 13.73px;
-	margin: 0;
-	font-weight: 600;
-	font-size: 8.112px;
-	color: var(--color-brand-blue);
-}
-
-.hero__ws-period {
-	position: absolute;
-	left: 227.14px;
-	top: 9.98px;
-	display: block;
-	width: 67.392px;
-	height: 21.216px;
-	background: #ebf6ff;
-	border-radius: 10.608px;
-	font-weight: 600;
-	font-size: 9.984px;
-	line-height: 21.216px;
-	text-align: center;
-	color: var(--color-brand-blue);
-}
-
-.hero__ws-hours {
-	position: absolute;
-	left: 14.98px;
-	top: 77.38px;
-	width: 282.048px;
-	height: 51.168px;
-	background: #ebf6ff;
-	border-radius: 9.984px;
-	box-sizing: border-box;
-}
-
-.hero__ws-hours-label {
-	position: absolute;
-	left: 11.23px;
-	top: 9.98px;
-	margin: 0;
-	width: 137.28px;
-	font-weight: 500;
-	font-size: 8.112px;
-	color: #636678;
-}
-
-.hero__ws-hours-value {
-	position: absolute;
-	left: 11.23px;
-	top: 23.09px;
-	margin: 0;
-	font-weight: 600;
-	font-size: 17.472px;
-	color: var(--color-brand-blue);
-}
-
-.hero__ws-uptodate {
-	position: absolute;
-	left: 200.93px;
-	top: 14.98px;
-	display: block;
-	width: 69.888px;
-	height: 21.216px;
-	background: var(--color-white);
-	border-radius: 10.608px;
-	font-weight: 600;
-	font-size: 9.984px;
-	line-height: 21.216px;
-	text-align: center;
-	color: var(--color-success);
-}
-
-.hero__ws-txn {
-	position: absolute;
-	left: 14.98px;
-	top: 139.78px;
-	width: 282.048px;
-	height: 37.44px;
-	background: var(--color-white);
-	border: 0.624px solid #e0e5f0;
-	border-radius: 8.736px;
-	box-sizing: border-box;
-}
-
-.hero__ws-txn--2 {
-	top: 185.95px;
-}
-
-.hero__ws-txn--3 {
-	top: 232.13px;
-}
-
-.hero__ws-txn-merchant {
-	position: absolute;
-	left: 9.36px;
-	top: 11.86px;
-	font-weight: 600;
-	font-size: 9.36px;
-	color: var(--color-ink);
-	white-space: nowrap;
-}
-
-.hero__ws-txn-amount {
-	position: absolute;
-	right: 82.44px;
-	top: 11.23px;
-	font-weight: 500;
-	font-size: 8.736px;
-	color: var(--color-ink);
-	white-space: nowrap;
-}
-
-.hero__ws-txn-status {
-	position: absolute;
-	right: 10.61px;
-	top: 5.62px;
-	display: block;
-	width: 62.4px;
-	height: 23.712px;
-	border-radius: 11.856px;
-	font-weight: 600;
-	font-size: 7.488px;
-	line-height: 23.712px;
-	text-align: center;
-	white-space: nowrap;
-}
-
-.hero__ws-txn-status--blue {
-	background: #ebf6ff;
-	color: var(--color-brand-blue);
-}
-
-.hero__ws-txn-status--green {
-	background: #ebfaf2;
-	color: var(--color-success);
-}
-
-.hero__ws-footer {
-	position: absolute;
-	left: 14.98px;
-	top: 283.3px;
-	margin: 0;
-	width: 262.08px;
-	font-weight: 500;
-	font-size: 8.112px;
-	color: #636678;
-}
-
-.hero__ws-title {
-	position: absolute;
-	left: 17.47px;
-	top: 44.93px;
-	margin: 0;
-	font-weight: 600;
-	font-size: 14.976px;
-	line-height: 18.72px;
-	color: var(--color-ink);
-	white-space: nowrap;
-}
-
 /*
- * Floating status labels — simple 3-element cards (icon, title,
- * description), so unlike the workspace card these use plain fluid CSS
- * rather than the cqw-scale technique.
+ * One continuous clamp()-driven range from 375px up to the 960px
+ * stacking cutover, instead of two fixed snapshots (960px, 480px) with
+ * nothing scaling in between — that pattern is exactly what produced
+ * disproportionate insets/oversized type at in-between widths on an
+ * earlier project.
  */
-.hero__label {
-	position: absolute;
-	display: flex;
-	align-items: flex-start;
-	gap: 12px;
-	padding: 16px;
-	background: var(--color-white);
-	border-radius: 18px;
-	box-shadow: 0 10px 28px rgba(3, 15, 46, 0.14);
-	box-sizing: border-box;
-}
-
-.hero__label-icon {
-	width: 25%;
-	flex-shrink: 0;
-}
-
-.hero__label-text {
-	flex: 1;
-	min-width: 0;
-}
-
-.hero__label-title {
-	margin: 0;
-	font-weight: 700;
-	font-size: 15px;
-	line-height: 20px;
-	color: var(--color-ink);
-}
-
-.hero__label-desc {
-	margin: 4px 0 0;
-	font-weight: 400;
-	font-size: 13px;
-	line-height: 18px;
-	color: #636678;
-}
-
-.hero__label--submission {
-	left: 2.366%;
-	top: 76.437%;
-	width: 35.331%;
-}
-
-.hero__label--reconciled {
-	left: 65.931%;
-	top: 68.583%;
-	width: 32.334%;
-}
-
-.hero__label--categorised {
-	left: 65.931%;
-	top: 24.825%;
-	width: 34.070%;
-}
-
-.hero__star {
-	position: absolute;
-	width: 4.732%;
-	height: auto;
-}
-
-.hero__star--1 {
-	left: 87.697%;
-	top: 50.771%;
-}
-
-.hero__star--2 {
-	left: 25.868%;
-	top: 18.933%;
-}
-
 @media (max-width: 960px) {
 	.hero__panel {
 		grid-template-columns: 1fr;
-		padding: 40px 32px;
+		padding: clamp(28px, 8vw, 40px) clamp(20px, 6vw, 32px);
+		border-radius: clamp(28px, 7vw, 42px);
 	}
 
 	.hero__headline {
-		font-size: 40px;
-		line-height: 46px;
+		font-size: clamp(28px, 7vw, 40px);
+		line-height: 1.15;
+	}
+
+	.hero__body {
+		font-size: clamp(16px, 4.3vw, 20px);
+		line-height: 1.5;
 	}
 
 	.hero__content {
 		order: 1;
+	}
+
+	.hero__cta {
+		width: 100%;
 	}
 
 	.hero__visual {
@@ -833,29 +733,9 @@ body.mobile-menu-lock {
 		margin-top: 32px;
 	}
 
-	.hero__label-title {
-		font-size: 14px;
-	}
-
-	.hero__label-desc {
-		font-size: 12px;
-	}
-}
-
-@media (max-width: 480px) {
-	.hero__panel {
-		padding: 32px 20px;
-		border-radius: 28px;
-	}
-
-	.hero__headline {
-		font-size: 30px;
-		line-height: 36px;
-	}
-
-	.hero__body {
-		font-size: 17px;
-		line-height: 26px;
+	.hero__image {
+		width: 100%;
+		height: auto;
 	}
 }
 
@@ -863,36 +743,80 @@ body.mobile-menu-lock {
    Social Proof — Figma node 15532:141 ("Section 02 — Social Proof").
    ---------------------------------------------------------------------- */
 .social-proof {
-	padding-block: 64px;
+	padding-block: clamp(56px, 12vw, 93.5px);
 	text-align: center;
 }
 
 .social-proof__headline {
 	margin: 0 auto;
-	max-width: 700px;
+	max-width: 1100px;
 	font-weight: 600;
-	font-size: 30px;
-	line-height: 38px;
+	font-size: clamp(22px, 6vw, 30px);
+	line-height: 1.3;
 	color: var(--color-ink);
 }
 
+/*
+ * Positioned by exact percentage-of-container center (matching Figma's
+ * absolute x-centers: 139,333.5,551.5,787,1017.5,1283 within the 1376px
+ * content width) rather than flexbox gap — the 6 names have uneven
+ * natural widths (short "Morrow" vs long "FINCH ACCOUNTING"), and Figma's
+ * spacing between them isn't a uniform gap, so gap-based flex layout
+ * can't reproduce it; absolute centers can.
+ */
 .social-proof__logos {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: center;
-	gap: 40px 56px;
+	position: relative;
+	height: 20px;
 	margin: 56px 0 0;
 	padding: 0;
 	list-style: none;
 }
 
 .social-proof__logo {
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%, -50%);
 	font-weight: 600;
 	font-size: 14px;
-	letter-spacing: 0.35px;
+	letter-spacing: 0.7px;
 	color: #6b7080;
 	white-space: nowrap;
+}
+
+.social-proof__logo:nth-child(even) {
+	font-weight: 500;
+	letter-spacing: normal;
+}
+
+.social-proof__logo:nth-child(1) { left: 10.101%; }
+.social-proof__logo:nth-child(2) { left: 24.236%; }
+.social-proof__logo:nth-child(3) { left: 40.073%; }
+.social-proof__logo:nth-child(4) { left: 57.194%; }
+.social-proof__logo:nth-child(5) { left: 73.947%; }
+.social-proof__logo:nth-child(6) { left: 93.241%; }
+
+/*
+ * The absolute-percentage logo positions are calibrated for the full
+ * 1376px desktop content width — below that, the fixed 14px text
+ * doesn't shrink with the container, so it starts colliding well
+ * before 700px (confirmed overlap from 701px up to ~830px). Widened
+ * past that whole collision zone rather than guessing a value inside it.
+ */
+@media (max-width: 950px) {
+	.social-proof__logos {
+		position: static;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+		height: auto;
+		gap: 20px 32px;
+	}
+
+	.social-proof__logo {
+		position: static;
+		transform: none;
+	}
 }
 
 @media (max-width: 600px) {
@@ -906,14 +830,23 @@ body.mobile-menu-lock {
    Reconciliation — Figma node 15532:149 ("Section 03 — Reconciliation").
    ---------------------------------------------------------------------- */
 .reconciliation {
-	padding-block: 96px;
+	padding-block: 101px;
 	overflow: hidden;
 }
 
+/*
+ * Figma: text col starts x=159 (not the container's own 32px edge —
+ * this element carries the .container class too, so this padding-left
+ * overrides rather than adds to it), col width=510, gap to the card's
+ * own left edge (x=692) is only 23px — not the 60px this grid used
+ * before, which combined with .reconciliation__visual's margin-left:auto
+ * slack was reading as far too much whitespace between the two halves.
+ */
 .reconciliation__inner {
 	display: grid;
 	grid-template-columns: minmax(0, 510px) 1fr;
-	gap: 60px;
+	gap: 23px;
+	padding-left: 159px;
 	align-items: center;
 }
 
@@ -956,454 +889,39 @@ body.mobile-menu-lock {
 .reconciliation__visual {
 	position: relative;
 	width: 100%;
-	aspect-ratio: 668 / 647;
-	container-type: inline-size;
+	max-width: 668px;
 }
 
-.reconciliation__mockup {
-	position: relative;
+.reconciliation__mockup-image {
+	display: block;
 	width: 668px;
 	height: 647px;
-	transform-origin: top left;
-	transform: scale(calc(100cqw / 668px));
-	background: #f3f8fc;
 	border-radius: 32px;
-	overflow: hidden;
-}
-
-.reconciliation__glow {
-	position: absolute;
-}
-
-.reconciliation__glow--left {
-	left: -73px;
-	top: 45.95px;
-	width: 265.079px;
-}
-
-.reconciliation__glow--right {
-	left: 457.16px;
-	top: 86.74px;
-	width: 244.689px;
-}
-
-.reconciliation__blob {
-	position: absolute;
-}
-
-.reconciliation__blob--left {
-	left: 19.31px;
-	top: 131.59px;
-	width: 171.282px;
-}
-
-.reconciliation__blob--right {
-	left: 508.69px;
-	top: 227.43px;
-	width: 142.735px;
-}
-
-.reconciliation__wallet {
-	position: absolute;
-	left: 47px;
-	top: 7px;
-	width: 91.758px;
-	z-index: 2;
-}
-
-.reconciliation__coins {
-	position: absolute;
-	left: 518.89px;
-	top: 544px;
-	width: 89.719px;
-	z-index: 2;
-}
-
-.reconciliation__card {
-	position: absolute;
-	left: 100px;
-	top: 59px;
-	width: 475px;
-	height: 547px;
-	background: var(--color-white);
-	border-radius: 17.128px;
-	box-shadow: 0 6px 12px rgba(51, 71, 92, 0.1);
-	box-sizing: border-box;
-	z-index: 1;
-}
-
-.reconciliation__card-mark {
-	position: absolute;
-	left: 31.87px;
-	top: 31.81px;
-	width: 22.022px;
-}
-
-.reconciliation__card-brand {
-	position: absolute;
-	left: 57.56px;
-	top: 34.67px;
-	margin: 0;
-	font-family: var(--font-secondary);
-	font-weight: 700;
-	font-size: 15.497px;
-	color: #0d123b;
-	white-space: nowrap;
-}
-
-.reconciliation__top-status {
-	position: absolute;
-	left: 275px;
-	top: 27px;
-	width: 176px;
-	height: 31px;
-	background: #f0fff7;
-	border: 0.612px solid #6edb9d;
-	border-radius: 8px;
-	box-sizing: border-box;
-}
-
-.reconciliation__top-status-circle {
-	position: absolute;
-	left: 9.51px;
-	top: 6.65px;
-	width: 16.313px;
-}
-
-.reconciliation__top-status-check {
-	position: absolute;
-	left: 13.59px;
-	top: 11.13px;
-	width: 8.156px;
-}
-
-.reconciliation__top-status-text {
-	position: absolute;
-	left: 32.76px;
-	top: 9.09px;
-	width: 132.54px;
-	font-family: var(--font-secondary);
-	font-weight: 600;
-	font-size: 10px;
-	color: #098744;
-}
-
-.reconciliation__ring {
-	position: absolute;
-}
-
-.reconciliation__ring--3 {
-	left: 18.82px;
-	top: 143.55px;
-	width: 41.597px;
-}
-
-.reconciliation__ring--2 {
-	left: 22.08px;
-	top: 146.82px;
-	width: 35.072px;
-}
-
-.reconciliation__ring--1 {
-	left: 25.34px;
-	top: 150.08px;
-	width: 28.547px;
-}
-
-.reconciliation__card-title {
-	position: absolute;
-	left: 32.28px;
-	top: 82.38px;
-	margin: 0;
-	font-family: var(--font-secondary);
-	font-weight: 700;
-	font-size: 18.759px;
-	color: #101642;
-	white-space: nowrap;
-}
-
-.reconciliation__card-subtitle {
-	position: absolute;
-	left: 32.28px;
-	top: 109.3px;
-	margin: 0;
-	width: 244.689px;
-	font-family: var(--font-secondary);
-	font-weight: 400;
-	font-size: 11.419px;
-	color: #6e7694;
-}
-
-.reconciliation__reconcile-btn {
-	position: absolute;
-	left: 342.62px;
-	top: 90.54px;
-	width: 91.35px;
-	height: 37.519px;
-	background: #075bf5;
-	border-radius: 8.156px;
-	box-shadow: 0 3.263px 5.709px rgba(8, 64, 191, 0.18);
-	font-family: var(--font-secondary);
-	font-weight: 600;
-	font-size: 11.011px;
-	line-height: 37.519px;
-	text-align: center;
-	color: var(--color-white);
-}
-
-.reconciliation__select-all-box {
-	position: absolute;
-	left: 31.87px;
-	top: 156.6px;
-	width: 15.497px;
-	height: 15.497px;
-	background: #0a64ef;
-	border-radius: 2.855px;
-}
-
-.reconciliation__select-all-check {
-	position: absolute;
-	left: 35.54px;
-	top: 161.09px;
-	width: 8.156px;
-}
-
-.reconciliation__select-all-label {
-	position: absolute;
-	left: 59.6px;
-	top: 158.64px;
-	width: 126.422px;
-	font-family: var(--font-secondary);
-	font-weight: 600;
-	font-size: 10.603px;
-	color: #075bef;
-	white-space: nowrap;
-}
-
-.reconciliation__cursor {
-	position: absolute;
-	z-index: 3;
-}
-
-.reconciliation__cursor--1 {
-	left: 43px;
-	top: 167px;
-	width: 20px;
-}
-
-.reconciliation__cursor--2 {
-	left: 423px;
-	top: 117px;
-	width: 30px;
-}
-
-.reconciliation__click-rays {
-	position: absolute;
-	left: 9.85px;
-	top: 134.17px;
-	width: 33.441px;
-}
-
-.reconciliation__accent {
-	position: absolute;
-	width: 24px;
-	z-index: 3;
-}
-
-.reconciliation__accent--1 {
-	left: 89px;
-	top: 484px;
-}
-
-.reconciliation__accent--2 {
-	left: 384px;
-	top: 484px;
-}
-
-.reconciliation__accent--3 {
-	left: 424px;
-	top: 95px;
-	width: 18px;
-}
-
-.reconciliation__accent--4 {
-	left: 400px;
-	top: 123px;
-	width: 14px;
-}
-
-.reconciliation__table-head {
-	position: absolute;
-	left: 17px;
-	top: 200px;
-	width: 440px;
-	display: flex;
-	font-family: var(--font-secondary);
-	font-weight: 500;
-	font-size: 10px;
-	color: #737b99;
-}
-
-.reconciliation__table-head span:nth-child(1) { width: 100px; }
-.reconciliation__table-head span:nth-child(2) { width: 100px; }
-.reconciliation__table-head span:nth-child(3) { width: 90px; }
-.reconciliation__table-head span:nth-child(4) { width: 80px; }
-
-.reconciliation__table {
-	position: absolute;
-	left: 17px;
-	top: 224px;
-	width: 440px;
-	height: 235px;
-	border: 0.816px solid #dde4ed;
-	border-radius: 6.525px;
-	box-sizing: border-box;
-	overflow: hidden;
-}
-
-.reconciliation__row {
-	display: flex;
-	align-items: center;
-	height: 46.9px;
-	padding-inline: 9px;
-	border-bottom: 0.82px solid #dde4ed;
-	font-family: var(--font-secondary);
-	font-size: 10px;
-	color: #46506c;
-}
-
-.reconciliation__row:last-child {
-	border-bottom: none;
-}
-
-.reconciliation__row-checkbox {
-	position: relative;
-	width: 12.642px;
-	height: 12.642px;
-	flex-shrink: 0;
-	background: #0a64ef;
-	border-radius: 2.447px;
-}
-
-.reconciliation__row-checkbox-check {
-	position: absolute;
-	width: 60%;
-	top: 30%;
-	left: 20%;
-}
-
-.reconciliation__row-date {
-	width: 90px;
-	margin-left: 12px;
-	flex-shrink: 0;
-}
-
-.reconciliation__row-icon {
-	position: relative;
-	width: 21.206px;
-	height: 21.206px;
-	flex-shrink: 0;
-	margin-right: 10px;
-}
-
-.reconciliation__row-icon-bg {
-	position: absolute;
-	inset: 0;
-	width: 100%;
-	height: 100%;
-}
-
-.reconciliation__row-icon-glyph {
-	position: absolute;
-	width: 54%;
-	height: 54%;
-	top: 23%;
-	left: 23%;
-}
-
-.reconciliation__row-desc {
-	width: 90px;
-	flex-shrink: 0;
-	letter-spacing: -0.4px;
-}
-
-.reconciliation__row-account {
-	width: 90px;
-	flex-shrink: 0;
-	letter-spacing: -0.4px;
-}
-
-.reconciliation__row-amount {
-	width: 55px;
-	flex-shrink: 0;
-}
-
-.reconciliation__row-status {
-	position: relative;
-	width: 17.944px;
-	height: 17.944px;
-	margin-left: auto;
-	flex-shrink: 0;
-}
-
-.reconciliation__status-circle {
-	position: absolute;
-	inset: 0;
-	width: 100%;
-	height: 100%;
-}
-
-.reconciliation__status-check {
-	position: absolute;
-	width: 52%;
-	height: 39%;
-	top: 30%;
-	left: 24%;
-}
-
-.reconciliation__banner {
-	position: absolute;
-	left: 98px;
-	top: 475px;
-	width: 278px;
-	height: 54px;
-	background: #f0fff7;
-	border: 0.612px solid #72dfa2;
-	border-radius: 16px;
-	box-sizing: border-box;
-	z-index: 1;
-}
-
-.reconciliation__banner-icon {
-	position: absolute;
-	left: 16.39px;
-	top: 9.3px;
-	width: 34.256px;
-}
-
-.reconciliation__banner-text {
-	position: absolute;
-	left: 63.39px;
-	top: 17.05px;
-	font-family: var(--font-secondary);
-	font-weight: 600;
-	font-size: 13.866px;
-	color: #087f3f;
-	white-space: nowrap;
 }
 
 @media (max-width: 960px) {
+	.reconciliation {
+		padding-block: clamp(56px, 11vw, 101px);
+	}
+
 	.reconciliation__inner {
 		grid-template-columns: 1fr;
+		padding-left: clamp(16px, 4.3vw, 32px);
 	}
 
 	.reconciliation__headline {
-		font-size: 38px;
-		line-height: 44px;
+		font-size: clamp(28px, 7.5vw, 38px);
+		line-height: 1.16;
 	}
 
 	.reconciliation__visual {
+		max-width: none;
 		margin-top: 40px;
+	}
+
+	.reconciliation__mockup-image {
+		width: 100%;
+		height: auto;
 	}
 }
 
@@ -1423,14 +941,22 @@ body.mobile-menu-lock {
    ---------------------------------------------------------------------- */
 .luci-ai {
 	background: var(--color-panel-navy);
-	padding-block: 96px;
+	padding-block: 141px;
 	overflow: hidden;
 }
 
 .luci-ai__inner {
+	/*
+	 * .container already supplies the page's own 32px padding-inline;
+	 * this element carries BOTH the .container and .luci-ai__inner
+	 * classes, so this padding-left longhand overrides (not adds to)
+	 * that shorthand — hence 82px (32 + the 50px this section itself
+	 * needs), not 50px.
+	 */
 	display: grid;
-	grid-template-columns: minmax(0, 500px) 1fr;
-	gap: 60px;
+	grid-template-columns: minmax(0, 620px) 1fr;
+	gap: 95px;
+	padding-left: 82px;
 	align-items: center;
 }
 
@@ -1438,87 +964,11 @@ body.mobile-menu-lock {
 	position: relative;
 }
 
-.luci-ai__stage {
-	position: relative;
-	width: 100%;
-	aspect-ratio: 620 / 678;
-	background: var(--color-brand-blue);
+.luci-ai__stage-image {
+	display: block;
+	width: 620px;
+	height: 678px;
 	border-radius: 42px;
-	overflow: hidden;
-}
-
-.luci-ai__glow {
-	position: absolute;
-	left: 13.226%;
-	top: 15.634%;
-	width: 71.613%;
-}
-
-.luci-ai__photo {
-	position: absolute;
-	left: 18.548%;
-	bottom: 0;
-	width: 68.871%;
-	height: 97.493%;
-	object-fit: contain;
-	object-position: bottom;
-}
-
-.luci-ai__pill {
-	position: absolute;
-	display: flex;
-	align-items: center;
-	gap: 10px;
-	background: var(--color-white);
-	border-radius: 999px;
-	padding: 8px 16px 8px 8px;
-	box-shadow: 0 6px 12px rgba(13, 26, 46, 0.12);
-	font-weight: 600;
-	font-size: 15px;
-	color: #063380;
-	white-space: nowrap;
-}
-
-.luci-ai__pill-icon {
-	width: 28px;
-	height: 28px;
-	flex-shrink: 0;
-}
-
-.luci-ai__pill--tax {
-	left: 16.452%;
-	top: 30.09%;
-}
-
-.luci-ai__pill--standards {
-	left: 61.29%;
-	top: 38.79%;
-	font-size: 13px;
-}
-
-.luci-ai__pill--legislation {
-	left: 10.484%;
-	top: 53.09%;
-}
-
-.luci-ai__pill--compliance {
-	left: 64.032%;
-	top: 56.19%;
-}
-
-.luci-ai__badge {
-	position: absolute;
-	left: 50%;
-	top: 89.38%;
-	transform: translateX(-50%);
-	background: #0a64ef;
-	border: 1px solid var(--color-white);
-	border-radius: 22px;
-	padding: 12px 24px;
-	font-weight: 700;
-	font-size: 18px;
-	color: var(--color-white);
-	white-space: nowrap;
 }
 
 .luci-ai__eyebrow {
@@ -1541,10 +991,29 @@ body.mobile-menu-lock {
 }
 
 .luci-ai__challenge {
+	position: relative;
+	display: inline-block;
 	margin: 32px 0 0;
 	font-weight: 600;
 	font-size: 22px;
 	color: var(--color-brand-blue);
+}
+
+.luci-ai__challenge::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	bottom: -2px;
+	width: 100%;
+	height: 1px;
+	background: currentColor;
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform 0.2s ease-out;
+}
+
+.luci-ai__challenge:hover::after {
+	transform: scaleX(1);
 }
 
 .luci-ai__positioning {
@@ -1594,6 +1063,27 @@ body.mobile-menu-lock {
 	color: var(--color-white);
 	font-size: 20px;
 	cursor: pointer;
+	transition: background-color 0.15s ease-out, transform 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+
+/*
+ * No scale here — a circular button growing while its arrow independently
+ * translates reads as two uncoordinated movements. The color/shadow
+ * settle is the button's own feedback; the arrow nudge (below) is the
+ * single, clean motion cue.
+ */
+.luci-ai__ask-send:hover {
+	background: var(--color-brand-blue-hover);
+	box-shadow: 0 8px 20px rgba(9, 99, 232, 0.28);
+}
+
+.luci-ai__ask-send span {
+	display: inline-block;
+	transition: transform 0.15s ease-out;
+}
+
+.luci-ai__ask-send:hover span {
+	transform: translateX(3px);
 }
 
 .luci-ai__ask-send-icon {
@@ -1608,8 +1098,13 @@ body.mobile-menu-lock {
 }
 
 @media (max-width: 960px) {
+	.luci-ai {
+		padding-block: clamp(56px, 12vw, 141px);
+	}
+
 	.luci-ai__inner {
 		grid-template-columns: 1fr;
+		padding-left: clamp(16px, 4.3vw, 32px);
 	}
 
 	.luci-ai__content {
@@ -1621,42 +1116,28 @@ body.mobile-menu-lock {
 		margin-top: 40px;
 	}
 
-	.luci-ai__headline {
-		font-size: 40px;
-		line-height: 46px;
-	}
-
-	.luci-ai__pill {
-		font-size: 12px;
-		padding: 6px 12px 6px 6px;
-	}
-
-	.luci-ai__pill-icon {
-		width: 20px;
-		height: 20px;
-	}
-}
-
-@media (max-width: 480px) {
-	.luci-ai {
-		padding-block: 56px;
+	.luci-ai__stage-image {
+		width: 100%;
+		height: auto;
 	}
 
 	.luci-ai__headline {
-		font-size: 30px;
-		line-height: 36px;
+		font-size: clamp(26px, 7vw, 40px);
+		line-height: 1.15;
 	}
 
 	.luci-ai__ask-input {
-		height: 60px;
-		padding-right: 60px;
+		height: clamp(60px, 11vw, 74px);
+		padding-right: clamp(64px, 15vw, 74px);
+		padding-left: clamp(16px, 4vw, 23px);
+		font-size: clamp(13px, 3.2vw, 15px);
 	}
 
 	.luci-ai__ask-send {
-		width: 44px;
-		height: 44px;
-		top: 8px;
-		right: 8px;
+		width: clamp(44px, 9vw, 54px);
+		height: clamp(44px, 9vw, 54px);
+		top: clamp(8px, 2vw, 10px);
+		right: clamp(8px, 2vw, 10px);
 	}
 }
 
@@ -1665,14 +1146,22 @@ body.mobile-menu-lock {
    ---------------------------------------------------------------------- */
 .workspace {
 	background: #fefcf6;
-	padding-block: 96px;
+	padding-block: 142.5px;
 	overflow: hidden;
 }
 
+/*
+ * Figma: text col starts x=88 (overrides, not adds to, .container's own
+ * padding — same element carries both classes), col width=468 (matches
+ * .workspace__body's own max-width, the widest text element), gap to
+ * "Frame 9"'s left edge (x=588) is 32px — the 60px this grid used
+ * before was overshooting it.
+ */
 .workspace__inner {
 	display: grid;
-	grid-template-columns: minmax(0, 460px) 1fr;
-	gap: 60px;
+	grid-template-columns: minmax(0, 468px) 1fr;
+	gap: 32px;
+	padding-left: 88px;
 	align-items: center;
 }
 
@@ -1729,440 +1218,25 @@ body.mobile-menu-lock {
 
 .workspace__visual {
 	position: relative;
+	width: 100%;
+	max-width: 791px;
 }
 
-.workspace__diagram {
-	position: relative;
-	width: 100%;
-	aspect-ratio: 791 / 735;
-	container-type: inline-size;
-	background: #f3f8fc;
+.workspace__diagram-image {
+	display: block;
+	width: 791px;
+	height: 735px;
 	border-radius: 32px;
-	overflow: hidden;
-}
-
-.workspace__diagram > * {
-	position: absolute;
-}
-
-.workspace__orbit {
-	left: 17.192%;
-	top: 16.599%;
-	width: 66.03%;
-	opacity: 0.85;
-}
-
-.workspace__accent-vector {
-	left: 9.5%;
-	top: 5.5%;
-	width: 2.78%;
-	z-index: 2;
-}
-
-.workspace__card {
-	box-sizing: border-box;
-}
-
-.workspace__card--snap {
-	left: 4.931%;
-	top: 20.544%;
-	width: 23.388%;
-	height: 37.551%;
-	background: linear-gradient(180deg, #83c1ff, #fafcff);
-	border-radius: 3.567%;
-	box-shadow: 0 12px 15px rgba(13, 26, 51, 0.1);
-	container-type: inline-size;
-}
-
-.workspace__callout {
-	position: absolute;
-	left: 12.73%;
-	top: -24.54%;
-	display: flex;
-	flex-direction: column;
-	white-space: nowrap;
-}
-
-.workspace__callout-icon {
-	position: absolute;
-	left: -55px;
-	top: -3px;
-	width: 44px;
-}
-
-.workspace__callout-title {
-	font-weight: 600;
-	font-size: 16px;
-	color: #0f69f4;
-}
-
-.workspace__callout-desc {
-	font-size: 12px;
-	color: #121826;
-}
-
-.workspace__phone {
-	position: absolute;
-	left: 7.357%;
-	top: 4.964%;
-	width: 78.03%;
-	height: 89.32%;
-	transform: rotate(7deg);
-	background: #111;
-	border-radius: 8.3%;
-	box-shadow: 0 8px 10px rgba(13, 26, 46, 0.18);
-}
-
-.workspace__phone-screen {
-	position: absolute;
-	left: 4.4%;
-	top: 2.47%;
-	width: 91.21%;
-	height: 95.07%;
-}
-
-.workspace__receipt {
-	position: absolute;
-	left: 8%;
-	top: 8%;
-	width: 84%;
-	height: 68%;
-	background: #fffefa;
-	border-radius: 3px;
-	padding: 10px;
-	box-sizing: border-box;
-	overflow: hidden;
-}
-
-.workspace__receipt-merchant {
-	margin: 0;
-	font-weight: 700;
-	font-size: 9px;
-	color: #111;
-}
-
-.workspace__receipt-address,
-.workspace__receipt-meta {
-	margin: 4px 0;
-	font-size: 6px;
-	line-height: 1.4;
-	color: #222;
-}
-
-.workspace__receipt-rule {
-	height: 1px;
-	background: #cfcfcf;
-	margin: 5px 0;
-}
-
-.workspace__receipt-line {
-	display: flex;
-	justify-content: space-between;
-	font-size: 6px;
-	color: #222;
-	margin-bottom: 3px;
-}
-
-.workspace__receipt-line--total span {
-	font-weight: 700;
-	font-size: 7px;
-	color: #111;
-}
-
-.workspace__receipt-card {
-	margin: 6px 0 0;
-	font-size: 6px;
-	color: #222;
-}
-
-.workspace__captured-check {
-	position: absolute;
-	left: 66%;
-	top: 87%;
-	width: 26%;
-}
-
-.workspace__captured-check-icon {
-	width: 100%;
-}
-
-.workspace__card--dashboard {
-	left: 30.721%;
-	top: 31.837%;
-	width: 41.086%;
-	height: 30.748%;
-	background: var(--color-white);
-	border-radius: 12px;
-	box-shadow: 0 12px 14px rgba(13, 26, 51, 0.12);
-	overflow: hidden;
-	container-type: inline-size;
-}
-
-.workspace__dashboard-header {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-}
-
-.workspace__dashboard-sidebar {
-	position: absolute;
-	left: 4%;
-	top: 12.7%;
-	width: 8.6%;
-	height: 87.3%;
-	border-right: 1px solid #e7eaf0;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 8px;
-	padding-top: 10px;
-}
-
-.workspace__dashboard-icon {
-	width: 18px;
-	height: 18px;
-	border-radius: 5px;
-	background: var(--color-brand-blue);
-	opacity: 0.1;
-	flex-shrink: 0;
-}
-
-.workspace__dashboard-icon--active {
-	opacity: 1;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.workspace__dashboard-body {
-	position: absolute;
-	left: 16.6%;
-	top: 17%;
-	width: 80%;
-}
-
-.workspace__dashboard-title {
-	margin: 0 0 8px;
-	font-weight: 600;
-	font-size: 13px;
-	color: #121826;
-}
-
-.workspace__dashboard-list {
-	background: var(--color-white);
-	border: 1px solid #e5e9f0;
-	border-radius: 10px;
-	box-shadow: 0 4px 8px rgba(13, 26, 46, 0.05);
-	padding: 6px 10px;
-}
-
-.workspace__dashboard-row {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-	padding: 8px 0;
-	border-bottom: 1px solid #eceff3;
-}
-
-.workspace__dashboard-row:last-child {
-	border-bottom: none;
-}
-
-.workspace__dashboard-row-icon {
-	position: relative;
-	width: 23px;
-	height: 23px;
-	flex-shrink: 0;
-}
-
-.workspace__dashboard-row-icon-bg {
-	position: absolute;
-	inset: 0;
-}
-
-.workspace__dashboard-row-icon-glyph {
-	position: absolute;
-	width: 55%;
-	height: 55%;
-	top: 22%;
-	left: 22%;
-}
-
-.workspace__dashboard-row-label {
-	flex: 1;
-	font-weight: 500;
-	font-size: 11px;
-	color: #263041;
-}
-
-.workspace__dashboard-row-amount {
-	font-weight: 600;
-	font-size: 9px;
-	color: #111827;
-}
-
-.workspace__dashboard-row-tag {
-	display: flex;
-	align-items: center;
-	gap: 4px;
-	background: #e8fbf7;
-	border-radius: 10px;
-	padding: 4px 10px;
-	font-weight: 600;
-	font-size: 9px;
-	color: #0b8b7d;
-	white-space: nowrap;
-}
-
-.workspace__dashboard-row-tag img {
-	width: 10px;
-}
-
-.workspace__card--luci {
-	left: 73.958%;
-	top: 27.755%;
-	width: 23.008%;
-	height: 28.299%;
-	background: linear-gradient(180deg, #83c1ff, #fafcff);
-	border-radius: 3.567%;
-	box-shadow: 0 12px 15px rgba(13, 26, 51, 0.1);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding-top: 18%;
-	box-sizing: border-box;
-}
-
-.workspace__luci-glow {
-	position: absolute !important;
-	left: 16%;
-	top: 4%;
-	width: 68%;
-}
-
-.workspace__luci-avatar {
-	display: block;
-	position: relative;
-	width: 42%;
-	height: 0;
-	padding-bottom: 42%;
-	border-radius: 50%;
-	overflow: hidden;
-	background: var(--color-white);
-	flex-shrink: 0;
-}
-
-.workspace__luci-orb,
-.workspace__luci-face-backing,
-.workspace__luci-face-photo {
-	position: absolute !important;
-	inset: 0;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
-
-.workspace__luci-name {
-	margin: 10px 0 0;
-	font-weight: 700;
-	font-size: 18px;
-	color: #0f69f4;
-}
-
-.workspace__luci-tag {
-	margin: 2px 0 0;
-	font-size: 13px;
-	color: #121826;
-}
-
-.workspace__luci-checklist {
-	margin-top: 10px;
-	background: var(--color-white);
-	border-radius: 12px;
-	box-shadow: 0 8px 10px rgba(13, 26, 46, 0.12);
-	padding: 10px 14px;
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
-	font-weight: 500;
-	font-size: 10px;
-	color: #252b38;
-}
-
-.workspace__luci-checklist img {
-	width: 11px;
-	margin-right: 4px;
-	vertical-align: middle;
-}
-
-.workspace__card--together {
-	left: 39.44%;
-	top: 73.88%;
-	width: 23.67%;
-	height: 15.18%;
-	background: #3355ff;
-	border-radius: 24px;
-	box-shadow: 0 12px 15px rgba(13, 26, 51, 0.1);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	padding-top: 6%;
-	box-sizing: border-box;
-}
-
-.workspace__together-bubble {
-	display: block;
-	position: absolute;
-	left: 50%;
-	top: -22%;
-	width: 38%;
-	height: 0;
-	padding-bottom: 38%;
-	transform: translateX(-50%);
-}
-
-.workspace__together-icon {
-	position: absolute !important;
-	inset: 0;
-	width: 100%;
-	height: 100%;
-}
-
-.workspace__together-logo {
-	position: absolute !important;
-	left: 50%;
-	top: 50%;
-	width: 64%;
-	height: auto;
-	transform: translate(-50%, -50%);
-}
-
-.workspace__together-swoosh {
-	position: absolute;
-	left: 50%;
-	top: 57%;
-	width: 41.5%;
-	transform: translateX(-50%);
-}
-
-.workspace__together-wordmark {
-	margin: 4px 0 0;
-	width: 41.5%;
-	height: auto;
-}
-
-.workspace__together-desc {
-	margin: 2px 0 0;
-	font-size: 10px;
-	color: #cdd9f3;
 }
 
 @media (max-width: 960px) {
+	.workspace {
+		padding-block: clamp(56px, 12vw, 142.5px);
+	}
+
 	.workspace__inner {
 		grid-template-columns: 1fr;
+		padding-left: clamp(16px, 4.3vw, 32px);
 	}
 
 	.workspace__content {
@@ -2171,28 +1245,23 @@ body.mobile-menu-lock {
 
 	.workspace__visual {
 		order: 2;
+		max-width: none;
 		margin-top: 40px;
 	}
 
+	.workspace__diagram-image {
+		width: 100%;
+		height: auto;
+	}
+
 	.workspace__headline {
-		font-size: 36px;
-		line-height: 42px;
+		font-size: clamp(26px, 7vw, 36px);
+		line-height: 1.16;
 	}
 
 	.workspace__tagline {
-		font-size: 22px;
-		line-height: 30px;
-	}
-}
-
-@media (max-width: 480px) {
-	.workspace {
-		padding-block: 56px;
-	}
-
-	.workspace__headline {
-		font-size: 28px;
-		line-height: 34px;
+		font-size: clamp(18px, 4.5vw, 22px);
+		line-height: 1.35;
 	}
 }
 
@@ -2200,12 +1269,13 @@ body.mobile-menu-lock {
    Pricing — Figma node 15532:491 ("Section 06 — Pricing").
    ---------------------------------------------------------------------- */
 .pricing {
-	padding-block: 96px;
+	padding-block: 106px;
 	text-align: center;
 }
 
 .pricing__headline {
-	margin: 0;
+	margin: 0 auto;
+	max-width: 936px;
 	font-weight: 600;
 	font-size: var(--text-h2);
 	color: var(--color-ink);
@@ -2224,6 +1294,7 @@ body.mobile-menu-lock {
 	display: grid;
 	grid-template-columns: repeat(3, minmax(0, 392px));
 	justify-content: center;
+	align-items: start;
 	gap: 32px;
 	margin-top: 64px;
 	text-align: left;
@@ -2233,6 +1304,7 @@ body.mobile-menu-lock {
 	position: relative;
 	display: flex;
 	flex-direction: column;
+	min-height: 596px;
 	background: var(--color-bg-tint);
 	border: 1px solid var(--color-border);
 	border-radius: 28px;
@@ -2240,20 +1312,32 @@ body.mobile-menu-lock {
 }
 
 .pricing__card--featured {
+	min-height: 620px;
+	margin-top: -24px;
 	background: var(--color-brand-blue);
 	border-color: var(--color-brand-blue);
 	box-shadow: 0 18px 38px rgba(5, 26, 77, 0.18);
 	color: var(--color-white);
-	padding-top: 48px;
 }
 
+/*
+ * Fully inside the card (left:230,top:20,136x34 within the PRO card's
+ * own box) — not floating above the border. Confirmed via fresh
+ * get_design_context screenshot of node 15532:514; it only reads as
+ * "elevated" because the whole card starts higher, not because the
+ * badge itself overhangs the edge.
+ */
 .pricing__badge {
 	position: absolute;
+	left: 230px;
 	top: 20px;
-	right: 28px;
+	width: 136px;
+	height: 34px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	background: var(--color-white);
 	border-radius: 17px;
-	padding: 8px 18px;
 	font-weight: 600;
 	font-size: 14px;
 	color: var(--color-brand-blue);
@@ -2352,27 +1436,43 @@ body.mobile-menu-lock {
 }
 
 @media (max-width: 960px) {
+	.pricing {
+		padding-block: clamp(56px, 12vw, 106px);
+	}
+
+	.pricing__headline {
+		font-size: clamp(26px, 6.5vw, var(--text-h2));
+	}
+
 	.pricing__grid {
 		grid-template-columns: minmax(0, 460px);
 	}
 
 	.pricing__card--featured {
+		/*
+		 * Stacked full-width, Pro loses the taller/offset "elevated"
+		 * treatment (doesn't make sense once the 3 cards aren't
+		 * side-by-side) but keeps its blue fill + badge as the visual
+		 * distinction — and is reordered first, the common mobile
+		 * pricing pattern, even though it's visually the middle card
+		 * on desktop.
+		 */
 		order: -1;
-	}
-}
-
-@media (max-width: 480px) {
-	.pricing {
-		padding-block: 56px;
+		margin-top: 0;
+		min-height: 0;
 	}
 
-	.pricing__headline {
-		font-size: 32px;
+	/* left:230px was calibrated for the 392px desktop card; anchor to
+	   the card's own right edge instead so it can't run past a
+	   narrower stacked card. */
+	.pricing__badge {
+		left: auto;
+		right: 24px;
 	}
 
 	.pricing__price {
-		font-size: 52px;
-		line-height: 58px;
+		font-size: clamp(44px, 11vw, 66px);
+		line-height: 1.1;
 	}
 }
 
@@ -2380,31 +1480,46 @@ body.mobile-menu-lock {
    Founding Offer — Figma node 15532:564 ("Section 07 — Founding Offer").
    ---------------------------------------------------------------------- */
 .founding-offer {
-	padding-block: 32px 96px;
+	padding-block: 32px;
 }
 
 .founding-offer__panel {
 	position: relative;
 	background: var(--color-panel-navy);
 	border-radius: 42px;
-	padding: 64px 68px;
-	display: grid;
-	grid-template-columns: minmax(0, 610px) 1fr;
-	gap: 40px;
-	align-items: start;
+	width: 100%;
+	height: 656px;
+	padding: 42px;
+	box-sizing: border-box;
 	overflow: hidden;
 }
 
 .founding-offer__sunburst {
 	position: absolute;
-	right: -40px;
-	bottom: -40px;
+	right: 127px;
+	bottom: -31px;
 	width: 433px;
-	opacity: 0.9;
 	pointer-events: none;
 }
 
+/*
+ * Text column — absolutely positioned at its exact Figma y-offset
+ * (relative to the panel's own top, i.e. minus the 42px padding) rather
+ * than a margin-driven flow, since the design's vertical rhythm here
+ * isn't a uniform stack — matches the technique used for the Hero
+ * labels and Social Proof logos elsewhere in this build.
+ */
+.founding-offer__content {
+	position: relative;
+	top: 48px;
+	height: 524px;
+	max-width: 610px;
+}
+
 .founding-offer__eyebrow {
+	position: absolute;
+	top: 0;
+	left: 0;
 	margin: 0;
 	font-weight: 600;
 	font-size: 13px;
@@ -2412,7 +1527,11 @@ body.mobile-menu-lock {
 }
 
 .founding-offer__headline {
-	margin: 16px 0 0;
+	position: absolute;
+	top: 46px;
+	left: 0;
+	margin: 0;
+	width: 610px;
 	font-weight: 600;
 	font-size: 52px;
 	line-height: 58px;
@@ -2424,7 +1543,9 @@ body.mobile-menu-lock {
 }
 
 .founding-offer__body {
-	margin-top: 40px;
+	position: absolute;
+	top: 210px;
+	left: 0;
 	max-width: 611px;
 	font-weight: 400;
 	font-size: 17px;
@@ -2437,7 +1558,9 @@ body.mobile-menu-lock {
 }
 
 .founding-offer__brand {
-	margin-top: 100px;
+	position: absolute;
+	top: 448px;
+	left: 0;
 	display: flex;
 	align-items: center;
 }
@@ -2448,7 +1571,10 @@ body.mobile-menu-lock {
 }
 
 .founding-offer__bottom-note {
-	margin: 12px 0 0;
+	position: absolute;
+	top: 480px;
+	left: 0;
+	margin: 0;
 	max-width: 590px;
 	font-weight: 500;
 	font-size: 13px;
@@ -2456,8 +1582,21 @@ body.mobile-menu-lock {
 }
 
 .founding-offer__signup {
-	position: relative;
+	position: absolute;
+	left: 778px;
+	top: 136px;
 	z-index: 1;
+	width: 510px;
+	/*
+	 * Figma's 280px is the card's resting height, but its content already
+	 * fills it — a validation tip or a response banner would spill out
+	 * over the navy panel. A minimum instead of a fixed height keeps the
+	 * design's proportions at rest and lets the card absorb those states;
+	 * it's absolutely positioned with ~200px of panel below it, so growing
+	 * pushes nothing around.
+	 */
+	min-height: 280px;
+	box-sizing: border-box;
 	background: var(--color-white);
 	border-radius: 26px;
 	box-shadow: 0 18px 40px rgba(0, 0, 0, 0.2);
@@ -2478,7 +1617,49 @@ body.mobile-menu-lock {
 	gap: 18px;
 }
 
+/*
+ * Contact Form 7 wraps each field in its own <p> (default browser
+ * margin) plus a hidden-fields fieldset and response-output div — this
+ * theme already controls the rhythm via the flex gap above, so those
+ * defaults just add extra height the fixed-size signup card wasn't
+ * sized for (the small-print line was getting pushed below the card).
+ */
+.founding-offer__form p {
+	margin: 0;
+}
+
+.founding-offer__form .wpcf7-form-control-wrap {
+	display: block;
+}
+
+.founding-offer__form .hidden-fields-container,
+.founding-offer__form .wpcf7-response-output:empty {
+	display: none;
+}
+
+/*
+ * CF7's submit spinner sits inline-block next to the button inside the
+ * same <p> — even hidden (visibility:hidden), its own box takes part in
+ * the line's baseline alignment, which stretched that <p> to 85px
+ * around a 56px button (29px of invisible padding pushing the
+ * small-print line down). Removing it from layout entirely fixes the
+ * gap; it's not part of this design's visual language anyway.
+ */
+.founding-offer__form .wpcf7-spinner {
+	display: none;
+}
+
 .founding-offer__email {
+	/*
+	 * Was a direct flex child of .founding-offer__form before Contact
+	 * Form 7 was wired in (so flex's default align-items:stretch filled
+	 * it automatically) — CF7 nests the real <input> inside its own
+	 * <p><span class="wpcf7-form-control-wrap"> wrapper, so only that
+	 * wrapper stretches now; the input itself falls back to its size="40"
+	 * HTML attribute's intrinsic width unless told otherwise explicitly.
+	 */
+	width: 100%;
+	box-sizing: border-box;
 	height: 56px;
 	background: var(--color-bg-tint);
 	border: 1px solid var(--color-border);
@@ -2493,13 +1674,78 @@ body.mobile-menu-lock {
 	color: var(--color-muted);
 }
 
+/*
+ * Invalid field + the tip CF7 injects beneath it. CF7 ships a bare 1em
+ * #dc3232 line and no styling at all on the field it belongs to, so the
+ * error read as browser default rather than part of this card — the
+ * field now carries the state too, tinted the same way its resting
+ * state is (--color-bg-tint), so the two read as one message.
+ */
+.founding-offer__email.wpcf7-not-valid {
+	border-color: var(--color-error);
+	background: rgba(217, 45, 32, 0.04);
+}
+
+.founding-offer__form .wpcf7-not-valid-tip {
+	margin-top: 8px;
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 16px;
+	color: var(--color-error);
+}
+
 .founding-offer__claim-btn {
 	height: 56px;
 	width: 100%;
 }
 
+/*
+ * CF7's own response box is a 2em-margined rectangle outlined in 2px of
+ * wp-admin blue/green/yellow. Restyled into the card's own language: a
+ * tinted banner on the email field's 16px radius, 13px text, and a dot
+ * in the state colour, picking up the form's existing 18px flex gap.
+ *
+ * `display` is deliberately never declared here, so CF7's own
+ * form.init/.resetting/.submitting hides and this theme's :empty hide
+ * above keep working untouched. Hence the dot is absolutely positioned
+ * rather than flexed — which also hangs wrapped lines under the text
+ * instead of under the dot.
+ *
+ * The base rule carries the failure treatment because five of CF7's six
+ * outcomes (invalid/unaccepted/spam/failed/aborted) are failures; only
+ * `sent` overrides the colour, rather than enumerating all of them.
+ */
+.wpcf7 form.founding-offer__form .wpcf7-response-output {
+	position: relative;
+	margin: 0;
+	border: 0;
+	border-radius: 16px;
+	padding: 12px 14px 12px 32px;
+	background: rgba(217, 45, 32, 0.07);
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 18px;
+	color: var(--color-error);
+}
+
+.wpcf7 form.founding-offer__form .wpcf7-response-output::before {
+	content: '';
+	position: absolute;
+	left: 14px;
+	top: 18px;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: currentColor;
+}
+
+.wpcf7 form.sent.founding-offer__form .wpcf7-response-output {
+	background: rgba(13, 158, 94, 0.1);
+	color: var(--color-success);
+}
+
 .founding-offer__small-print {
-	margin: 18px 0 0;
+	margin: 12px 0 0;
 	font-weight: 400;
 	font-size: 11px;
 	line-height: 16px;
@@ -2507,33 +1753,61 @@ body.mobile-menu-lock {
 }
 
 @media (max-width: 960px) {
-	.founding-offer__panel {
-		grid-template-columns: 1fr;
-		padding: 40px 32px;
+	.founding-offer {
+		padding-block: clamp(16px, 4.3vw, 32px);
 	}
+
+	.founding-offer__panel {
+		height: auto;
+		padding: clamp(28px, 8vw, 40px) clamp(20px, 6vw, 32px);
+		border-radius: clamp(28px, 7vw, 42px);
+	}
+
+	.founding-offer__content {
+		position: static;
+		top: auto;
+		height: auto;
+		max-width: none;
+	}
+
+	.founding-offer__eyebrow,
+	.founding-offer__headline,
+	.founding-offer__body,
+	.founding-offer__brand,
+	.founding-offer__bottom-note {
+		position: static;
+		top: auto;
+		left: auto;
+		width: auto;
+	}
+
+	.founding-offer__eyebrow { margin: 0; }
+	.founding-offer__headline { margin: 16px 0 0; }
+	.founding-offer__body { margin-top: 40px; }
+	.founding-offer__brand { margin-top: 40px; }
+	.founding-offer__bottom-note { margin: 12px 0 0; }
 
 	.founding-offer__signup {
-		margin-top: 8px;
+		position: static;
+		width: auto;
+		min-height: 0;
+		max-width: none;
+		margin-top: 32px;
 	}
 
 	.founding-offer__headline {
-		font-size: 38px;
-		line-height: 44px;
+		font-size: clamp(28px, 7.2vw, 38px);
+		line-height: 1.16;
 	}
 
-	.founding-offer__brand {
-		margin-top: 40px;
-	}
-}
-
-@media (max-width: 480px) {
-	.founding-offer__panel {
-		padding: 32px 20px;
-		border-radius: 28px;
-	}
-
-	.founding-offer__headline {
-		font-size: 28px;
-		line-height: 34px;
+	/*
+	 * 433px fixed is wider than the whole panel well before mobile —
+	 * scale it down with the panel instead of letting overflow:hidden
+	 * crop it into a random shape.
+	 */
+	.founding-offer__sunburst {
+		right: -15%;
+		bottom: -8%;
+		width: 62%;
 	}
 }

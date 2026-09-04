@@ -13,9 +13,9 @@ $logos    = get_field( 'sp_logos' );
 ?>
 <section class="social-proof">
 	<div class="container">
-		<h2 class="social-proof__headline" data-animate><?php echo esc_html( $headline ); ?></h2>
+		<h2 class="social-proof__headline" data-animate="fade"><?php echo esc_html( $headline ); ?></h2>
 		<?php if ( $logos ) : ?>
-			<ul class="social-proof__logos" data-animate>
+			<ul class="social-proof__logos" data-animate="fade">
 				<?php foreach ( $logos as $logo ) : ?>
 					<li class="social-proof__logo"><?php echo esc_html( $logo['name'] ?? '' ); ?></li>
 				<?php endforeach; ?>

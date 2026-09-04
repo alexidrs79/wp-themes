@@ -22,7 +22,7 @@ $bottom_note = get_field( 'fo_bottom_note' );
 		<div class="founding-offer__panel">
 			<?php lucibook_print_icon( 'LUCIBOOK_FO_SUNBURST_ID', 'founding-offer__sunburst' ); ?>
 
-			<div class="founding-offer__content" data-animate>
+			<div class="founding-offer__content" data-animate="fade">
 				<p class="founding-offer__eyebrow"><?php echo esc_html( $eyebrow ); ?></p>
 				<h2 class="founding-offer__headline">
 					<?php foreach ( $headline_lines as $line ) : ?>
@@ -41,14 +41,22 @@ $bottom_note = get_field( 'fo_bottom_note' );
 				<p class="founding-offer__bottom-note"><?php echo esc_html( $bottom_note ); ?></p>
 			</div>
 
-			<div class="founding-offer__signup" data-animate>
+			<div class="founding-offer__signup" data-animate="fade">
 				<p class="founding-offer__signup-title"><?php echo esc_html( $signup_title ); ?></p>
-				<form class="founding-offer__form" onsubmit="return false;">
-					<input type="email" class="founding-offer__email" placeholder="<?php echo esc_attr( $email_placeholder ); ?>">
-					<button type="submit" class="btn btn--primary founding-offer__claim-btn">
-						<?php echo esc_html( $claim_label ); ?>
-					</button>
-				</form>
+				<?php
+				/**
+				 * Real signup form via Contact Form 7 — see "Founding Offer
+				 * Signup" in wp-admin > Contact > Contact Forms. Looked up
+				 * by title (not a hardcoded post ID) so it resolves
+				 * correctly regardless of which install this deploys to,
+				 * same reasoning as the filename-stem media lookup
+				 * elsewhere in this theme. The email/submit fields carry
+				 * the same classes .founding-offer__form's CSS already
+				 * targets, so CF7's own markup keeps this section's exact
+				 * look without extra overrides.
+				 */
+				echo do_shortcode( '[contact-form-7 title="Founding Offer Signup" html_class="founding-offer__form"]' );
+				?>
 				<p class="founding-offer__small-print"><?php echo esc_html( $small_print ); ?></p>
 			</div>
 		</div>
